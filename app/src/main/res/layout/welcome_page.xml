@@ -14,7 +14,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_light_blue"
         android:textColor="@color/colorWhite"
         android:text="Начать"
         app:layout_constraintBottom_toBottomOf="parent"
