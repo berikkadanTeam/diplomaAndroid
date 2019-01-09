@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper"
+    android:background="@drawable/sign_in"
     tools:context="com.login.mobi.loginapp.MainActivity">
 
     <RelativeLayout
@@ -67,7 +67,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_white"
-            android:text="Sign In"
+            android:text="Войти"
             android:textColor="@color/colorPrimary" />
 
         <Button
@@ -79,7 +79,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_red"
-            android:text="Sign Up"
+            android:text="Зарегестрироваться"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 
