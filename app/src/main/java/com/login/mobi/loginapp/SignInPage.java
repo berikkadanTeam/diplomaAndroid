@@ -33,5 +33,12 @@ public class SignInPage extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
+            }
+        });
     }
 }

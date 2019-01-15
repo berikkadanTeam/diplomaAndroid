@@ -1,5 +1,12 @@
 <resources>
+
     <string name="app_name">Mobi</string>
     <string name="description">Logo of the place</string>
     <string name="application_name">BookMe!</string>
+
+    <string name="title_activity_bottom_navigation_page">BottomNavigationPage</string>
+    <string name="title_order">Заказ еды</string>
+    <string name="title_book">Бронирование стола</string>
+    <string name="title_delivery">Доставка</string>
+
 </resources>

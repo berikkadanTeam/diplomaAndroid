@@ -56,4 +56,6 @@ public class WelcomePage extends AppCompatActivity implements GetRestaurants.Get
             Toast.makeText(this,"NULL", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }

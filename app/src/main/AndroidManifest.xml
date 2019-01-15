@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WelcomePage"
+            android:name=".BottomNavigationPage"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,13 +29,16 @@
             android:name=".SignUpActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".DetailsActivity" />
-        <!--<activity android:name=".MyApp"></activity>-->
+        <!-- <activity android:name=".MyApp"></activity> -->
         <activity
             android:name=".SignUpPage"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignInPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".WelcomePage"
+            android:label="@string/title_activity_bottom_navigation_page"></activity>
     </application>
 
 </manifest>

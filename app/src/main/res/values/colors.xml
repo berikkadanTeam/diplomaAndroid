@@ -9,5 +9,7 @@
     <color name="colorAmber">#FFC400</color>
     <color name="colorBlue">#0000FF</color>
     <color name="colorBlack">#000000</color>
+
     <color name="lightBlue">#48aae6</color>
+    <color name="middleGrey">#808080</color>
 </resources>
