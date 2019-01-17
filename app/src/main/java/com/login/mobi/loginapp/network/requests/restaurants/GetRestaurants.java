@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.network.requests;
+package com.login.mobi.loginapp.network.requests.restaurants;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,11 +1,10 @@
-package com.login.mobi.loginapp.network.requests.auth;
+package com.login.mobi.loginapp.network.requests.authorization;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
-import com.login.mobi.loginapp.network.model.cities.Cities;
 
 import retrofit2.Call;
 import retrofit2.Callback;

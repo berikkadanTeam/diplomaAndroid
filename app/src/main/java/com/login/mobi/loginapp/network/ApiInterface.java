@@ -4,6 +4,7 @@ package com.login.mobi.loginapp.network;
  * Created by vakidzaci on 10/2/18.
  */
 
+import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 
@@ -34,6 +35,13 @@ public interface ApiInterface {
             @Field("lastName")  String lastName,
             @Field("password")  String password,
             @Field("location")  String location
+    );
+
+    @FormUrlEncoded
+    @POST("api/auth/login")
+    Call<SignIn> signin(
+            @Field("userName")  String username,
+            @Field("password")  String password
     );
 
 

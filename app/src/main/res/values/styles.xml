@@ -16,6 +16,12 @@
 
     </style>
 
+    <style name="BookMeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/middleGrey</item>
+        <item name="colorAccent">@color/lightBlue</item>
+        <item name="colorPrimaryDark">@color/lightBlue</item>
+    </style>
 
 
 </resources>

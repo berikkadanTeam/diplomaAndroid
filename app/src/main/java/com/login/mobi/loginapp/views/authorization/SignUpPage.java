@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp;
+package com.login.mobi.loginapp.views.authorization;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.cities.Cities;
-import com.login.mobi.loginapp.network.requests.GetCities;
-import com.login.mobi.loginapp.network.requests.auth.PostSignUp;
+import com.login.mobi.loginapp.network.requests.cities.GetCities;
+import com.login.mobi.loginapp.network.requests.authorization.PostSignUp;
 
 import java.util.List;
 

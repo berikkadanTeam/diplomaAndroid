@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.login.mobi.loginapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -9,15 +11,11 @@
         android:label="@string/application_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".BottomNavigationPage"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/BookMeTheme">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".views.authorization.WelcomePage"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".UserActivity"
@@ -31,14 +29,21 @@
         <activity android:name=".DetailsActivity" />
         <!-- <activity android:name=".MyApp"></activity> -->
         <activity
-            android:name=".SignUpPage"
+            android:name=".views.authorization.SignUpPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignInPage"
+            android:name=".views.authorization.SignInPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WelcomePage"
-            android:label="@string/title_activity_bottom_navigation_page"></activity>
+            android:name=".views.bottomNavigation.BottomNavigationPage"
+            android:label="@string/title_activity_bottom_navigation_page">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
