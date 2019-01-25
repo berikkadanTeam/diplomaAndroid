@@ -1,7 +1,11 @@
 package com.login.mobi.loginapp.views.authorization;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -31,6 +35,8 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
     private Button btnSignIn;
 
     private ProgressDialog progressDialog;
+    private CoordinatorLayout coordinatorLayout;
+    //private FloatingActionButton fab;          // плавающая одиночная круглая кнопка
 
     SingletonSharedPref sharedPref;
 
@@ -53,6 +59,8 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setProgress(0);
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        //fab = (FloatingActionButton) findViewById(R.id.fab);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +106,17 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
             Log.d("auth_token",response.getAuthToken());
             sharedPref.put(TOKEN,response.getAuthToken());
             sharedPref.put(EXPIRES_IN,response.getExpiresIn());
+            progressDialog.dismiss();
             startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
             finish();
         }else{
-            Toast.makeText(SignInPage.this, "Электронная почта и пароль не совпадают", Toast.LENGTH_LONG).show();
+            //Toast.makeText(SignInPage.this, "Электронная почта и пароль не совпадают", Toast.LENGTH_LONG).show();
+            progressDialog.dismiss();
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Электронная почта и пароль не совпадают", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            //snackbar.setText("Client's data is already exist on server or is invalid");
+            snackbar.setActionTextColor(Color.RED);
+
         }
     }
 

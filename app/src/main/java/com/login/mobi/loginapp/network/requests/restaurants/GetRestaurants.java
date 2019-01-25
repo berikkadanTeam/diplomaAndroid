@@ -21,8 +21,8 @@ public class GetRestaurants {
 
     GetRestaurantsInterface anInterface;
 
-    public GetRestaurants(Context context) {
-        anInterface = (GetRestaurantsInterface) context;
+    public GetRestaurants(GetRestaurantsInterface context) {
+        anInterface = context;
     }
 
     public interface GetRestaurantsInterface{

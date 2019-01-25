@@ -6,148 +6,254 @@ import com.google.gson.annotations.SerializedName;
 
 public class Restaurant {
 
-@SerializedName("name")
-@Expose
-private String name;
-@SerializedName("addres")
-@Expose
-private String addres;
-@SerializedName("number")
-@Expose
-private Integer number;
-@SerializedName("kitchen")
-@Expose
-private String kitchen;
-@SerializedName("delivery")
-@Expose
-private Boolean delivery;
-@SerializedName("avgCheck")
-@Expose
-private Integer avgCheck;
-@SerializedName("seats")
-@Expose
-private Integer seats;
-@SerializedName("description")
-@Expose
-private String description;
-@SerializedName("cityId")
-@Expose
-private Integer cityId;
-@SerializedName("fileName")
-@Expose
-private String fileName;
-@SerializedName("filePath")
-@Expose
-private String filePath;
-@SerializedName("city")
-@Expose
-private String city;
-@SerializedName("workDay")
-@Expose
-private List<WorkDay> workDay = null;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("addres")
+    @Expose
+    private String addres;
+    @SerializedName("number")
+    @Expose
+    private Integer number;
+    @SerializedName("kitchen")
+    @Expose
+    private String kitchen;
+    @SerializedName("delivery")
+    @Expose
+    private Boolean delivery;
+    @SerializedName("avgCheck")
+    @Expose
+    private Integer avgCheck;
+    @SerializedName("seats")
+    @Expose
+    private Integer seats;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("cityId")
+    @Expose
+    private Integer cityId;
+    @SerializedName("fileName")
+    @Expose
+    private String fileName;
+    @SerializedName("filePath")
+    @Expose
+    private String filePath;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("workDay")
+    @Expose
+    private List<WorkDay> workDay = null;
+    @SerializedName("tables")
+    @Expose
+    private Object tables;
 
-public String getName() {
-return name;
-}
+    public String getId() { return id; }
 
-public void setName(String name) {
-this.name = name;
-}
+    public void setId(String id) { this.id = id; }
 
-public String getAddres() {
-return addres;
-}
+    public String getName() { return name; }
 
-public void setAddres(String addres) {
-this.addres = addres;
-}
+    public void setName(String name) { this.name = name; }
 
-public Integer getNumber() {
-return number;
-}
+    public String getAddres() { return addres; }
 
-public void setNumber(Integer number) {
-this.number = number;
-}
+    public void setAddres(String addres) { this.addres = addres; }
 
-public String getKitchen() {
-return kitchen;
-}
+    public Integer getNumber() { return number; }
 
-public void setKitchen(String kitchen) {
-this.kitchen = kitchen;
-}
+    public void setNumber(Integer number) { this.number = number; }
 
-public Boolean getDelivery() {
-return delivery;
-}
+    public String getKitchen() { return kitchen; }
 
-public void setDelivery(Boolean delivery) {
-this.delivery = delivery;
-}
+    public void setKitchen(String kitchen) { this.kitchen = kitchen; }
 
-public Integer getAvgCheck() {
-return avgCheck;
-}
+    public Boolean getDelivery() { return delivery; }
 
-public void setAvgCheck(Integer avgCheck) {
-this.avgCheck = avgCheck;
-}
+    public void setDelivery(Boolean delivery) { this.delivery = delivery; }
 
-public Integer getSeats() {
-return seats;
-}
+    public Integer getAvgCheck() { return avgCheck; }
 
-public void setSeats(Integer seats) {
-this.seats = seats;
-}
+    public void setAvgCheck(Integer avgCheck) { this.avgCheck = avgCheck; }
 
-public String getDescription() {
-return description;
-}
+    public Integer getSeats() { return seats; }
 
-public void setDescription(String description) {
-this.description = description;
-}
+    public void setSeats(Integer seats) { this.seats = seats; }
 
-public Integer getCityId() {
-return cityId;
-}
+    public String getDescription() { return description; }
 
-public void setCityId(Integer cityId) {
-this.cityId = cityId;
-}
+    public void setDescription(String description) { this.description = description; }
 
-public String getFileName() {
-return fileName;
-}
+    public Integer getCityId() { return cityId; }
 
-public void setFileName(String fileName) {
-this.fileName = fileName;
-}
+    public void setCityId(Integer cityId) { this.cityId = cityId; }
 
-public String getFilePath() {
-return filePath;
-}
+    public String getFileName() { return fileName; }
 
-public void setFilePath(String filePath) {
-this.filePath = filePath;
-}
+    public void setFileName(String fileName) { this.fileName = fileName; }
 
-public String getCity() {
-return city;
-}
+    public String getFilePath() { return filePath; }
 
-public void setCity(String city) {
-this.city = city;
-}
+    public void setFilePath(String filePath) { this.filePath = filePath; }
 
-public List<WorkDay> getWorkDay() {
-return workDay;
-}
+    public String getCity() { return city; }
 
-public void setWorkDay(List<WorkDay> workDay) {
-this.workDay = workDay;
-}
+    public void setCity(String city) { this.city = city; }
+
+    public List<WorkDay> getWorkDay() { return workDay; }
+
+    public void setWorkDay(List<WorkDay> workDay) { this.workDay = workDay; }
+
+    public Object getTables() { return tables; }
+
+    public void setTables(Object tables) { this.tables = tables; }
 
 }
+
+//@SerializedName("name")
+//@Expose
+//private String name;
+//@SerializedName("addres")
+//@Expose
+//private String addres;
+//@SerializedName("number")
+//@Expose
+//private Integer number;
+//@SerializedName("kitchen")
+//@Expose
+//private String kitchen;
+//@SerializedName("delivery")
+//@Expose
+//private Boolean delivery;
+//@SerializedName("avgCheck")
+//@Expose
+//private Integer avgCheck;
+//@SerializedName("seats")
+//@Expose
+//private Integer seats;
+//@SerializedName("description")
+//@Expose
+//private String description;
+//@SerializedName("cityId")
+//@Expose
+//private Integer cityId;
+//@SerializedName("fileName")
+//@Expose
+//private String fileName;
+//@SerializedName("filePath")
+//@Expose
+//private String filePath;
+//@SerializedName("city")
+//@Expose
+//private String city;
+//@SerializedName("workDay")
+//@Expose
+//private List<WorkDay> workDay = null;
+//
+//public String getName() {
+//return name;
+//}
+//
+//public void setName(String name) {
+//this.name = name;
+//}
+//
+//public String getAddres() {
+//return addres;
+//}
+//
+//public void setAddres(String addres) {
+//this.addres = addres;
+//}
+//
+//public Integer getNumber() {
+//return number;
+//}
+//
+//public void setNumber(Integer number) {
+//this.number = number;
+//}
+//
+//public String getKitchen() {
+//return kitchen;
+//}
+//
+//public void setKitchen(String kitchen) {
+//this.kitchen = kitchen;
+//}
+//
+//public Boolean getDelivery() {
+//return delivery;
+//}
+//
+//public void setDelivery(Boolean delivery) {
+//this.delivery = delivery;
+//}
+//
+//public Integer getAvgCheck() {
+//return avgCheck;
+//}
+//
+//public void setAvgCheck(Integer avgCheck) {
+//this.avgCheck = avgCheck;
+//}
+//
+//public Integer getSeats() {
+//return seats;
+//}
+//
+//public void setSeats(Integer seats) {
+//this.seats = seats;
+//}
+//
+//public String getDescription() {
+//return description;
+//}
+//
+//public void setDescription(String description) {
+//this.description = description;
+//}
+//
+//public Integer getCityId() {
+//return cityId;
+//}
+//
+//public void setCityId(Integer cityId) {
+//this.cityId = cityId;
+//}
+//
+//public String getFileName() {
+//return fileName;
+//}
+//
+//public void setFileName(String fileName) {
+//this.fileName = fileName;
+//}
+//
+//public String getFilePath() {
+//return filePath;
+//}
+//
+//public void setFilePath(String filePath) {
+//this.filePath = filePath;
+//}
+//
+//public String getCity() {
+//return city;
+//}
+//
+//public void setCity(String city) {
+//this.city = city;
+//}
+//
+//public List<WorkDay> getWorkDay() {
+//return workDay;
+//}
+//
+//public void setWorkDay(List<WorkDay> workDay) {
+//this.workDay = workDay;
+//}

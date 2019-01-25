@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.authorization.WelcomePage;
+import com.login.mobi.loginapp.views.restaurants.RestaurantFragment;
+import com.login.mobi.loginapp.views.restaurants.RestaurantFragmentTest;
 
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
 import static java.lang.System.currentTimeMillis;
@@ -18,24 +23,32 @@ import static java.lang.System.currentTimeMillis;
 public class BottomNavigationPage extends AppCompatActivity {
 
     private TextView mTextMessage;
+
     SingletonSharedPref sharedPref;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
+            Class fragmentClass = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_order:
                     mTextMessage.setText(R.string.title_order);
                     return true;
                 case R.id.navigation_book:
-                    mTextMessage.setText(R.string.title_book);
+                    loadFragment(new RestaurantFragmentTest());
                     return true;
                 case R.id.navigation_delivery:
                     mTextMessage.setText(R.string.title_delivery);
                     return true;
             }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container_for_fragments, fragment).commit();
+
             return false;
         }
     };
@@ -44,6 +57,11 @@ public class BottomNavigationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_navigation_page);
+
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
         sharedPref = SingletonSharedPref.getInstance(this);
         if(sharedPref.getString(SingletonSharedPref.TOKEN) == null){
@@ -54,9 +72,19 @@ public class BottomNavigationPage extends AppCompatActivity {
 //        }
 
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container_for_fragments, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
 }

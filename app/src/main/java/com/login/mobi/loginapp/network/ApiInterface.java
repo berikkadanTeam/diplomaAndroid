@@ -6,6 +6,7 @@ package com.login.mobi.loginapp.network;
 
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
+import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 
 import java.util.List;
@@ -44,5 +45,7 @@ public interface ApiInterface {
             @Field("password")  String password
     );
 
+    @GET("api/Restaurants/GetRestaurants")
+    Call<List<RestaurantInformation>> getRestaurantInformation();
 
 }
