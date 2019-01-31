@@ -18,6 +18,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
@@ -47,5 +48,7 @@ public interface ApiInterface {
 
     @GET("api/Restaurants/GetRestaurants")
     Call<List<RestaurantInformation>> getRestaurantInformation();
-
+    // OR
+    @GET("api/Restaurants/GetRestaurants")
+    Call<RestaurantInformation> getRestaurantInformation(@Query("restaurantId") String restaurantId);
 }

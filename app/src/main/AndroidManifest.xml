@@ -7,11 +7,13 @@
     <application
         android:name=".MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_book_me_launcher"
         android:label="@string/application_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_book_me_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BookMeTheme">
+    <!--android:icon="@mipmap/ic_launcher"-->
+    <!--android:roundIcon="@mipmap/ic_launcher_round"-->
 
         <activity
             android:name=".views.authorization.WelcomePage"
@@ -38,8 +40,7 @@
             android:name=".views.restaurants.RestaurantInformationPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.bottomNavigation.BottomNavigationPage"
-            android:label="@string/title_activity_bottom_navigation_page">
+            android:name=".views.bottomNavigation.BottomNavigationPage">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
