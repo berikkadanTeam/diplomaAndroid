@@ -13,9 +13,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Bimurat Mukhtar on 16.05.2017.
- */
 
 public class GetRestaurants {
 

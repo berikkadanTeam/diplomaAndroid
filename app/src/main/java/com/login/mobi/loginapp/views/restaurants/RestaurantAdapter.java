@@ -40,6 +40,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         return new com.login.mobi.loginapp.views.restaurants.RestaurantAdapter.ViewHolder(v);
     }
 
+
+    // Чтобы при поиске отобразить новый список найденных ресторанов
+    public void arrayChanged(List<Restaurant> list){
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull com.login.mobi.loginapp.views.restaurants.RestaurantAdapter.ViewHolder viewHolder, final int i) {
         Restaurant restaurant = list.get(i);
@@ -55,6 +63,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         viewHolder.description.setText(list.get(i).getDescription());
         Log.d("adapter", list.get(i).getName());
         viewHolder.updateUI(restaurant);
+
 //        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

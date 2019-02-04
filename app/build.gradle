@@ -54,4 +54,7 @@ dependencies {
     // External Dependencies
     implementation 'io.supercharge:shimmerlayout:1.1.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
 }

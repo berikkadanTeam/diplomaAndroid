@@ -8,6 +8,7 @@ import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
+import com.login.mobi.loginapp.network.model.restaurants.WorkDay;
 
 import java.util.List;
 

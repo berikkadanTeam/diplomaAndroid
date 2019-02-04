@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.authorization.WelcomePage;
+import com.login.mobi.loginapp.views.order.OrderFragment;
 import com.login.mobi.loginapp.views.restaurants.RestaurantFragment;
 import com.login.mobi.loginapp.views.restaurants.RestaurantFragmentTest;
 
@@ -37,7 +38,7 @@ public class BottomNavigationPage extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_order:
-                    mTextMessage.setText(R.string.title_order);
+                    loadFragment(new OrderFragment());
                     return true;
                 case R.id.navigation_book:
                     loadFragment(new RestaurantFragmentTest());
@@ -71,6 +72,7 @@ public class BottomNavigationPage extends AppCompatActivity {
 //
 //        }
 
+        loadFragment(new OrderFragment());  // открывать по дефолту первый фрагмент
 
     }
 

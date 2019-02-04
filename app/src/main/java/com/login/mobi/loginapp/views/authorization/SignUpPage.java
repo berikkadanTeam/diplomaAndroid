@@ -19,7 +19,7 @@ import com.login.mobi.loginapp.network.requests.authorization.PostSignUp;
 
 import java.util.List;
 
-public class SignUpPage extends AppCompatActivity implements GetCities.GetCitiesInterface,PostSignUp.PostSignUpInterface{
+public class SignUpPage extends AppCompatActivity implements GetCities.GetCitiesInterface, PostSignUp.PostSignUpInterface{
 
     private EditText email;
     private EditText password;
@@ -82,7 +82,7 @@ public class SignUpPage extends AppCompatActivity implements GetCities.GetCities
 
     public void signUp(String str1, String str2, String str3, String str4, String str5){
         Log.d("nurila",str1 + str2 + str3 + str4 + str5);
-        PostSignUp postSignUp = new PostSignUp(this,str1, str2, str3, str4, str5);
+        PostSignUp postSignUp = new PostSignUp(this, str1, str2, str3, str4, str5);
         postSignUp.postSignUp();
     }
 
@@ -112,7 +112,5 @@ public class SignUpPage extends AppCompatActivity implements GetCities.GetCities
 
 
     @Override
-    public void signUp(int response) {
-
-    }
+    public void signUp(int response) { }
 }
