@@ -1,8 +1,10 @@
 package com.login.mobi.loginapp.views.restaurants;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -48,17 +49,20 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
     // xml elements: images
     private ImageView mainImageView;
     private RelativeLayout photoViewSection; // section with photos list
-    private ViewPager photoViewPager;
+    private ViewPager photoViewPager;        // photos in a row
     private int currentSection = 0;
+    PhotoViewPagerAdapter photoViewPagerAdapter;    // adapter to open these photos when clicked on photo
+
+    // xml elements: expandable listView
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListViewAdapter;
+    private List<String> listDataGroup;
+    private HashMap<String, List<String>> listDataChild;
 
     // Api
     private ApiInterface apiService;
 
 
-    private ExpandableListView expandableListView;
-    private ExpandableListAdapter expandableListViewAdapter;
-    private List<String> listDataGroup;
-    private HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +79,11 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         description = (TextView) findViewById(R.id.restaurant_page_description);
         spinner = (Spinner) findViewById(R.id.spinner);
 
-
         // images
         mainImageView = (ImageView) findViewById(R.id.restaurant_page_image);
         photoViewSection = (RelativeLayout) findViewById(R.id.photo_view_section);
         photoViewPager = (ViewPager) findViewById(R.id.image_view_pager);
+
         ImageView photoViewCloseButton = (ImageView) findViewById(R.id.photo_view_section_close_button);
         photoViewSection.setVisibility(View.GONE);
         photoViewCloseButton.setOnClickListener(new View.OnClickListener() {
@@ -113,10 +117,12 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         String image = filePath.concat(fileName);
         Glide.with(this).load(image).into(mainImageView);
 
-        // пока что для примера я добавляю в list картинку которая главная
+
+        // пока что для примера я добавляю в list картинку которая главная, позже заменить на
         ArrayList<String> list = new ArrayList<String>();
         list.add(image);
         list.add(image);
+        photoViewPagerAdapter = new PhotoViewPagerAdapter(getSupportFragmentManager(), list);
         RestaurantImagesAdapter imagesAdapter = new RestaurantImagesAdapter(list);
         RecyclerView imagesRecyclerView = (RecyclerView) findViewById(R.id.images_recycler_view);
         imagesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -126,7 +132,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             @Override
             public void onItemClick(View view, int position) {
                 photoViewSection.setVisibility(View.VISIBLE);
-                //photoViewPager.setAdapter(photoViewPagerAdapter);
+                photoViewPager.setAdapter(photoViewPagerAdapter);
                 photoViewPager.setCurrentItem(position);
                 currentSection = 1;
             }
@@ -172,18 +178,12 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
 
 
         expandableListView = findViewById(R.id.expandableListView);
-        // initializing the listeners
         initListeners();
-        // initializing the objects
         initObjects();
-        // preparing list data
         initListData();
 
 
         //fetchRestaurantData();
-        //name.setText(list.get(restaurantId).getName());
-        //name.setText(restaurantId);
-
 
 //        GetRestaurantInformation getRestaurantInformation = new GetRestaurantInformation(this);
 //        getRestaurantInformation.getRestaurantInformation();
@@ -289,5 +289,28 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             // notify the adapter
             expandableListViewAdapter.notifyDataSetChanged();
         }
+
+
+
+
+    /* PhotoViewPager Adapter */
+    private class PhotoViewPagerAdapter extends FragmentStatePagerAdapter {
+        private ArrayList<String> imageList;
+
+        public PhotoViewPagerAdapter(FragmentManager fm, ArrayList<String> imageList) {
+            super(fm);
+            this.imageList = imageList;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return PhotoViewFragment.newInstance(imageList.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return imageList.size();
+        }
+    }
 
 }

@@ -12,6 +12,10 @@ import com.login.mobi.loginapp.R;
 import java.util.HashMap;
 import java.util.List;
 
+
+
+// CODE FROM HERE: http://www.androidtutorialshub.com/android-expandable-list-view-tutorial/
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
