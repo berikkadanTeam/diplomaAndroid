@@ -12,4 +12,5 @@
 
     <color name="lightBlue">#48aae6</color>
     <color name="middleGrey">#808080</color>
+    <color name="transparent">#00000000</color>
 </resources>

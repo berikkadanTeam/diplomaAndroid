@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.login.mobi.loginapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApp"
@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/ic_book_me_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BookMeTheme">
-    <!--android:icon="@mipmap/ic_launcher"-->
-    <!--android:roundIcon="@mipmap/ic_launcher_round"-->
+
+        <!-- android:icon="@mipmap/ic_launcher" -->
+        <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
 
         <activity
             android:name=".views.authorization.WelcomePage"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".UserActivity"
             android:screenOrientation="portrait" />
@@ -40,14 +40,19 @@
             android:name=".views.restaurants.RestaurantInformationPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.bottomNavigation.BottomNavigationPage">
-
+            android:name=".views.restaurants.RestaurantTableBookingPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.restaurants.RestaurantWebViewPage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.bottomNavigation.BottomNavigationPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".views.restaurants.RestaurantWebViewPage"></activity>-->
     </application>
 
 </manifest>

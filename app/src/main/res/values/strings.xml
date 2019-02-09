@@ -10,7 +10,6 @@
     <string name="title_delivery">Доставка</string>
 
 
-
     <!-- Массив для хранения значений для spinner сортировки ресторанов-->
     <string-array name="restaurant_filter_options">
         <item>Select one Item</item>

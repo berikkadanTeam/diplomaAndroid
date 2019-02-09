@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
 
     <TextView
         android:id="@+id/textViewGroup"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp" />
+
+    <!-- Это добавляла, чтобы при использовании ImageView ниже, иконка стрелки автоматически стояла справа
+    android:layout_weight="1"
+    -->
+
+    <!-- Это было с сайта, с помощью этого иконка стрелки слева с отступом
     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-    android:paddingTop="10dp"
-    android:textColor="#A4C739" />
+    -->
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/expandable_icon"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:src="@drawable/arrow_down" />-->
 
 </LinearLayout>

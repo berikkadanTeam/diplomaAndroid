@@ -12,13 +12,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -38,13 +38,16 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
 
     // variables
     String restaurantId;
+    String[] arr;
 
     private List<Restaurant> list;
     private ArrayList<RestaurantInformation> restaurantDataList;
+    boolean open = true;
 
-    // xml elements: texts
+    // xml elements: texts, buttons
     private TextView name, address, cuisine, averageCheck, delivery, seats, description;
     private Spinner spinner;
+    private LinearLayout bookBtn;
 
     // xml elements: images
     private ImageView mainImageView;
@@ -63,7 +66,6 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
     private ApiInterface apiService;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,15 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         delivery = (TextView) findViewById(R.id.restaurant_page_delivery);
         seats = (TextView) findViewById(R.id.restaurant_page_seats);
         description = (TextView) findViewById(R.id.restaurant_page_description);
-        spinner = (Spinner) findViewById(R.id.spinner);
+
+        // buttons
+        bookBtn = findViewById(R.id.call_to_action_button);
+        bookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantInformationPage.this, RestaurantWebViewPage.class));
+            }
+        });
 
         // images
         mainImageView = (ImageView) findViewById(R.id.restaurant_page_image);
@@ -94,12 +104,15 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             }
         });
 
+
+        /* Получение данных ресторана с фрагмента Restaurant */
         Intent intent = getIntent();
         String jsonData = intent.getStringExtra("restaurantData");
-        //Tvoi dannyi
         Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
         Log.d("RestaurantData", jsonData);
 
+
+        /* Вписывание данных ресторана в поля */
         restaurantId = restaurant.getId();
         name.setText(restaurant.getName());
         address.setText(restaurant.getAddres() + "\n" + restaurant.getCity());
@@ -112,11 +125,25 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             delivery.setText("Есть");
         else
             delivery.setText("Нет");
+
+        /* Вписывание данных для времени работы */
+        List<WorkDay> workDayList = restaurant.getWorkDay();
+        arr = new String[workDayList.size()];
+        for (int i=0; i<workDayList.size(); i++){
+            arr[i] = workDayList.get(i).getDayName() + " " + workDayList.get(i).getStartTime() + " - " + workDayList.get(i).getEndTime();
+        }
+        Log.d("WorkDay", Arrays.deepToString(arr));
+        expandableListView = findViewById(R.id.expandableListView);
+        initExpandableListViewListeners();
+        initExpandableListViewObjects();
+        initExpandableListViewData();
+
+
+        /* Вставка фото */
         String filePath = "http://berikkadan.kz/Files/";
         String fileName = restaurant.getFileName();
         String image = filePath.concat(fileName);
         Glide.with(this).load(image).into(mainImageView);
-
 
         // пока что для примера я добавляю в list картинку которая главная, позже заменить на
         ArrayList<String> list = new ArrayList<String>();
@@ -139,13 +166,8 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         }));
 
 
-        List<WorkDay> workDayList = restaurant.getWorkDay();
-        String[] arr = new String[workDayList.size()];
-        for (int i=0; i<workDayList.size(); i++){
-            arr[i] = workDayList.get(i).getDayName() + " " + workDayList.get(i).getStartTime() + " - " + workDayList.get(i).getEndTime();
-        }
-        Log.d("workday", Arrays.deepToString(arr));
-
+/*  SPINNER WITH WORKDAY SCHEDULE
+        spinner = (Spinner) findViewById(R.id.spinner);
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.restaurant_work_time_spinner_item, arr){
             @Override
             public boolean isEnabled(int position){
@@ -155,32 +177,24 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
                     return false;
             }
 
-
-
-//            @Override
-//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getDropDownView(position, convertView, parent);
-//                TextView tv = (TextView) view;
-//                if(position==1) {
-//                    // Set the disable item text color
-//                    tv.setTextColor(Color.GRAY);
-//                }
-//                else {
-//                    tv.setTextColor(Color.BLACK);
-//                }
-//                return view;
-//            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position==1) {
+                    // Set the disable item text color
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
         };
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.restaurant_work_time_spinner_item);
         spinner.setAdapter(spinnerArrayAdapter);
-
-
-
-        expandableListView = findViewById(R.id.expandableListView);
-        initListeners();
-        initObjects();
-        initListData();
+*/
 
 
         //fetchRestaurantData();
@@ -223,75 +237,110 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
 //        });
 //    }
 
-    private void initListeners() {
-        // ExpandableListView on child click listener
+    private void initExpandableListViewListeners() {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(getApplicationContext(), listDataGroup.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(listDataGroup.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), listDataGroup.get(groupPosition) + " : " + listDataChild.get(listDataGroup.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-        // ExpandableListView Group expanded listener
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),listDataGroup.get(groupPosition) + " Expanded ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),listDataGroup.get(groupPosition) + " Expanded ", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // ExpandableListView Group collapsed listener
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),listDataGroup.get(groupPosition) + " Collapsed ", Toast.LENGTH_SHORT).show();
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                setExpandableListViewHeight(parent, groupPosition);
 
+//                if (parent.isGroupExpanded(groupPosition)) {
+//                    ImageView imageView = v.findViewById(R.id.expandable_icon);
+//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.arrow_up));
+//                } else {
+//                    ImageView imageView = v.findViewById(R.id.expandable_icon);
+//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
+//                }
+
+    // Способ, где использовали layout_weight="1" для группы, делали groupIndicator=transparent и с помощью boolean меняем стрелки
+//                if (open) {
+//                    ImageView imageView = v.findViewById(R.id.expandable_icon);
+//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.arrow_up));
+//                } else {
+//                    ImageView imageView = v.findViewById(R.id.expandable_icon);
+//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
+//                }
+//                open = !open;
+                return false;
             }
         });
     }
 
-        private void initObjects() {
-            // initializing the list of groups
-            listDataGroup = new ArrayList<>();
-            // initializing the list of child
-            listDataChild = new HashMap<>();
-            // initializing the adapter object
-            expandableListViewAdapter = new ExpandableListAdapter(this, listDataGroup, listDataChild);
-            // setting list adapter
-            expandableListView.setAdapter(expandableListViewAdapter);
+
+    private void initExpandableListViewObjects() {
+        listDataGroup = new ArrayList<>();
+        listDataChild = new HashMap<>();
+        expandableListViewAdapter = new ExpandableListAdapter(this, listDataGroup, listDataChild);
+        expandableListView.setAdapter(expandableListViewAdapter);
+    }
+
+    private void initExpandableListViewData() {
+        listDataGroup.add("Время работы:");
+        List<String> workSchedule = new ArrayList<>();
+        for (String item : arr) {
+            workSchedule.add(item);
         }
+        listDataChild.put(listDataGroup.get(0), workSchedule);
+        expandableListViewAdapter.notifyDataSetChanged();
+    }
 
 
-        private void initListData() {
-            // Adding group data
-            listDataGroup.add("TEST");
-            listDataGroup.add("TEST 2");
+    /*  Функция, чтобы высчитать размер expandableListView, без нее он не расширяется вниз */
+    private void setExpandableListViewHeight(ExpandableListView listView, int group) {
+        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 
-            // array of strings
-            String[] array;
+            totalHeight += groupItem.getMeasuredHeight();
 
-            // list of alcohol
-            List<String> alcoholList = new ArrayList<>();
-            array = getResources().getStringArray(R.array.restaurant_filter_options);
-            for (String item : array) {
-                alcoholList.add(item);
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+
+                }
             }
-
-            // Adding child data
-            listDataChild.put(listDataGroup.get(0), alcoholList);
-            listDataChild.put(listDataGroup.get(1), alcoholList);
-
-            // notify the adapter
-            expandableListViewAdapter.notifyDataSetChanged();
         }
 
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
 
+    }
 
+    /* Функция, чтобы переместить иконку expandableListView вправо */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        expandableListView.setIndicatorBounds(expandableListView.getRight()- 40, expandableListView.getWidth());
+    }
 
     /* PhotoViewPager Adapter */
     private class PhotoViewPagerAdapter extends FragmentStatePagerAdapter {
