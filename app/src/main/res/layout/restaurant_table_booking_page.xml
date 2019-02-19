@@ -26,9 +26,9 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/booking_page_top_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/icon_order" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/icon_restaurant_2" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -43,13 +43,13 @@
                         android:id="@+id/booking_current_page_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..." />
+                        android:text="Бронирование в" />
 
                     <TextView
-                        android:id="@+id/booking_current_page_restuarant_name"
+                        android:id="@+id/restaurant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tonico Cafe"
+                        android:text="Julia"
                         android:maxLines="1"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
@@ -81,7 +81,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:text="Reservation Details"
+                    android:text="Детали бронирования"
                     android:layout_marginLeft="26dp"
                     android:layout_marginBottom="6dp"
                     android:layout_marginTop="10dp"/>
@@ -91,6 +91,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="2dp"
                     app:cardCornerRadius="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -110,13 +111,13 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/current_date_textview"
+                                android:id="@+id/picked_date_textview"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="26dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_weight="1"
-                                android:text="Mon, 10 Sep"
+                                android:text="09.01.2019"
                                 android:textColor="@android:color/black"
                                 android:textSize="18sp" />
 
@@ -129,8 +130,49 @@
                                 android:background="@android:color/transparent"
                                 android:paddingLeft="12dp"
                                 android:text="ВЫБРАТЬ ДАТУ"
-                                android:textColor="@android:color/holo_orange_dark" />
+                                android:textColor="@color/lightBlue"/>
+
                         </LinearLayout>
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:paddingLeft="26dp"
+                            android:text="Время бронирования"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/picked_time_textview"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="26dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:text="12:30"
+                                android:textColor="@android:color/black"
+                                android:textSize="18sp" />
+
+                            <Button
+                                android:id="@+id/pick_time_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="32dp"
+                                android:background="@android:color/transparent"
+                                android:paddingLeft="12dp"
+                                android:text="ВЫБРАТЬ ВРЕМЯ"
+                                android:textColor="@color/lightBlue"/>
+
+                        </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -158,24 +200,24 @@
                                         android:text="Количество гостей"
                                         android:textSize="14sp" />
                                     <TextView
-                                        android:id="@+id/foodie_count"
+                                        android:id="@+id/guests_count"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="4dp"
                                         android:layout_weight="1"
-                                        android:text="2 Foodies"
+                                        android:text="2"
                                         android:textColor="@android:color/black"
                                         android:textSize="18sp" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.CardView
-                                    android:id="@+id/minus_foodie_button"
+                                    android:id="@+id/minus_guest"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="center_vertical|end"
                                     android:layout_marginBottom="1dp"
                                     android:layout_marginTop="1dp"
-                                    app:cardBackgroundColor="@color/colorAccent"
+                                    app:cardBackgroundColor="@color/lightBlue"
                                     app:cardCornerRadius="17dp"
                                     app:contentPadding="8dp">
 
@@ -183,19 +225,19 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/arrow_down"/>
+                                        android:src="@drawable/icon_minus_white"/>
                                         <!--android:src="@drawable/ic_remove_white_24dp" />-->
                                 </android.support.v7.widget.CardView>
 
                                 <android.support.v7.widget.CardView
-                                    android:id="@+id/add_foodie_button"
+                                    android:id="@+id/plus_guest"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="center_vertical|end"
                                     android:layout_marginBottom="1dp"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginTop="1dp"
-                                    app:cardBackgroundColor="@color/colorAccent"
+                                    app:cardBackgroundColor="@color/lightBlue"
                                     app:cardCornerRadius="17dp"
                                     app:contentPadding="8dp">
 
@@ -203,39 +245,87 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/arrow_up"/>
+                                        android:src="@drawable/icon_plus_white"/>
                                         <!--android:src="@drawable/ic_add_white_24dp" />-->
                                 </android.support.v7.widget.CardView>
                             </LinearLayout>
                         </LinearLayout>
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="26dp"
-                                android:text="Time Slot"
-                                android:textSize="14sp" />
-                            <TextView
-                                android:visibility="gone"
-                                android:id="@+id/time_slot_errortext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/holo_red_dark"
-                                android:layout_marginLeft="10dp"
-                                android:text="Please pick a Time Slot"/>
-                        </LinearLayout>
+                            android:layout_marginTop="16dp"
+                            android:paddingLeft="26dp"
+                            android:text="Пожелания"
+                            android:textSize="14sp" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/time_slot_recyclerview"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clipToPadding="false"
-                            android:paddingLeft="16dp"
-                            android:paddingBottom="20dp"/>
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginRight="26dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:hint="Пожелания"
+                                android:textStyle="italic"
+                                android:textSize="18sp"
+                                android:layout_weight="1"
+                                android:layout_marginTop="2dp"
+                                android:lines="3"
+                                android:maxLines="10"
+                                android:minLines="0"
+                                android:scrollbars="vertical" />
+
+                        </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingLeft="26dp"
+                        android:text="Сделать предзаказ"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginRight="26dp"
+                        android:layout_marginBottom="16dp">
+
+                        <RadioGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkedButton="@+id/open_menu_no"
+                            android:orientation="vertical"
+                            android:layout_marginTop="4dp">
+
+                            <RadioButton
+                                android:id="@+id/open_menu_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Открыть меню"
+                                android:textSize="16sp"
+                                android:scaleX="1.0"
+                                android:scaleY="1.0"/>
+                            <RadioButton
+                                android:id="@+id/open_menu_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Не открывать"
+                                android:textSize="16sp"
+                                android:scaleX="1.0"
+                                android:scaleY="1.0"/>
+                        </RadioGroup>
+                    </LinearLayout>
+
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
@@ -245,7 +335,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:text="Reservation Details"
+                    android:text="Ваши данные"
                     android:layout_marginLeft="26dp"
                     android:layout_marginBottom="6dp"
                     android:layout_marginTop="7dp"/>
@@ -268,7 +358,25 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Name"
+                            android:text="Фамилия"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textSize="11sp"/>
+
+                        <EditText
+                            android:id="@+id/input_surname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Jackey"
+                            android:inputType="textCapWords|textPersonName"
+                            android:maxLength="22" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Имя"
+                            android:layout_marginTop="12dp"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             android:textSize="11sp"/>
@@ -278,7 +386,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint="eg. John"
+                            android:hint="John"
                             android:inputType="textCapWords|textPersonName"
                             android:maxLength="22" />
 
@@ -286,7 +394,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Email"
+                            android:text="Электронная почта"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             android:textSize="11sp" />
@@ -297,14 +405,14 @@
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
                             android:background="@android:color/transparent"
-                            android:hint="eg. johndoe@example.com"
+                            android:hint="johndoe@example.com"
                             android:maxLength="60"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Mobile Number"
+                            android:text="Сотовый телефон"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             android:textSize="11sp" />
@@ -341,7 +449,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Забронировать стол!"
+                            android:text="Готово"
                             android:textAllCaps="true"
                             android:textColor="@android:color/white"
                             android:textSize="18sp"
@@ -350,7 +458,7 @@
                             android:layout_width="23dp"
                             android:layout_height="23dp"
                             android:layout_marginLeft="8dp"
-                            android:src="@drawable/arrow_down"/>
+                            android:src="@drawable/icon_next"/>
                         <!--android:src="@drawable/ic_navigate_next_white_24dp"-->
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -460,108 +568,12 @@
                                 android:textColor="@android:color/holo_green_dark"
                                 android:text="Free Booking a table reserves it for a time period of 20 minutes from the Time Slot reserved."/>
                         </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="26dp"
-                            android:layout_marginRight="26dp"
-                            android:layout_marginTop="8dp"
-                            android:orientation="vertical"
-                            android:padding="14dp"
-                            android:background="@drawable/rounded_button_red">
-                            <!--android:background="@drawable/bordered_info_green"-->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/holo_green_dark"
-                                android:text="*Pre-Booking a table is paid and reserves it for a time period of 1 hour from the Time Slot reserved. Pre-Booking costs ₹25 per head."/>
-                        </LinearLayout>
 
-                        <TextView
-                            android:layout_marginLeft="36dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Cost"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp"
-                            android:layout_marginTop="28dp"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/cost_textview"
-                                android:layout_marginLeft="36dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/holo_green_dark"
-                                android:textSize="32sp"
-                                android:textStyle="bold"
-                                android:textAllCaps="true"
-                                android:text="Free" />
-                            <LinearLayout
-                                android:id="@+id/tip_button"
-                                android:layout_width="115dp"
-                                android:layout_height="40dp"
-                                android:layout_marginRight="32dp"
-                                android:gravity="center"
-                                android:background="@drawable/borderbutton_green">
-                                <ImageView
-                                    android:layout_width="13dp"
-                                    android:layout_height="13dp"
-                                    android:layout_marginTop="1dp"
-                                    android:src="@drawable/arrow_down"/>
-                                <!--android:src="@drawable/tip_dollar"-->
-                                <TextView
-                                    android:id="@+id/tip_extra_textview"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Add Tip"
-                                    android:layout_marginLeft="2dp"
-                                    android:textColor="@android:color/holo_green_dark"
-                                    android:textStyle="bold"/>
-                            </LinearLayout>
-                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/cost_explanation_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="₹25 x 4 Diners"
-                            android:layout_marginLeft="36dp"
-                            android:layout_marginTop="-4dp"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/payment_proceed_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_margin="26dp"
-                            app:cardBackgroundColor="@android:color/holo_red_dark"
-                            app:cardCornerRadius="4dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text="Book Table"
-                                    android:textAllCaps="true"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="23dp"
-                                    android:layout_height="23dp"
-                                    android:layout_marginLeft="8dp"
-                                    android:src="@drawable/arrow_down"/>
-                                <!--android:src="@drawable/ic_navigate_next_white_24dp"-->
-                            </LinearLayout>
-                        </android.support.v7.widget.CardView>
+
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 

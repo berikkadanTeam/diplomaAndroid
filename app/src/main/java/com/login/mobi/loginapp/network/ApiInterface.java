@@ -8,18 +8,17 @@ import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
-import com.login.mobi.loginapp.network.model.restaurants.WorkDay;
 
 import java.util.List;
 
-//import okhttp
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+
+//import okhttp
 
 
 public interface ApiInterface {
@@ -46,6 +45,11 @@ public interface ApiInterface {
             @Field("userName")  String username,
             @Field("password")  String password
     );
+
+    //@GET("api/Users/GetUserInfo")
+    //Call<RestaurantInformation> getRestaurantInformation(@Query("UserId") String restaurantId);
+
+
 
     @GET("api/Restaurants/GetRestaurants")
     Call<List<RestaurantInformation>> getRestaurantInformation();

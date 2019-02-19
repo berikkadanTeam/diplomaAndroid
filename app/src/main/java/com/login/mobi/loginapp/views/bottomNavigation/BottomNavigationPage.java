@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,11 +14,7 @@ import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.authorization.WelcomePage;
 import com.login.mobi.loginapp.views.order.OrderFragment;
-import com.login.mobi.loginapp.views.restaurants.RestaurantFragment;
 import com.login.mobi.loginapp.views.restaurants.RestaurantFragmentTest;
-
-import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
-import static java.lang.System.currentTimeMillis;
 
 public class BottomNavigationPage extends AppCompatActivity {
 

@@ -1,8 +1,9 @@
 package com.login.mobi.loginapp.network.model.restaurants;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Restaurant {
 
@@ -51,6 +52,12 @@ public class Restaurant {
     @SerializedName("tables")
     @Expose
     private Object tables;
+    @SerializedName("area")
+    @Expose
+    private Object area;
+    @SerializedName("menu")
+    @Expose
+    private Object menu;
 
     public String getId() { return id; }
 
@@ -111,6 +118,37 @@ public class Restaurant {
     public Object getTables() { return tables; }
 
     public void setTables(Object tables) { this.tables = tables; }
+
+    public Object getArea() { return area; }
+
+    public void setArea(Object area) { this.area = area; }
+
+    public Object getMenu() { return menu; }
+
+    public void setMenu(Object menu) { this.menu = menu; }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", addres='" + addres + '\'' +
+                ", number=" + number +
+                ", kitchen='" + kitchen + '\'' +
+                ", delivery=" + delivery +
+                ", avgCheck=" + avgCheck +
+                ", seats=" + seats +
+                ", description='" + description + '\'' +
+                ", cityId=" + cityId +
+                ", fileName='" + fileName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", city='" + city + '\'' +
+                ", workDay=" + workDay +
+                ", tables=" + tables +
+                ", area=" + area +
+                ", menu=" + menu +
+                '}';
+    }
 
 }
 

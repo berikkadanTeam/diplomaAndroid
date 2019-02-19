@@ -39,4 +39,15 @@ public void setEndTime(String endTime) {
 this.endTime = endTime;
 }
 
+@Override
+public String toString() {
+    final StringBuilder sb = new StringBuilder("WorkDay{");
+    sb.append("dayName='").append(dayName).append('\'');
+    sb.append(", startTime='").append(startTime).append('\'');
+    sb.append(", endTime='").append(endTime).append('\'');
+    sb.append('}');
+    return sb.toString();
+}
+
+
 }

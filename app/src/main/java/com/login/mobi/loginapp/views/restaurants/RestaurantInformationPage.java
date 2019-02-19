@@ -39,6 +39,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
     // variables
     String restaurantId;
     String[] arr;
+    String jsonData;
 
     private List<Restaurant> list;
     private ArrayList<RestaurantInformation> restaurantDataList;
@@ -85,7 +86,10 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         bookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RestaurantInformationPage.this, RestaurantWebViewPage.class));
+                Intent intent = new Intent(RestaurantInformationPage.this, RestaurantWebViewPage.class); // == startActivity(new Intent(RestaurantInformationPage.this, RestaurantWebViewPage.class));
+                intent.putExtra("RestaurantData", jsonData);
+                startActivity(intent);
+                //startActivity(new Intent(RestaurantInformationPage.this, RestaurantTableBookingPage.class));   убирала для теста, чтобы постоянно не проходить через WebView
             }
         });
 
@@ -107,13 +111,14 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
 
         /* Получение данных ресторана с фрагмента Restaurant */
         Intent intent = getIntent();
-        String jsonData = intent.getStringExtra("restaurantData");
+        jsonData = intent.getStringExtra("restaurantData");
         Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
         Log.d("RestaurantData", jsonData);
 
 
         /* Вписывание данных ресторана в поля */
         restaurantId = restaurant.getId();
+        Log.d("RestaurantID", restaurantId);
         name.setText(restaurant.getName());
         address.setText(restaurant.getAddres() + "\n" + restaurant.getCity());
         cuisine.setText(restaurant.getKitchen());
@@ -281,7 +286,6 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             }
         });
     }
-
 
     private void initExpandableListViewObjects() {
         listDataGroup = new ArrayList<>();

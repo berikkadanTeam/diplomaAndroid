@@ -150,7 +150,7 @@
         android:background="@drawable/rounded_button_light_blue"
         android:paddingLeft="15px"
         android:paddingRight="15px"
-        android:text="Зарегестрироваться"
+        android:text="Зарегистрироваться"
         android:textColor="@color/colorWhite"
         android:textSize="13dp"
         app:layout_constraintEnd_toEndOf="parent"

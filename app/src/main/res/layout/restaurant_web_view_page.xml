@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/linearLayout"/>
+        android:layout_height="555dp"
+        android:layout_above="@id/linearLayout" />
 
     <!--<Button-->
     <!--android:id="@+id/bookingDetails"-->
@@ -27,7 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        app:layout_anchor="@+id/webView"
+        app:layout_anchorGravity="left|bottom">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -64,5 +67,6 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
 
 </RelativeLayout>

@@ -1,10 +1,10 @@
 package com.login.mobi.loginapp.views.authorization;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,10 +20,9 @@ import com.login.mobi.loginapp.network.requests.authorization.PostSignIn;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.bottomNavigation.BottomNavigationPage;
 
-import android.app.ProgressDialog;
-
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.TOKEN;
+import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_ID;
 
 
 public class SignInPage extends AppCompatActivity implements PostSignIn.PostSignInInterface{
@@ -106,10 +105,11 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
             Log.d("auth_token",response.getAuthToken());
             sharedPref.put(TOKEN,response.getAuthToken());
             sharedPref.put(EXPIRES_IN,response.getExpiresIn());
+            sharedPref.put(USER_ID, response.getId());
             progressDialog.dismiss();
             startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
             finish();
-        }else{
+        } else {
             //Toast.makeText(SignInPage.this, "Электронная почта и пароль не совпадают", Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Электронная почта и пароль не совпадают", Snackbar.LENGTH_LONG);
