@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.authorization.WelcomePage;
+import com.login.mobi.loginapp.views.menu.MenuFragment;
 import com.login.mobi.loginapp.views.order.OrderFragment;
 import com.login.mobi.loginapp.views.restaurants.RestaurantFragmentTest;
 
@@ -40,6 +41,9 @@ public class BottomNavigationPage extends AppCompatActivity {
                     return true;
                 case R.id.navigation_delivery:
                     mTextMessage.setText(R.string.title_delivery);
+                    return true;
+                case R.id.navigation_menu:
+                    loadFragment(new MenuFragment());
                     return true;
             }
             FragmentManager fragmentManager = getSupportFragmentManager();

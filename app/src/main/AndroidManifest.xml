@@ -3,7 +3,7 @@
     package="com.login.mobi.loginapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".MyApp"
@@ -29,38 +29,47 @@
         <activity android:name=".DetailsActivity" />
         <!-- <activity android:name=".MyApp"></activity> -->
 
-
         <activity
             android:name=".views.authorization.WelcomePage"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".views.authorization.SignUpPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".views.authorization.SignInPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".views.restaurants.RestaurantInformationPage"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.restaurants.RestaurantWebViewPage"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.restaurants.RestaurantTableBookingPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity
-            android:name=".views.bottomNavigation.BottomNavigationPage">
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".views.bottomNavigation.BottomNavigationPage">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".views.account.ItemListActivity"
+            android:label="@string/title_item_list"
+            android:theme="@style/BookMeTheme"></activity>
+        <activity
+            android:name=".views.account.ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".views.account.ItemListActivity"
+            android:theme="@style/BookMeTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.login.mobi.loginapp.views.account.ItemListActivity" />
+        </activity>
     </application>
 
 </manifest>

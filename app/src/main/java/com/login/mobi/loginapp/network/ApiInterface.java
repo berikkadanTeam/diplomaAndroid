@@ -8,6 +8,7 @@ import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
+import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
 
 import java.util.List;
 
@@ -46,8 +47,11 @@ public interface ApiInterface {
             @Field("password")  String password
     );
 
-    //@GET("api/Users/GetUserInfo")
-    //Call<RestaurantInformation> getRestaurantInformation(@Query("UserId") String restaurantId);
+    // http://qaru.site/questions/419191/retrofit-authorization-bearer-token
+    @GET("api/Users/GetUserInfo")
+    Call<List<UserInformation>> getUserInformation();
+    //(@Query("UserId") String userID, @Header("Authorization") String authHeader);
+
 
 
 
@@ -56,4 +60,5 @@ public interface ApiInterface {
     // OR
     @GET("api/Restaurants/GetRestaurants")
     Call<RestaurantInformation> getRestaurantInformation(@Query("restaurantId") String restaurantId);
+
 }
