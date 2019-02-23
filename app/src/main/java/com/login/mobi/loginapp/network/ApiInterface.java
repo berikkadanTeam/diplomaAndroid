@@ -1,7 +1,7 @@
 package com.login.mobi.loginapp.network;
 
 /**
- * Created by vakidzaci on 10/2/18.
+ * Created by nurilkaa on 10/2/18.
  */
 
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -49,8 +50,11 @@ public interface ApiInterface {
 
     // http://qaru.site/questions/419191/retrofit-authorization-bearer-token
     @GET("api/Users/GetUserInfo")
-    Call<List<UserInformation>> getUserInformation();
-    //(@Query("UserId") String userID, @Header("Authorization") String authHeader);
+    Call<UserInformation> getUserInformation(
+            @Header("Authorization") String authHeader,
+            @Query("UserId") String userID
+    );
+
 
 
 

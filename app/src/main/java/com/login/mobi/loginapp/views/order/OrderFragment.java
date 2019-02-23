@@ -18,7 +18,7 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.order_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.welcome_page, container, false);
 
         return rootView;
     }

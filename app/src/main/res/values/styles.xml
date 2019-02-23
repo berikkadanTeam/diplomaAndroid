@@ -17,7 +17,6 @@
     </style>
 
     <style name="BookMeTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/middleGrey</item>
         <item name="colorAccent">@color/lightBlue</item>
         <item name="colorPrimaryDark">@color/lightBlue</item>
@@ -27,5 +26,6 @@
 
     <style name="BookMeTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ProgressDialogInCenter" parent="android:Theme.Material.Dialog" ></style>
 
 </resources>

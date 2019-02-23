@@ -25,13 +25,11 @@ import static com.login.mobi.loginapp.singleton.SingletonSharedPref.TOKEN;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_ID;
 
 
-public class SignInPage extends AppCompatActivity implements PostSignIn.PostSignInInterface{
+public class SignInPage extends AppCompatActivity implements PostSignIn.PostSignInInterface {
 
-    private EditText email;
-    private EditText password;
-
-    private Button btnCancel;
-    private Button btnSignIn;
+    // xml elements: texts, buttons
+    private EditText email, password;
+    private Button btnSignIn, btnCancel;
 
     private ProgressDialog progressDialog;
     private CoordinatorLayout coordinatorLayout;
@@ -42,10 +40,9 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.sign_in_page);
 
         sharedPref = SingletonSharedPref.getInstance();
-
-        setContentView(R.layout.sign_in_page);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -82,7 +79,6 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
                 }
             }
         });
-
 
 
 
@@ -123,6 +119,7 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
     public void sendDataToSignIn(){
         PostSignIn postSignIn = new PostSignIn(this,email.getText().toString(),password.getText().toString());
         postSignIn.postSignIn();
+
     }
 
 
@@ -132,4 +129,6 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
         startActivity(new Intent(this, WelcomePage.class));
         finish();
     }
+
+
 }

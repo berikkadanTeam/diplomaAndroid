@@ -29,6 +29,10 @@
         <activity android:name=".DetailsActivity" />
         <!-- <activity android:name=".MyApp"></activity> -->
 
+
+
+
+        <!-- Welcome Page, Sign In, Sign Up Pages-->
         <activity
             android:name=".views.authorization.WelcomePage"
             android:screenOrientation="portrait"></activity>
@@ -40,6 +44,8 @@
             android:name=".views.authorization.SignInPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- Restaurant Pages -->
         <activity
             android:name=".views.restaurants.RestaurantInformationPage"
             android:screenOrientation="portrait" />
@@ -50,6 +56,19 @@
             android:name=".views.restaurants.RestaurantTableBookingPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- Menu Pages-->
+        <activity
+            android:name=".views.menu.profile.ProfilePage"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.menu.profile.ProfileEditPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+        <!-- Bottom Navigation -->
         <activity android:name=".views.bottomNavigation.BottomNavigationPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,19 +76,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.account.ItemListActivity"
-            android:label="@string/title_item_list"
-            android:theme="@style/BookMeTheme"></activity>
-        <activity
-            android:name=".views.account.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".views.account.ItemListActivity"
-            android:theme="@style/BookMeTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.login.mobi.loginapp.views.account.ItemListActivity" />
-        </activity>
+
+
     </application>
 
 </manifest>

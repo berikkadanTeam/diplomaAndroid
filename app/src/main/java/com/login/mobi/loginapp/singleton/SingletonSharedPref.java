@@ -37,6 +37,10 @@ public class SingletonSharedPref {
     private boolean mBulkUpdate = false;
     public static final String TOKEN = "Token ";
     public static final String USER_ID = "1234";
+    public static final String USER_SURNAME_NAME = "Tolegenova Nurila";
+    public static final String USER_EMAIL = "nurilkaa@gmail.com";
+    public static final String ROLE = "User";
+
     /**
     * Class for keeping all the keys used for shared preferences in one place.
     */
@@ -69,7 +73,6 @@ public class SingletonSharedPref {
         public static final String CITY = "city";
         public static final String ADDRESS = "address";
         public static final String EXPIRES_IN = "expiresIn";
-        public static final String USER_ID = "1234";
 
     }
 
