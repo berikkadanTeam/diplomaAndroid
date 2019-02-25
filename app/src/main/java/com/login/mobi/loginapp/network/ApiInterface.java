@@ -7,6 +7,8 @@ package com.login.mobi.loginapp.network;
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
+import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishTypes;
+import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
 
@@ -55,7 +57,16 @@ public interface ApiInterface {
             @Query("UserId") String userID
     );
 
+    @GET("api/Restinfo/GetDishType")
+    Call<List<RestaurantDishTypes>> getRestaurantDishTypes(
+            @Header("Authorization") String authHeader
+    );
 
+    @GET("/api/Restinfo/GetRestaurantMenu")
+    Call<List<RestaurantDishes>> getRestaurantDishes(
+            @Header("Authorization") String authHeader,
+            @Query("restarauntId") String restaurantID
+    );
 
 
 

@@ -300,6 +300,7 @@
                         android:layout_marginBottom="16dp">
 
                         <RadioGroup
+                            android:id="@+id/menu_radio_group"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checkedButton="@+id/open_menu_no"

@@ -13,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.login.mobi.loginapp.views.restaurantMenu.RestaurantDishTypesPage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,6 +42,8 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
     private TextView numberOfGuestsTextView, pickedDateTextView, pickedTimeTextView, restaurantName, averageCheck, delivery, seats, description;
     private CardView plusGuest, minusGuest;
     private Button pickDateButton;
+    RadioButton openMenuYes, openMenuNo;
+    RadioGroup radio;
 
     // Calendar: Date Picker from https://www.codingdemos.com/android-datepicker-button/
     private DatePickerDialog datePickerDialog;
@@ -49,6 +54,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
     // Time: Number Picker from: http://pestohacks.blogspot.com/2015/04/number-money-picker-dialog-in-android.html
     private Button timePickerDialogButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +64,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         Intent intent = getIntent();
         selectedTableID = intent.getStringExtra("TableID");
         jsonData = intent.getStringExtra("RestaurantData");
-        Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
+        final Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
         Log.d("SelectedTableID", selectedTableID);
         //Toast.makeText(getApplicationContext(), "selectedtableID: " + selectedtableID, Toast.LENGTH_SHORT).show();
 
@@ -67,6 +73,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
         restaurantName.setText(restaurant.getName());
 
+        /* Select Number of Guests */
         CardView minusGuest = (CardView) findViewById(R.id.minus_guest);
         CardView plusGuest = (CardView) findViewById(R.id.plus_guest);
         numberOfGuestsTextView = (TextView) findViewById(R.id.guests_count);
@@ -94,6 +101,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
             }
         });
 
+        /* Select Date */
         pickDateButton = (Button) findViewById(R.id.pick_date_button);
         pickedDateTextView = (TextView) findViewById(R.id.picked_date_textview);
         Date c = Calendar.getInstance().getTime();
@@ -134,7 +142,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
 
 
 
-
+        /* Select Time */
         timePickerDialogButton = (Button)findViewById(R.id.pick_time_button);
         pickedTimeTextView = (TextView) findViewById(R.id.picked_time_textview);
         timePickerDialogButton.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +202,33 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
 
 
 
+        /* Select Open Menu or No */
+        openMenuYes = (RadioButton) findViewById(R.id.open_menu_yes);
+        openMenuNo = (RadioButton) findViewById(R.id.open_menu_no);
+        radio = (RadioGroup) findViewById(R.id.menu_radio_group);
+        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                View radioButton = radio.findViewById(checkedId);
+                int index = radio.indexOfChild(radioButton);
+                // Add logic here
+                switch (index) {
+                    case 0: // openMenuYes radio button
+                        /* Отправка restaurantID на страницу RestaurantDishTypesPage */
+                        Intent intent = new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class);
+                        intent.putExtra("RestaurantID", restaurant.getId());
+                        startActivity(intent);
+                        //startActivity(new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class));
+                        break;
+                    case 1: // openMenuNo radio button
+                        //Toast.makeText(getApplicationContext(), "Selected button number " + index, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
 
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
@@ -203,7 +238,6 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         }
 
     }
-
 
 
 

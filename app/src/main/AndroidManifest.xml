@@ -56,6 +56,17 @@
             android:name=".views.restaurants.RestaurantTableBookingPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".views.restaurantMenu.RestaurantDishTypesPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".views.restaurantMenu.RestaurantDishesPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".views.restaurantMenu.RestaurantDishInformationPage"
+            android:screenOrientation="portrait" />
 
         <!-- Menu Pages-->
         <activity

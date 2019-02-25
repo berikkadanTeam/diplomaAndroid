@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
@@ -21,7 +21,7 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
     // xml elements: texts, buttons
     private Button saveBtn;
     FloatingActionButton editProfileBtn;
-    private TextView fullName, balance, surname, name, birthDate, email, phone;
+    private EditText surname, name, birthDate, email, phone;
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
@@ -49,12 +49,11 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
         progressDialog.show();
 
 
-        balance = (TextView) findViewById(R.id.balance);
-        surname = (TextView) findViewById(R.id.surname);
-        name = (TextView) findViewById(R.id.name);
-        birthDate = (TextView) findViewById(R.id.birth_date);
-        email = (TextView) findViewById(R.id.email);
-        phone = (TextView) findViewById(R.id.phone);
+        surname = (EditText) findViewById(R.id.surname);
+        name = (EditText) findViewById(R.id.name);
+        birthDate = (EditText) findViewById(R.id.birth_date);
+        email = (EditText) findViewById(R.id.email);
+        phone = (EditText) findViewById(R.id.phone);
 
 
 

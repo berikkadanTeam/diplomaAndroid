@@ -145,7 +145,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
 
 
         /* Вставка фото */
-        String filePath = "http://berikkadan.kz/Files/";
+        String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = restaurant.getFileName();
         String image = filePath.concat(fileName);
         Glide.with(this).load(image).into(mainImageView);

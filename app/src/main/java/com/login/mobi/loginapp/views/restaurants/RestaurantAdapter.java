@@ -12,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.login.mobi.loginapp.DetailsActivity;
-import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.views.authorization.SignUpPage;
-import com.login.mobi.loginapp.views.authorization.WelcomePage;
+import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,7 +48,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
     @Override
     public void onBindViewHolder(@NonNull com.login.mobi.loginapp.views.restaurants.RestaurantAdapter.ViewHolder viewHolder, final int i) {
         Restaurant restaurant = list.get(i);
-        String filePath = "http://berikkadan.kz/Files/";
+        String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = list.get(i).getFileName();
         String image = filePath.concat(fileName);
         Picasso.get().load(image).into(viewHolder.iv);
