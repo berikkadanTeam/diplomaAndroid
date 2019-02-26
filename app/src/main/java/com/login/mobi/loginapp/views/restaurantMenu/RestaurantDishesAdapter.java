@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
 import com.squareup.picasso.Picasso;
@@ -23,8 +24,7 @@ public class RestaurantDishesAdapter extends RecyclerView.Adapter<RestaurantDish
     private Context context;
     private List<RestaurantDishes> list;
     private int dishTypeID;
-    private int amountOfDish = 0;
-    private TextView amountOfDishTextView;
+
 
     RestaurantDishesAdapter(Context context, List<RestaurantDishes> list, int dishTypeID){
         this.context = context;
@@ -58,7 +58,8 @@ public class RestaurantDishesAdapter extends RecyclerView.Adapter<RestaurantDish
             // TO-DO
             //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
             //viewHolder.iv.setImageResource(R.drawable.photo_salad_2);
-            viewHolder.name.setText(list.get(i).getNameOfDish());
+            viewHolder.name.setText(list.get(i).getNameOfDish() + " " + list.get(i).getPrice());
+            //viewHolder.price.setText(list.get(i).getPrice());
         //}
 
         viewHolder.updateUI(dish);
@@ -71,23 +72,17 @@ public class RestaurantDishesAdapter extends RecyclerView.Adapter<RestaurantDish
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView iv;
-        public TextView name;
+        public TextView name, price;
+        CardView minusDish, plusDish;
+        private int amountOfDish = 0;
+        private TextView amountOfDishTextView;
 
         RestaurantDishes dishes;
+
         public void updateUI(RestaurantDishes restaurant){
+
             this.dishes = restaurant;
-        }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-            iv = itemView.findViewById(R.id.iv);
-            name = itemView.findViewById(R.id.name);
-
-            /* Select amount of dishes */
-            CardView minusDish = (CardView) itemView.findViewById(R.id.minus_dish);
-            CardView plusDish = (CardView) itemView.findViewById(R.id.plus_dish);
-            amountOfDishTextView = (TextView) itemView.findViewById(R.id.dish_count);
             plusDish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,11 +95,11 @@ public class RestaurantDishesAdapter extends RecyclerView.Adapter<RestaurantDish
             minusDish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (amountOfDish != 1) {
+                    if (amountOfDish != 0) {
                         amountOfDish--;
                         amountOfDishTextView.setText(String.valueOf(amountOfDish));
                     }
-                    if (amountOfDish == 1){
+                    if (amountOfDish == 0){
                         amountOfDishTextView.setText(String.valueOf(amountOfDish));
                     }
                 }
@@ -112,12 +107,27 @@ public class RestaurantDishesAdapter extends RecyclerView.Adapter<RestaurantDish
 
         }
 
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            iv = itemView.findViewById(R.id.iv);
+            name = itemView.findViewById(R.id.name);
+            price = itemView.findViewById(R.id.dish_price);
+
+            /* Select amount of dishes */
+            minusDish = (CardView) itemView.findViewById(R.id.minus_dish);
+            plusDish = (CardView) itemView.findViewById(R.id.plus_dish);
+            amountOfDishTextView = (TextView) itemView.findViewById(R.id.dish_count);
+
+
+        }
+
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, RestaurantDishInformationPage.class);
-            //intent.putExtra("DishID", dishes.getId());
-            //intent.putExtra("DishID", new Gson().toJson(dishType)); // посылаем все данные по выбранному ресторану
+            intent.putExtra("DishInformation", new Gson().toJson(dishes)); // посылаем все данные по выбранному блюду
             context.startActivity(intent);
+
         }
     }
 }

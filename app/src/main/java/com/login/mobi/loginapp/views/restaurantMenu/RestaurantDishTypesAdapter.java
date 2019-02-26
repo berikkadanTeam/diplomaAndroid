@@ -97,7 +97,7 @@ public class RestaurantDishTypesAdapter extends RecyclerView.Adapter<RestaurantD
 
         @Override
         public void onClick(View v) {
-                Log.d("RestaurantDishTypesAdapter", restaurantID + " - " + dishType.getId());
+                Log.d("RestDishTypesAdapter", restaurantID + " - " + dishType.getId());
                 Intent intent = new Intent(context, RestaurantDishesPage.class);
                 intent.putExtra("DishTypeID", dishType.getId());
                 intent.putExtra("RestaurantID", restaurantID);
