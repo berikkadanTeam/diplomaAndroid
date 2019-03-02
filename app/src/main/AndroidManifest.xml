@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
 
     <application
         android:name=".MyApp"
@@ -67,6 +71,9 @@
         <activity
             android:name=".views.restaurantMenu.RestaurantDishInformationPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.restaurantMenu.RestaurantDishesPreorderPage"
+            android:screenOrientation="portrait" />
 
         <!-- Menu Pages-->
         <activity
@@ -88,6 +95,10 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".views.order.QrCodeScanner"
+            android:screenOrientation="portrait" />
 
     </application>
 

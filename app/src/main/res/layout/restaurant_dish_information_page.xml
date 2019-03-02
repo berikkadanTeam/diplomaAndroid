@@ -31,9 +31,9 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/restaurant_page_image"
+                        android:id="@+id/dish_photo"
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
+                        android:layout_height="300dp"
                         android:scaleType="centerCrop" />
 
                     <RelativeLayout
@@ -61,8 +61,9 @@
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:visibility="visible"
+                    android:minHeight="400dp"
                     app:contentPadding="10dp">
 
                     <LinearLayout
@@ -99,9 +100,17 @@
                                         android:textColor="@android:color/black"
                                         android:textSize="25sp"
                                         android:textStyle="bold"
-                                        tools:text="Спагетти болоньезе" />
+                                        android:text="Спагетти болоньезе" />
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/dish_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="italic"
+                                android:text="Закуски" />
 
                         </LinearLayout>
 
@@ -118,7 +127,8 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:baselineAligned="false">
 
                                 <LinearLayout
                                     android:layout_width="0dp"
@@ -130,9 +140,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@android:color/black"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textStyle="bold"
-                                        tools:text="Состав" />
+                                        android:text="Состав"/>
 
                                 </LinearLayout>
                             </LinearLayout>
@@ -143,7 +153,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
                                 android:textStyle="italic"
-                                tools:text="Молоко, мука, сметана" />
+                                android:text="Молоко, мука, сметана" />
                         </LinearLayout>
 
 

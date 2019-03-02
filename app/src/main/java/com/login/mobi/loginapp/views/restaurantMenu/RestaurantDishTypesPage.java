@@ -3,6 +3,7 @@ package com.login.mobi.loginapp.views.restaurantMenu;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,7 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.network.model.booking.Menu;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishTypes;
 import com.login.mobi.loginapp.network.requests.restaurantMenu.GetRestaurantDishTypes;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
@@ -30,6 +34,7 @@ public class RestaurantDishTypesPage extends AppCompatActivity implements GetRes
     // xml elements: editText, recyclerView
     private EditText searchEditText;
     private RecyclerView rv;
+    private List<Menu> totalList = new ArrayList<>();
 
     // variables
     private RestaurantDishTypesAdapter adapter;
@@ -125,4 +130,17 @@ public class RestaurantDishTypesPage extends AppCompatActivity implements GetRes
             Snackbar.make(parentLayout, "Нет доступных категорий блюд", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode==1){
+                Log.d("FUN", "onActivityResult: " + data.getStringExtra("result"));
+                Gson gson = new Gson();
+                totalList.addAll((List<Menu>)gson.fromJson(data.getStringExtra("result"), new TypeToken<List<Menu>>(){}.getType()));
+                Log.d("FUN2222", totalList.size() + " ");
+
+            }
+        }
+    }
 }

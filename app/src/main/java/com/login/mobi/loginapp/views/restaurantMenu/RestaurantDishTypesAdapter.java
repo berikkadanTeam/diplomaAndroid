@@ -1,6 +1,5 @@
 package com.login.mobi.loginapp.views.restaurantMenu;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +18,11 @@ import java.util.List;
 
 public class RestaurantDishTypesAdapter extends RecyclerView.Adapter<RestaurantDishTypesAdapter.ViewHolder>{
 
-    private Context context;
+    private RestaurantDishTypesPage context;
     private List<RestaurantDishTypes> list;
     String restaurantID;
 
-    RestaurantDishTypesAdapter(Context context, List<RestaurantDishTypes> list){
+    RestaurantDishTypesAdapter(RestaurantDishTypesPage context, List<RestaurantDishTypes> list){
         this.context = context;
         this.list = list;
     }
@@ -101,7 +100,7 @@ public class RestaurantDishTypesAdapter extends RecyclerView.Adapter<RestaurantD
                 Intent intent = new Intent(context, RestaurantDishesPage.class);
                 intent.putExtra("DishTypeID", dishType.getId());
                 intent.putExtra("RestaurantID", restaurantID);
-                context.startActivity(intent);
+                context.startActivityForResult(intent,1);
             }
 
 

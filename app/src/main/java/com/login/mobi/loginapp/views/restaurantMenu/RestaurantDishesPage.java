@@ -13,8 +13,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
 import com.login.mobi.loginapp.network.requests.restaurantMenu.GetRestaurantDishes;
@@ -28,10 +30,11 @@ public class RestaurantDishesPage extends AppCompatActivity implements GetRestau
 
     public RestaurantDishesPage() { }
 
-    // xml elements: editText, recyclerView
+    // xml elements: editText, recyclerView, buttons
     private TextView amountOfDishTextView;
     private EditText searchEditText;
     private RecyclerView rv;
+    private LinearLayout preOrderBtn;
 
     // variables
     private RestaurantDishesAdapter adapter;
@@ -95,6 +98,23 @@ public class RestaurantDishesPage extends AppCompatActivity implements GetRestau
             public void afterTextChanged(Editable s) { }
         });
 
+        // preOrder button
+        //preOrderBtn.setVisibility(View.VISIBLE);
+        preOrderBtn = findViewById(R.id.open_preorder_menu_total);
+        preOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Snackbar.make(parentLayout, "PREORDER", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //startActivity(new Intent(RestaurantDishesPage.this, RestaurantDishesPreorderPage.class));
+                Intent returnIntent = new Intent();
+                Gson gson = new Gson();
+
+                returnIntent.putExtra("result", gson.toJson(adapter.getSelected()));
+                setResult(RESULT_OK, returnIntent);
+                finish();
+
+            }
+        });
 
 
         sharedPref = SingletonSharedPref.getInstance(this);
@@ -110,7 +130,7 @@ public class RestaurantDishesPage extends AppCompatActivity implements GetRestau
     public void searchFunc(String text) {
         ArrayList<RestaurantDishes> founded = new ArrayList<>();
         for (RestaurantDishes s : list) {
-            int i = s.getTitle().toLowerCase().indexOf(text.toLowerCase());
+            int i = s.getNameOfDish().toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }
@@ -139,5 +159,11 @@ public class RestaurantDishesPage extends AppCompatActivity implements GetRestau
         else
             Snackbar.make(parentLayout, "Нет блюд в данном разделе", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
+
+
+//    public void displayButton(int i){
+//        preOrderBtn.setVisibility(View.VISIBLE);
+//    }
+
 
 }
