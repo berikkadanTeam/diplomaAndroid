@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.views.menu.profile.ProfilePage;
+import com.login.mobi.loginapp.TabsMainActivityGitHub;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 //import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -36,14 +36,6 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
 
     public OrderFragment(){}
 
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//
-//        View rootView = inflater.inflate(R.layout.welcome_page, container, false);
-//
-//        return rootView;
-//    }
 
 
     TextView IDEditText;
@@ -132,7 +124,7 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
         Toast.makeText(getActivity(), rawResult.getText(), Toast.LENGTH_LONG).show();
         getActivity().setResult(Activity.RESULT_OK, intent);
         //getActivity().finish();
-        startActivity(new Intent(getActivity(), ProfilePage.class));
+        startActivity(new Intent(getActivity(), TabsMainActivityGitHub.class));
     }
 
 

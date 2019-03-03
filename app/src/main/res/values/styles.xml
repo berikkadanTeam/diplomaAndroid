@@ -26,6 +26,6 @@
 
     <style name="BookMeTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ProgressDialogInCenter" parent="android:Theme.Material.Dialog" ></style>
+    <style name="ProgressDialogInCenter" parent="android:Theme.Material.Dialog"></style>
 
 </resources>
