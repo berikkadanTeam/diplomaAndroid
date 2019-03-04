@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>The Button Element</h2>
+<input id="thebox" type="text" name="value" value="">
+<button type="button" onclick="loadChartData()">Click Me!</button>
+ 
+<script>
+function loadChartData() {
+    var x = document.getElementById("thebox").value;
+
+    Android.sendData(x);
+}
+</script>
+</body>
+</html>

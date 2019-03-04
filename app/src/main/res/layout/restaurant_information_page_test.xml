@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.login.mobi.loginapp.views.restaurants.RestaurantInformationPage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/restaurant_nested_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fillViewport="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/restaurant_page_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:scaleType="centerCrop" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_black" />
+
+                        <ImageView
+                            android:id="@+id/up_custom_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_arrow_back_white_24" />
+                    </RelativeLayout>
+
+                <!-- Убрала отсюда блок с повторяющимися данными: название, адрес, рейтинг -->
+
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="4dp">
+
+                        <!--<Spinner-->
+                            <!--android:id="@+id/spinner"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content" />-->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="2dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/restaurant_page_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="25sp"
+                                        android:textStyle="bold"
+                                        tools:text="Julia Resto bar" />
+
+                                </LinearLayout>
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/rating_card_res"
+                                    android:layout_width="32dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="1dp"
+                                    app:cardBackgroundColor="@android:color/holo_green_dark"
+                                    app:cardCornerRadius="2dp">
+
+                                    <TextView
+                                        android:id="@+id/rating_card_text_res"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="4.5"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="13sp"
+                                        android:textStyle="bold" />
+                                </android.support.v7.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/restaurant_page_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                tools:text="Байтурсынова, 88" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible">
+
+                                <RatingBar
+                                    android:id="@+id/restaurant_page_ratingbar"
+                                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    tools:rating="4.5" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_ratingtext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginTop="4dp"
+                                    android:textSize="12sp"
+                                    tools:text="4.5 BookMe stars" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Кухня:"
+                                    android:textStyle="bold"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_cuisines"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:text="Европейская, азиатская"
+                                    android:textStyle="italic"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Средний чек:"
+                                    android:textStyle="bold"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_average_check"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:text="3000 - 3500 тенге"
+                                    android:textStyle="italic"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Доставка:"
+                                    android:textStyle="bold"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_delivery"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:text="Есть"
+                                    android:textStyle="italic"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Количество посадочных мест:"
+                                    android:textStyle="bold"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_seats"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:text="120"
+                                    android:textStyle="italic"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp">
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_openstatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Open Now"
+                                    android:textColor="@color/colorRed"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:text="-"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/restaurant_page_hours"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="c 12:00 до 01:00"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp">
+
+                                <ExpandableListView
+                                    android:id="@+id/expandableListView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:nestedScrollingEnabled="true"
+                                    android:soundEffectsEnabled="true"
+                                    android:childDivider="#00000000"
+                                    android:scrollbars="vertical"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <!-- Это добавляла, чтобы при использовании ImageView группы, default groupIndicator слева не был виден
+                                android:groupIndicator="@android:color/transparent"
+                                -->
+
+                            </android.support.constraint.ConstraintLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginTop="2dp">
+
+                            <LinearLayout
+                                android:id="@+id/call_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="37dp"
+                                android:background="@drawable/borderbutton_green"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="36dp"
+                                    android:layout_height="match_parent"
+                                    app:cardBackgroundColor="@android:color/holo_green_dark"
+                                    app:cardCornerRadius="5dp">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_call_white" />
+                                        <!--android:src="@drawable/ic_call_white_24" />-->
+                                </android.support.v7.widget.CardView>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginRight="16dp"
+                                    android:text="Позвонить"
+                                    android:textColor="@android:color/holo_green_dark"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/direction_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="37dp"
+                                android:layout_marginLeft="16dp"
+                                android:background="@drawable/borderbutton_orange"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="36dp"
+                                    android:layout_height="match_parent"
+                                    app:cardBackgroundColor="@android:color/holo_orange_light"
+                                    app:cardCornerRadius="5dp">
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_map_white" />
+                                        <!--android:src="@drawable/ic_directions_white_24" />-->
+                                </android.support.v7.widget.CardView>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="14dp"
+                                    android:layout_marginRight="14dp"
+                                    android:text="На карте"
+                                    android:textColor="@android:color/holo_orange_light"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="18dp"
+                    app:cardCornerRadius="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/res_menu_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_marginTop="22dp"
+                                android:text="Описание"
+                                android:textColor="@android:color/black"
+                                android:textAllCaps="true"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:cardBackgroundColor="@android:color/white"
+                                app:cardCornerRadius="0dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginTop="12dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="18dp"
+                                        android:layout_marginRight="18dp">
+
+                                        <TextView
+                                            android:id="@+id/restaurant_page_description"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="В этом ресторане вы можете отведать самой изысканной кухни Азии."
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/res_info_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginTop="12dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="7dp"
+                                    android:layout_marginLeft="18dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="Фотографии"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:textAllCaps="true" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/images_recycler_view"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="14dp"
+                                    android:clipToPadding="false"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="10dp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/lightBlue"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:id="@+id/call_to_action_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/ic_restaurant_white_24" />
+
+                    <TextView
+                        android:id="@+id/call_to_action_button_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Забронировать стол"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/lightBlue"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/photo_view_section"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/black">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/image_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/photo_view_section_close_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_margin="16dp"/>
+    </RelativeLayout>
+
+
+
+
+    <include layout="@layout/error_page"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
