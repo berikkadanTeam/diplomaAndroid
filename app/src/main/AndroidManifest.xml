@@ -50,7 +50,7 @@
 
         <!-- Order Pages -->
         <activity
-            android:name=".views.order.QrCodeScanner"
+            android:name=".views.order.Version1_QrCodeScanner"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Tabs"
@@ -60,7 +60,10 @@
             android:name=".TabsDynamically"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TabsMainActivityGitHub"
+            android:name=".views.order.TabsMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.order.OrderedDishesPage"
             android:screenOrientation="portrait" />
 
         <!-- Restaurant Pages -->

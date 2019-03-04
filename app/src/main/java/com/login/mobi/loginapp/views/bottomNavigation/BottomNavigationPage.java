@@ -81,7 +81,7 @@ public class BottomNavigationPage extends AppCompatActivity implements GetUserIn
         //getUserInformation.getUserInformation();
 
 
-        loadFragment(new OrderFragment());  // открывать по дефолту первый фрагмент
+        loadFragment(new OrderFragment());  // открывать по дефолту первым этот фрагмент
 
     }
 
