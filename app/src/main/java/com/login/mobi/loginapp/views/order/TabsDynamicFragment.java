@@ -54,7 +54,7 @@ public class TabsDynamicFragment extends Fragment implements GetRestaurantDishes
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tabs_dynamic_fragment_github, container, false);
+        View view = inflater.inflate(R.layout.order_tabs_dynamic_fragment, container, false);
         initViews(view);
 
         /* Dishes RecyclerView */

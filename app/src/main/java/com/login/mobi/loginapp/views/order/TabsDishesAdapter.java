@@ -45,7 +45,7 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
     @NonNull
     @Override
     public TabsDishesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(activity).inflate(R.layout.tab_dishes_item_github, viewGroup, false);
+        View v = LayoutInflater.from(activity).inflate(R.layout.order_tabs_dishes_item, viewGroup, false);
 
         return new TabsDishesAdapter.ViewHolder(v);
     }
@@ -100,7 +100,7 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
                         if (!chosenDishList.isEmpty()){
                             for (Menu aud : chosenDishList) {
                                 if (dishes.getId().equals(aud.getId())) {
-                                    Log.d("DISHHSHSHHSSHHS", "EQUALLLLLLLLL" + dishes.getId() + " - " + aud.getId());
+                                    Log.d("SUCH DISH IS ALREADY", "EXISTS IN LIST " + dishes.getId() + " - " + aud.getId());
                                     aud.setDishCount(amountOfDish);
                                     break;
                                 }
@@ -110,6 +110,7 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
                                     m.setDishCount(amountOfDish);
                                     chosenDishList.add(m);
                                     activity.chosenDishList.add(m);
+                                    activity.chosenDishListDishNames.add(dishes);
                                     break;
                                 }
                             }
@@ -120,6 +121,7 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
                             m.setDishCount(amountOfDish);
                             chosenDishList.add(m);
                             activity.chosenDishList.add(m);
+                            activity.chosenDishListDishNames.add(dishes);
                         }
 
                      Log.d("chosenDishList ADD", chosenDishList.toString());
@@ -138,6 +140,8 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
                                 if (dishes.getId().equals(aud.getId())) {
                                     if (aud.getDishCount() == 1) {
                                         chosenDishList.remove(aud);
+                                        activity.chosenDishList.remove(aud);
+                                        activity.chosenDishListDishNames.remove(dishes);
                                         break;
                                     }
                                     else {

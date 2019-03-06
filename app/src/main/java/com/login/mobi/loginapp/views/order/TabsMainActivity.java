@@ -33,6 +33,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     private List<RestaurantDishTypes> dishTypes = new ArrayList<>();
     public List<Menu> chosenDishList = new ArrayList<>();
     public List<RestaurantDishes> dishes = new ArrayList<>();
+    public List<RestaurantDishes> chosenDishListDishNames = new ArrayList<>();
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
@@ -43,7 +44,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tabs_activity_main_github);
+        setContentView(R.layout.order_tabs_main_activity);
         initViews();
 
         sharedPref = SingletonSharedPref.getInstance(this);
@@ -68,7 +69,8 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                Log.d("ACTIVITY DISHES", chosenDishList.toString() + " ");
+                Log.d("ACTIVITY DISHES", chosenDishList.toString() + "\n");
+                Log.d("ACTIVITY DISHES NAME", chosenDishListDishNames.toString() + "\n");
             }
 
             @Override
@@ -126,7 +128,8 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
 
         Intent intent = new Intent(TabsMainActivity.this, OrderedDishesPage.class);
         intent.putExtra("ChosenDishesListForOrder", new Gson().toJson(chosenDishList));     // посылаем все выбранные блюда
-        intent.putExtra("AllDishesList", new Gson().toJson(dishes));
+        //intent.putExtra("AllDishesList", new Gson().toJson(dishes));
+        intent.putExtra("ChosenDishesListInformation", new Gson().toJson(chosenDishListDishNames));
         startActivity(intent);
     }
 

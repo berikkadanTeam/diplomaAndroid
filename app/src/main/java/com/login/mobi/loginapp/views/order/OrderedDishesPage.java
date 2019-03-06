@@ -51,14 +51,15 @@ public class OrderedDishesPage extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.restaurant_dishes_preorder);
+        setContentView(R.layout.order_ordered_dishes);
         parentLayout = findViewById(android.R.id.content);
 
 
         /* Получение выбранных блюд с TabsMainActivity */
         Intent intent = getIntent();
         jsonData = intent.getStringExtra("ChosenDishesListForOrder");
-        jsonData2 = intent.getStringExtra("AllDishesList");
+//      jsonData2 = intent.getStringExtra("AllDishesList");
+        jsonData2 = intent.getStringExtra("ChosenDishesListInformation");
         //List<Menu> menu = new Gson().fromJson(jsonData, Menu.class);
         Type collectionType = new TypeToken<List<Menu>>(){}.getType();
         List<Menu> lcs = (List<Menu>) new Gson().fromJson(jsonData, collectionType);
@@ -66,7 +67,11 @@ public class OrderedDishesPage extends AppCompatActivity{
 
         Type collectionType2 = new TypeToken<List<RestaurantDishes>>(){}.getType();
         List<RestaurantDishes> dishes = (List<RestaurantDishes>) new Gson().fromJson(jsonData2, collectionType2);
-        Log.d("DishesList", dishes.toString());
+//      Log.d("DishesList", dishes.toString());
+        Log.d("ChosenDishesList", dishes.toString());
+
+        if (lcs.size() == 0)
+            Snackbar.make(parentLayout, "Вы не выбрали ничего для заказа", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         for (int k=0; k<lcs.size(); k++) {
             for (int j=0; j<dishes.size(); j++){

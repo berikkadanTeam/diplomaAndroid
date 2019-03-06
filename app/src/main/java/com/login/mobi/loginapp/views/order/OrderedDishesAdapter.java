@@ -33,7 +33,7 @@ public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdap
     @NonNull
     @Override
     public OrderedDishesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(context).inflate(R.layout.restaurant_dishes_preorder_item, viewGroup, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.order_ordered_dishes_item, viewGroup, false);
 
         return new OrderedDishesAdapter.ViewHolder(v);
     }
