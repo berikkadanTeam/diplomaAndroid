@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.order;
+package com.login.mobi.loginapp.views.restaurantMenu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import java.util.List;
 
 // from: https://github.com/dhirajaknurwar/dynamicFragmentTablayout/tree/master/app/src/main/java/com/master/tablayoutwithdynamicfragments
 
-public class TabsMainActivity extends AppCompatActivity implements GetRestaurantDishTypes.GetRestaurantDishTypesInterface, GetRestaurantDishes.GetRestaurantDishesInterface{
+public class PreorderTabsMainActivity extends AppCompatActivity implements GetRestaurantDishTypes.GetRestaurantDishTypesInterface, GetRestaurantDishes.GetRestaurantDishesInterface{
 
     // xml elements
     private ViewPager viewPager;
@@ -40,7 +40,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     // Shared Preferences
     SingletonSharedPref sharedPref;
     private String token;
-    private String restaurantID = "0f45bb63-68f4-4831-ab57-5a00f430f93a";
+    private String restaurantID; //= "0f45bb63-68f4-4831-ab57-5a00f430f93a";
 
 
     @Override
@@ -60,6 +60,9 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         GetRestaurantDishTypes getRestaurantDishTypes = new GetRestaurantDishTypes(this, "Bearer " + token);
         getRestaurantDishTypes.getRestaurantDishTypes();
 
+        Intent intent = getIntent();
+        restaurantID = intent.getStringExtra("RestaurantID");
+
         GetRestaurantDishes getRestaurantDishes = new GetRestaurantDishes(this, restaurantID, "Bearer " + token);
         getRestaurantDishes.getRestaurantDishes();
 
@@ -77,8 +80,8 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                Log.d("ACTIVITY DISHES", chosenDishList.toString() + "\n");
-                Log.d("ACTIVITY DISHES NAME", chosenDishListDishNames.toString() + "\n");
+                Log.d("ACTIVITY DISHES", "PREORDER: " + chosenDishList.toString() + "\n");
+                Log.d("ACTIVITY DISHES NAME", "PREORDER: " + chosenDishListDishNames.toString() + "\n");
             }
 
             @Override
@@ -101,7 +104,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         for (int i = 0; i < dishTypes.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(dishTypes.get(i).getTitle()));   // tab name
         }
-        TabsDynamicFragmentAdapter mDynamicFragmentAdapter = new TabsDynamicFragmentAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), dishTypes); //dishes);
+        PreorderTabsDynamicFragmentAdapter mDynamicFragmentAdapter = new PreorderTabsDynamicFragmentAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), dishTypes, restaurantID); //dishes);
         viewPager.setAdapter(mDynamicFragmentAdapter);
         viewPager.setCurrentItem(0);
         if (progressDialog.isShowing()) {
@@ -137,7 +140,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     public void makeAnOrder(View v){
         Log.d("ACTIVITY BUTTON ONCLICK", chosenDishList.toString() + " ");
 
-        Intent intent = new Intent(TabsMainActivity.this, OrderedDishesPage.class);
+        Intent intent = new Intent(PreorderTabsMainActivity.this, PreorderOrderedDishesPage.class);
         intent.putExtra("ChosenDishesListForOrder", new Gson().toJson(chosenDishList));     // посылаем все выбранные блюда
         //intent.putExtra("AllDishesList", new Gson().toJson(dishes));
         intent.putExtra("ChosenDishesListInformation", new Gson().toJson(chosenDishListDishNames));

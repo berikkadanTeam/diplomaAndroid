@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,7 +22,8 @@ import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
-import com.login.mobi.loginapp.views.restaurantMenu.RestaurantDishTypesPage;
+import com.login.mobi.loginapp.views.Booking;
+import com.login.mobi.loginapp.views.restaurantMenu.PreorderTabsMainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,6 +42,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
 
     // xml elements: texts, buttons
     private TextView numberOfGuestsTextView, pickedDateTextView, pickedTimeTextView, restaurantName, averageCheck, delivery, seats, description;
+    private EditText preferences;
     private CardView plusGuest, minusGuest;
     private Button pickDateButton;
     RadioButton openMenuYes, openMenuNo;
@@ -69,6 +72,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "selectedtableID: " + selectedtableID, Toast.LENGTH_SHORT).show();
 
 
+        Log.d("FROM ORDERED", "cdeced " + Booking.preorder.toString());
 
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
         restaurantName.setText(restaurant.getName());
@@ -217,7 +221,8 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
                 switch (index) {
                     case 0: // openMenuYes radio button
                         /* Отправка restaurantID на страницу RestaurantDishTypesPage */
-                        Intent intent = new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class);
+                        //Intent intent = new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class);    // раньше была эта страница, сейчас поменяли на версию меню с tabs
+                        Intent intent = new Intent(RestaurantTableBookingPage.this, PreorderTabsMainActivity.class);
                         intent.putExtra("RestaurantID", restaurant.getId());
                         startActivity(intent);
                         //startActivity(new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class));
@@ -228,6 +233,14 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        Booking.date = pickedDateTextView.getText().toString();
+        Booking.time = pickedTimeTextView.getText().toString();
+        Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
+        preferences = (EditText) findViewById(R.id.preferences);
+        Booking.preferences = preferences.getText().toString();
 
 
         sharedPref = SingletonSharedPref.getInstance(this);

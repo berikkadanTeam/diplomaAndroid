@@ -3,7 +3,7 @@ package com.login.mobi.loginapp.network.model.userInformation;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.Set;
 
 public class UserInformation {
 
@@ -18,7 +18,7 @@ public class UserInformation {
     private String firstName;
     @SerializedName("roles")
     @Expose
-    private List<String> roles = null;
+    private Set<String> roles = null;
     @SerializedName("restaurantId")
     @Expose
     private String restaurantId;
@@ -47,13 +47,15 @@ public class UserInformation {
         this.firstName = firstName;
     }
 
-    public List<String> getRoles() {
+    // Pojo cделал его List, но для того, чтобы хранить роль в SharedPreferences, сделали Set<String>
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
 
     public String getRestaurantId() {
         return restaurantId;

@@ -2,10 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.login.mobi.loginapp">
 
+    <!-- Restaurant Information Page -->
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Web View -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- Order Fragment -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera.flash" />
@@ -91,8 +98,14 @@
         <activity
             android:name=".views.restaurantMenu.RestaurantDishesPreorderPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.restaurantMenu.PreorderTabsMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.restaurantMenu.PreorderOrderedDishesPage"
+            android:screenOrientation="portrait" />
 
-        <!-- Menu Pages -->
+        <!-- Menu Pages: PROFILE -->
         <activity
             android:name=".views.menu.profile.ProfilePage"
             android:screenOrientation="portrait" />

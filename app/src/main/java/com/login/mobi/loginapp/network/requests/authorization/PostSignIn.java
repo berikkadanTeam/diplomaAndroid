@@ -4,9 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
+import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +33,7 @@ public class PostSignIn {
 
     public interface PostSignInInterface{
         public void signIn(SignIn response, int code);
+        public void errorMessage(String error);
     }
 
 
@@ -42,6 +48,26 @@ public class PostSignIn {
                 anInterface.signIn(response.body(),response.code());
                 Log.d("postSignIn","body - " + new Gson().toJson(response.body()));
                 Log.d("postSignIn","code - " + response.code());
+                Gson gson = new Gson();
+                Type type = new TypeToken<ServerResponse>(){}.getType();
+                ServerResponse response_message = new ServerResponse();
+                try {
+                    if (response.code() != 200) {
+                        response_message = gson.fromJson(response.errorBody().string(), type);
+                        if (response_message.getErr() != null) {
+                            anInterface.errorMessage(response_message.getErr().get(0));
+                            Log.d("postSignIn", "error message - " + response_message.getErr().get(0));
+                        }
+                        else if(response_message.getPassword() != null) {
+                            anInterface.errorMessage(response_message.getPassword().get(0));
+                            Log.d("postSignIn", "error password - " + response_message.getPassword().get(0));
+//                        Log.d("postSignIn","code - " + ((ServerResponse)new Gson().fromJson
+//                                (response.errorBody().string(),new TypeToken<ServerResponse>(){}.getType())).getErr().get(0));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

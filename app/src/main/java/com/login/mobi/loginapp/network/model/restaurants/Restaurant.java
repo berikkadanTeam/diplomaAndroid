@@ -18,7 +18,7 @@ public class Restaurant {
     private String addres;
     @SerializedName("number")
     @Expose
-    private Integer number;
+    private String number;
     @SerializedName("kitchen")
     @Expose
     private String kitchen;
@@ -71,9 +71,9 @@ public class Restaurant {
 
     public void setAddres(String addres) { this.addres = addres; }
 
-    public Integer getNumber() { return number; }
+    public String getNumber() { return number; }
 
-    public void setNumber(Integer number) { this.number = number; }
+    public void setNumber(String number) { this.number = number; }
 
     public String getKitchen() { return kitchen; }
 

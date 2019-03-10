@@ -267,6 +267,7 @@
                             android:layout_marginRight="26dp">
 
                             <EditText
+                                android:id="@+id/preferences"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textMultiLine"
@@ -275,7 +276,7 @@
                                 android:textSize="18sp"
                                 android:layout_weight="1"
                                 android:layout_marginTop="2dp"
-                                android:lines="3"
+                                android:lines="5"
                                 android:maxLines="10"
                                 android:minLines="0"
                                 android:scrollbars="vertical" />

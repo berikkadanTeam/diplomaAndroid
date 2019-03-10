@@ -1,10 +1,13 @@
 package com.login.mobi.loginapp.network.requests.userInformation;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
 import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
+
+import java.util.HashSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +31,7 @@ public class GetUserInformation {
 
 
 
-    public void getUserInformation(){
+    public void getUserInformation(final SharedPreferences sharedPreferences){
 
         ApiInterface service = BaseApi.getRetrofit().create(ApiInterface.class);
         Call<UserInformation> call = service.getUserInformation(token, userID);
@@ -37,6 +40,11 @@ public class GetUserInformation {
             public void onResponse(Call<UserInformation> call, Response<UserInformation> response) {
                 anInterface.getUserInformation(response.body());
                 Log.d("mylog","body - " + response.body());
+
+                sharedPreferences.edit().putStringSet("roles",response.body().getRoles()).apply();
+                for(String str:sharedPreferences.getStringSet("roles", new HashSet<String>())){
+                    Log.d("mylog","role - " + str);
+                }
             }
 
             @Override

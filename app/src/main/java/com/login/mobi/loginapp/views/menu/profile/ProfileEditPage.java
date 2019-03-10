@@ -40,7 +40,8 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
         GetUserInformation getUserInformation = new GetUserInformation(this, userID, "Bearer " + token);
-        getUserInformation.getUserInformation();
+//      getUserInformation.getUserInformation();
+        getUserInformation.getUserInformation(sharedPref.getmPref());
 
 
         progressDialog = new ProgressDialog(this, R.style.ProgressDialogInCenter);

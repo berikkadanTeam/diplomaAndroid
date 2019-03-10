@@ -260,4 +260,13 @@ public class SingletonSharedPref {
             mEditor = null;
         }
     }
+
+    public SharedPreferences getmPref() {
+        return mPref;
+    }
+
+    public void setmPref(SharedPreferences mPref) {
+        this.mPref = mPref;
+    }
+
 }

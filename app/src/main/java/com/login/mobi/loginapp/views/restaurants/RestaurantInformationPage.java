@@ -1,10 +1,15 @@
 package com.login.mobi.loginapp.views.restaurants;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -40,20 +45,21 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
     String restaurantId;
     String[] arr;
     String jsonData;
+    private String phoneNumber, directionAddress;
 
     private List<Restaurant> list;
     private ArrayList<RestaurantInformation> restaurantDataList;
-    boolean open = true;
+    private boolean open = true;
 
     // xml elements: texts, buttons
     private TextView name, address, cuisine, averageCheck, delivery, seats, description;
     private Spinner spinner;
-    private LinearLayout bookBtn;
+    private LinearLayout bookBtn, callBtn, directionBtn;
 
     // xml elements: images
     private ImageView mainImageView;
-    private RelativeLayout photoViewSection; // section with photos list
-    private ViewPager photoViewPager;        // photos in a row
+    private RelativeLayout photoViewSection;        // section with photos list
+    private ViewPager photoViewPager;               // photos in a row
     private int currentSection = 0;
     PhotoViewPagerAdapter photoViewPagerAdapter;    // adapter to open these photos when clicked on photo
 
@@ -93,6 +99,24 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             }
         });
 
+        callBtn = (LinearLayout) findViewById(R.id.call_button);
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askPermissionToCall();
+            }
+        });
+        directionBtn = (LinearLayout) findViewById(R.id.direction_button);
+        directionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + directionAddress);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
+
         // images
         mainImageView = (ImageView) findViewById(R.id.restaurant_page_image);
         photoViewSection = (RelativeLayout) findViewById(R.id.photo_view_section);
@@ -119,6 +143,8 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         /* Вписывание данных ресторана в поля */
         restaurantId = restaurant.getId();
         Log.d("RestaurantID", restaurantId);
+        phoneNumber = restaurant.getNumber();
+        directionAddress = restaurant.getAddres();
         name.setText(restaurant.getName());
         address.setText(restaurant.getAddres() + "\n" + restaurant.getCity());
         cuisine.setText(restaurant.getKitchen());
@@ -345,6 +371,58 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         super.onWindowFocusChanged(hasFocus);
         expandableListView.setIndicatorBounds(expandableListView.getRight()- 40, expandableListView.getWidth());
     }
+
+
+
+    /* Фукция, чтобы позвонить в ресторан */
+    public void askPermissionToCall(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.CALL_PHONE}, 169);
+
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.CALL_PHONE}, 169);
+            }
+        } else {
+            callPhoneNumber(phoneNumber);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 169: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    callPhoneNumber(phoneNumber);
+                } else {
+                    dialPhoneNumber(phoneNumber);
+                }
+                return;
+            }
+        }
+    }
+
+    public void callPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            startActivity(intent);
+        }
+    }
+
+    public void dialPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
 
     /* PhotoViewPager Adapter */
     private class PhotoViewPagerAdapter extends FragmentStatePagerAdapter {
