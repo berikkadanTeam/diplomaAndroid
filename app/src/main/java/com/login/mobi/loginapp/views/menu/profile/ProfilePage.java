@@ -36,7 +36,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_page);
+        setContentView(R.layout.menu_profile_page);
 
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);

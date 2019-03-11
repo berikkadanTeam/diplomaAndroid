@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
+import com.login.mobi.loginapp.views.Booking;
 
 
 public class RestaurantWebViewPage extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class RestaurantWebViewPage extends AppCompatActivity {
         /* Получение данных ресторана с RestaurantInformationPage */
         Intent intent = getIntent();
         jsonData = intent.getStringExtra("RestaurantData");
-        Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
+        final Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
         restaurantID = restaurant.getId();
 
         webView = findViewById(R.id.webView);
@@ -92,8 +93,10 @@ public class RestaurantWebViewPage extends AppCompatActivity {
             public void onClick(View v) {
                 if (tableID != null) {
                     Intent intent = new Intent(RestaurantWebViewPage.this, RestaurantTableBookingPage.class);
-                    intent.putExtra("TableID", tableID);
-                    intent.putExtra("RestaurantData", jsonData);
+                    //intent.putExtra("TableID", tableID);
+                    Booking.tableID = tableID;
+                    Booking.restaurant = restaurant;
+                    //intent.putExtra("RestaurantData", jsonData);
                     startActivity(intent);
                     //startActivity(new Intent(RestaurantWebViewPage.this, RestaurantTableBookingPage.class));
                 }

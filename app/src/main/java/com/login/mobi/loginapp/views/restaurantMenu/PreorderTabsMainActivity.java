@@ -145,6 +145,7 @@ public class PreorderTabsMainActivity extends AppCompatActivity implements GetRe
         //intent.putExtra("AllDishesList", new Gson().toJson(dishes));
         intent.putExtra("ChosenDishesListInformation", new Gson().toJson(chosenDishListDishNames));
         startActivity(intent);
+        finish();
     }
 
 }

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.views.menu.bookings.BookingsPage;
 import com.login.mobi.loginapp.views.menu.profile.ProfilePage;
-import com.login.mobi.loginapp.views.order.Version1_QrCodeScanner;
 
 import java.util.ArrayList;
 
@@ -73,7 +73,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyHolder> {
                 view.getContext().startActivity(new Intent(view.getContext(), ProfilePage.class));
             }
             else if(getLayoutPosition()==1){
-                view.getContext().startActivity(new Intent(view.getContext(), Version1_QrCodeScanner.class));
+                view.getContext().startActivity(new Intent(view.getContext(), BookingsPage.class));
             }
         }
 

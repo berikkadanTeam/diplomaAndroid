@@ -4,7 +4,10 @@ package com.login.mobi.loginapp.network;
  * Created by nurilkaa on 10/2/18.
  */
 
+import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
+import com.login.mobi.loginapp.network.model.booking.MyBookings;
+import com.login.mobi.loginapp.network.model.booking.TableBookingWithPreorder;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishTypes;
@@ -15,6 +18,7 @@ import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -66,6 +70,18 @@ public interface ApiInterface {
     Call<List<RestaurantDishes>> getRestaurantDishes(
             @Header("Authorization") String authHeader,
             @Query("restarauntId") String restaurantID
+    );
+
+    @POST("/api/Booking/BookingTable")
+    Call<ServerResponse> bookTable(
+            @Header("Authorization") String authHeader,
+            @Body TableBookingWithPreorder bookingData
+    );
+
+    @GET("api/Booking/GetBookedTableForClient")
+    Call<List<MyBookings>> getMyBookings(
+            @Header("Authorization") String authHeader,
+            @Query("UserId") String userID
     );
 
 

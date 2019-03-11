@@ -13,14 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.network.model.ServerResponse;
+import com.login.mobi.loginapp.network.model.booking.TableBookingWithPreorder;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
+import com.login.mobi.loginapp.network.requests.booking.BookTable;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.Booking;
 import com.login.mobi.loginapp.views.restaurantMenu.PreorderTabsMainActivity;
@@ -29,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class RestaurantTableBookingPage extends AppCompatActivity {
+public class RestaurantTableBookingPage extends AppCompatActivity implements BookTable.BookTableInterface {
 
     // variables
     private String selectedTableID;
@@ -47,6 +50,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
     private Button pickDateButton;
     RadioButton openMenuYes, openMenuNo;
     RadioGroup radio;
+    private LinearLayout bookTableBtn;
 
     // Calendar: Date Picker from https://www.codingdemos.com/android-datepicker-button/
     private DatePickerDialog datePickerDialog;
@@ -65,53 +69,32 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
 
         /* Получение данных ресторана с RestaurantWebViewPage */
         Intent intent = getIntent();
-        selectedTableID = intent.getStringExtra("TableID");
-        jsonData = intent.getStringExtra("RestaurantData");
-        final Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
+        //selectedTableID = intent.getStringExtra("TableID");
+        //jsonData = intent.getStringExtra("RestaurantData");
+        //final Restaurant restaurant = new Gson().fromJson(jsonData, Restaurant.class);
+        selectedTableID = Booking.tableID;
+        final Restaurant restaurant = Booking.restaurant;
         Log.d("SelectedTableID", selectedTableID);
         //Toast.makeText(getApplicationContext(), "selectedtableID: " + selectedtableID, Toast.LENGTH_SHORT).show();
 
-
+        Log.d("FROM WEBVIEW", "cdeced" + restaurant.getName());
         Log.d("FROM ORDERED", "cdeced " + Booking.preorder.toString());
 
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
         restaurantName.setText(restaurant.getName());
 
-        /* Select Number of Guests */
-        CardView minusGuest = (CardView) findViewById(R.id.minus_guest);
-        CardView plusGuest = (CardView) findViewById(R.id.plus_guest);
-        numberOfGuestsTextView = (TextView) findViewById(R.id.guests_count);
-        plusGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (numberOfGuests < 10) { // TODO: Change max count
-                    numberOfGuests++;
-                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
-
-                }
-            }
-        });
-        minusGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (numberOfGuests != 1) {
-                    numberOfGuests--;
-                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
-                }
-                if (numberOfGuests == 1){
-                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
-                }
-
-            }
-        });
 
         /* Select Date */
         pickDateButton = (Button) findViewById(R.id.pick_date_button);
         pickedDateTextView = (TextView) findViewById(R.id.picked_date_textview);
         Date c = Calendar.getInstance().getTime();
-        sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String today = sdf.format(c);
-        pickedDateTextView.setText(today);
+        if (Booking.date == null || Booking.date.isEmpty()) {
+            sdf = new SimpleDateFormat("dd.MM.yyyy");
+            String today = sdf.format(c);
+            pickedDateTextView.setText(today);
+        } else {
+            pickedDateTextView.setText(Booking.date);
+        }
         pickDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +120,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
                                 else
                                     monthToSdf = String.valueOf(month+1);
                                 pickedDateTextView.setText(dateToSdf + "." + monthToSdf + "." + year);
+                                Booking.date = pickedDateTextView.getText().toString();
                             }
                         }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -149,6 +133,14 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         /* Select Time */
         timePickerDialogButton = (Button)findViewById(R.id.pick_time_button);
         pickedTimeTextView = (TextView) findViewById(R.id.picked_time_textview);
+        Calendar calendarTime = Calendar.getInstance();
+        if (Booking.time == null || Booking.time.isEmpty()) {
+            SimpleDateFormat sdfForTime = new SimpleDateFormat("HH:mm");
+            String now = sdfForTime.format(calendarTime.getTime());
+            pickedTimeTextView.setText(now);
+        } else {
+            pickedDateTextView.setText(Booking.time);
+        }
         timePickerDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,14 +154,23 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
                         .setPositiveButton("ОК", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (hour.getValue() < 10 && minute.getValue() >= 10)            // if hour < 10
+                                if (hour.getValue() < 10 && minute.getValue() >= 10) {          // if hour < 10
                                     pickedTimeTextView.setText("0" + hour.getValue() + ":" + minute.getValue());
-                                else if (minute.getValue() < 10 && hour.getValue() >= 10)       // if minute < 10
+                                    Booking.time = pickedTimeTextView.getText().toString();
+                                }
+                                else if (minute.getValue() < 10 && hour.getValue() >= 10) {      // if minute < 10
                                     pickedTimeTextView.setText(hour.getValue() + ":0" + minute.getValue());
-                                else if (hour.getValue() < 10 && minute.getValue() < 10)        // if both < 10
+                                    Booking.time = pickedTimeTextView.getText().toString();
+                                }
+                                else if (hour.getValue() < 10 && minute.getValue() < 10) {      // if both < 10
                                     pickedTimeTextView.setText("0" + hour.getValue() + ":0" + minute.getValue());
-                                else if (hour.getValue() >= 10 && minute.getValue() >= 10)      // if both >= 10
+                                    Booking.time = pickedTimeTextView.getText().toString();
+                                }
+                                else if (hour.getValue() >= 10 && minute.getValue() >= 10) {    // if both >= 10
                                     pickedTimeTextView.setText(hour.getValue() + ":" + minute.getValue());
+                                    Booking.time = pickedTimeTextView.getText().toString();
+                                }
+
                             }
                         })
                         .setNegativeButton("ОТМЕНА", new DialogInterface.OnClickListener() {
@@ -205,8 +206,55 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
         });
 
 
+        /* Select Number of Guests */
+        CardView minusGuest = (CardView) findViewById(R.id.minus_guest);
+        CardView plusGuest = (CardView) findViewById(R.id.plus_guest);
+        numberOfGuestsTextView = (TextView) findViewById(R.id.guests_count);
+        if (Booking.guests == null) {
+            numberOfGuestsTextView.setText(numberOfGuests);
+            //Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
+        } else {
+            numberOfGuestsTextView.setText(Booking.guests);
+        }
+        plusGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numberOfGuests < 10) { // TODO: Change max count
+                    numberOfGuests++;
+                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                }
+            }
+        });
+        minusGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numberOfGuests != 1) {
+                    numberOfGuests--;
+                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                }
+                if (numberOfGuests == 1){
+                    numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                }
 
-        /* Select Open Menu or No */
+            }
+        });
+
+
+        /* Enter preferences  */
+        preferences = (EditText) findViewById(R.id.preferences);
+//        if (Booking.preferences == null || Booking.preferences.isEmpty()) {
+//            Booking.preferences = preferences.getText().toString();
+//        } else
+        if (Booking.preferences != null || !Booking.preferences.isEmpty())
+            preferences.setText(Booking.preferences);
+        //Booking.preferences = preferences.getText().toString();
+
+
+
+
+
+
+        /* Select radio buttons Open Menu or No */
         openMenuYes = (RadioButton) findViewById(R.id.open_menu_yes);
         openMenuNo = (RadioButton) findViewById(R.id.open_menu_no);
         radio = (RadioGroup) findViewById(R.id.menu_radio_group);
@@ -225,6 +273,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
                         Intent intent = new Intent(RestaurantTableBookingPage.this, PreorderTabsMainActivity.class);
                         intent.putExtra("RestaurantID", restaurant.getId());
                         startActivity(intent);
+                        RestaurantTableBookingPage.this.finish();
                         //startActivity(new Intent(RestaurantTableBookingPage.this, RestaurantDishTypesPage.class));
                         break;
                     case 1: // openMenuNo radio button
@@ -236,11 +285,25 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
 
 
 
-        Booking.date = pickedDateTextView.getText().toString();
-        Booking.time = pickedTimeTextView.getText().toString();
-        Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
-        preferences = (EditText) findViewById(R.id.preferences);
-        Booking.preferences = preferences.getText().toString();
+
+
+        /* Book table in restaurant */
+        bookTableBtn = findViewById(R.id.book_table_button);
+        bookTableBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TableBookingWithPreorder booking = new TableBookingWithPreorder();
+                booking.setTableId(Booking.tableID);
+                booking.setUserId(userID);
+                booking.setDate(Booking.date);
+                booking.setTime(Booking.time);
+                booking.setComments(Booking.preferences);
+                booking.setMenu(Booking.preorder);
+                BookTable b = new BookTable(booking,RestaurantTableBookingPage.this,"Bearer " + sharedPref.getString(SingletonSharedPref.TOKEN));
+                b.bookTable();
+            }
+        });
+
 
 
         sharedPref = SingletonSharedPref.getInstance(this);
@@ -253,5 +316,8 @@ public class RestaurantTableBookingPage extends AppCompatActivity {
     }
 
 
+    @Override
+    public void getBookTableInformation(ServerResponse response) {
 
+    }
 }

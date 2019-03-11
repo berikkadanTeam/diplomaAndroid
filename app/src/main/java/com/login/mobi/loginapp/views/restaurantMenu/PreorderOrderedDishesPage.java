@@ -111,6 +111,7 @@ public class PreorderOrderedDishesPage extends AppCompatActivity{
                 //Snackbar.make(parentLayout, "PREORDER", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 Booking.preorder = lcs;
                 startActivity(new Intent(PreorderOrderedDishesPage.this, RestaurantTableBookingPage.class));
+                PreorderOrderedDishesPage.this.finish();
             }
         });
 

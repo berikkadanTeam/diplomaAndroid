@@ -114,6 +114,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <!-- Menu Pages: BOOKINGS -->
+        <activity
+            android:name=".views.menu.bookings.BookingsPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <!-- Bottom Navigation -->
         <activity android:name=".views.bottomNavigation.BottomNavigationPage">
             <intent-filter>

@@ -34,7 +34,7 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_edit_page);
+        setContentView(R.layout.menu_profile_edit_page);
 
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
