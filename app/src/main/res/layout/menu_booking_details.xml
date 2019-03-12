@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/coordinator_layout"
-    android:animateLayoutChanges="true"
-    tools:context="com.login.mobi.loginapp.views.restaurants.RestaurantTableBookingPage">
+    android:animateLayoutChanges="true">
 
     <android.support.v4.widget.NestedScrollView
         android:visibility="visible"
@@ -56,17 +55,66 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/close_booking_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/rounded_button_red"/>
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/close_booking_button"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:src="@drawable/icon_booking"/>-->
                     <!--android:src="@drawable/ic_close_black_24dp" />-->
+                <LinearLayout
+                    android:id="@+id/delete_booking"
+                    android:layout_width="140dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/borderbutton_red">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="2dp"
+                        android:layout_margin="1.5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/preorder_dish_remove_button"
+                                android:layout_width="26dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorWhite">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="4dp"
+                                    android:src="@drawable/icon_remove" />
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorRed"
+                                android:textColor="@color/colorWhite"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:text="Отменить"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 
+
             <!-- Booking Info -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
+                android:layout_marginBottom="6dp"
+                android:text="Отмена бронирования возможна, если оно ещё не подтверждено администратором ресторана" />
 
             <LinearLayout
                 android:id="@+id/booking_info_section"
@@ -121,17 +169,6 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="18sp" />
 
-                            <Button
-                                android:id="@+id/pick_date_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="32dp"
-                                android:background="@android:color/transparent"
-                                android:paddingLeft="12dp"
-                                android:text="ВЫБРАТЬ ДАТУ"
-                                android:textColor="@color/lightBlue"/>
-
                         </LinearLayout>
 
 
@@ -160,96 +197,37 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="18sp" />
 
-                            <Button
-                                android:id="@+id/pick_time_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="32dp"
-                                android:background="@android:color/transparent"
-                                android:paddingLeft="12dp"
-                                android:text="ВЫБРАТЬ ВРЕМЯ"
-                                android:textColor="@color/lightBlue"/>
-
                         </LinearLayout>
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="26dp"
-                            android:layout_marginRight="26dp"
-                            android:layout_marginTop="14dp"
-                            android:orientation="vertical">
+                            android:layout_marginTop="16dp"
+                            android:paddingLeft="26dp"
+                            android:text="Количество гостей"
+                            android:textSize="14sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingRight="16dp">
+                                android:orientation="horizontal">
 
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
+                                <TextView
+                                    android:id="@+id/guests_count"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:layout_marginLeft="26dp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_weight="1"
+                                    android:text="2"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="18sp" />
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Количество гостей"
-                                        android:textSize="14sp" />
-                                    <TextView
-                                        android:id="@+id/guests_count"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="4dp"
-                                        android:layout_weight="1"
-                                        android:text="2"
-                                        android:textColor="@android:color/black"
-                                        android:textSize="18sp" />
-                                </LinearLayout>
 
-                                <android.support.v7.widget.CardView
-                                    android:id="@+id/minus_guest"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="center_vertical|end"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_marginTop="1dp"
-                                    app:cardBackgroundColor="@color/lightBlue"
-                                    app:cardCornerRadius="17dp"
-                                    app:contentPadding="8dp">
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:src="@drawable/icon_minus_white"/>
-                                        <!--android:src="@drawable/ic_remove_white_24dp" />-->
-                                </android.support.v7.widget.CardView>
-
-                                <android.support.v7.widget.CardView
-                                    android:id="@+id/plus_guest"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="center_vertical|end"
-                                    android:layout_marginBottom="1dp"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginTop="1dp"
-                                    app:cardBackgroundColor="@color/lightBlue"
-                                    app:cardCornerRadius="17dp"
-                                    app:contentPadding="8dp">
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:src="@drawable/icon_plus_white"/>
-                                        <!--android:src="@drawable/ic_add_white_24dp" />-->
-                                </android.support.v7.widget.CardView>
                             </LinearLayout>
-                        </LinearLayout>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -263,17 +241,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginLeft="23dp"
+                            android:layout_marginLeft="26dp"
                             android:layout_marginRight="26dp">
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/preferences"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textMultiLine"
-                                android:hint="Пожелания"
-                                android:textStyle="italic"
+                                android:text="Пожелания"
                                 android:textSize="18sp"
+                                android:textColor="@android:color/black"
                                 android:layout_weight="1"
                                 android:layout_marginTop="2dp"
                                 android:lines="5"
@@ -289,44 +266,34 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:paddingLeft="26dp"
-                        android:text="Сделать предзаказ"
+                        android:text="Предзаказ"
                         android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginRight="26dp"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="13dp">
 
-                        <RadioGroup
-                            android:id="@+id/menu_radio_group"
+                        <TextView
+                            android:id="@+id/has_preorder_or_not"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checkedButton="@+id/open_menu_no"
-                            android:orientation="vertical"
-                            android:layout_marginTop="4dp">
-
-                            <RadioButton
-                                android:id="@+id/open_menu_yes"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Открыть меню"
-                                android:textSize="16sp"
-                                android:scaleX="1.0"
-                                android:scaleY="1.0"/>
-                            <RadioButton
-                                android:id="@+id/open_menu_no"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Не открывать"
-                                android:textSize="16sp"
-                                android:scaleX="1.0"
-                                android:scaleY="1.0"/>
-                        </RadioGroup>
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:text="Есть"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
+                   <android.support.v7.widget.RecyclerView
+                       android:id="@+id/rv"
+                       android:layout_marginLeft="26dp"
+                       android:layout_marginRight="26dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:layout_below="@id/linearLayout"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -419,13 +386,13 @@
                             android:textStyle="bold"
                             android:textSize="11sp" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/input_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:maxLength="14"
-                            android:hint="Your Mobile Number"
+                            android:hint="11111111"
                             android:inputType="phone"/>
 
                     </LinearLayout>
@@ -462,125 +429,11 @@
                             android:layout_height="23dp"
                             android:layout_marginLeft="8dp"
                             android:src="@drawable/icon_next"/>
-                        <!--android:src="@drawable/ic_navigate_next_white_24dp"-->
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
 
-            <!-- Payment Info Section -->
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/payment_info_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:contentPaddingTop="16dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="26dp"
-                            android:paddingRight="26dp"
-                            android:text="Choose your preferred type of Booking"
-                            android:textColor="@android:color/black"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <android.support.v7.widget.CardView
-                                android:id="@+id/free_booking_button"
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginLeft="26dp"
-                                app:cardCornerRadius="4dp"
-                                app:cardElevation="4dp"
-                                app:cardBackgroundColor="@android:color/holo_orange_dark"
-                                android:layout_weight="1">
-                                <TextView
-                                    android:id="@+id/free_booking_text"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="Free Booking"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"/>
-                            </android.support.v7.widget.CardView>
-
-                            <android.support.v7.widget.CardView
-                                android:id="@+id/pre_booking_button"
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                app:cardCornerRadius="4dp"
-                                app:cardElevation="4dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginRight="26dp"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_weight="1">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center">
-                                    <TextView
-                                        android:id="@+id/pre_booking_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="Pre-Booking"
-                                        android:textColor="@android:color/black"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold"/>
-                                    <TextView
-                                        android:id="@+id/notice_textview"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="*"
-                                        android:textColor="@android:color/holo_red_light"
-                                        android:layout_marginLeft="2dp"/>
-                                </LinearLayout>
-                            </android.support.v7.widget.CardView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="26dp"
-                            android:layout_marginRight="26dp"
-                            android:layout_marginTop="6dp"
-                            android:orientation="vertical"
-                            android:padding="14dp"
-                            android:background="@drawable/rounded_button_red">
-                            <!--android:background="@drawable/bordered_info_green"-->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/holo_green_dark"
-                                android:text="Free Booking a table reserves it for a time period of 20 minutes from the Time Slot reserved."/>
-                        </LinearLayout>
-
-
-
-
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -590,134 +443,5 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:visibility="gone"/>
-
-
-    <!-- Shimmer Container -->
-
-    <io.supercharge.shimmerlayout.ShimmerLayout
-        android:visibility="gone"
-        android:id="@+id/shimmer_layout"
-        android:layout_width="match_parent"
-        android:layout_marginTop="76dp"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/validation_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="40dp"
-            android:paddingLeft="26dp"
-            android:gravity="center_horizontal"
-            android:paddingRight="26dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:background="#e0e0e0"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="290dp"
-                    android:layout_height="22dp"
-                    android:background="#e0e0e0"
-                    android:layout_marginTop="16dp" />
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="22dp"
-                    android:background="#e0e0e0"
-                    android:layout_marginTop="6dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="#e0e0e0"
-                android:layout_marginTop="48dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="18dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="#e0e0e0" />
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="18dp"
-                    android:layout_marginTop="7dp"
-                    android:background="#e0e0e0" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/main_loading"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="28dp">
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="16dp"
-                android:background="#e0e0e0" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:background="#e0e0e0"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="7dp"/>
-
-            <LinearLayout
-                android:layout_width="120dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="20dp"
-                android:background="#e0e0e0" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:background="#e0e0e0"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="7dp"/>
-            <LinearLayout
-                android:layout_width="70dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="20dp"
-                android:background="#e0e0e0" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:background="#e0e0e0"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="7dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="#e0e0e0"
-                android:layout_marginTop="36dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:background="#e0e0e0"
-                android:layout_marginRight="80dp"
-                android:layout_marginTop="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="18dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="#e0e0e0" />
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="18dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#e0e0e0" />
-            </LinearLayout>
-        </LinearLayout>
-    </io.supercharge.shimmerlayout.ShimmerLayout>
 
 </RelativeLayout>

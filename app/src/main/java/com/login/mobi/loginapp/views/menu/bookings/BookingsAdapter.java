@@ -1,6 +1,7 @@
 package com.login.mobi.loginapp.views.menu.bookings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.booking.MyBookings;
 
@@ -60,7 +62,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
     @Override
     public int getItemCount() {     return list.size();     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView bookingNumber, dateAndTime, hasPreorderOrNot, status;
         private LinearLayout removePreorderDishBtn;
@@ -74,7 +76,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             bookingNumber = itemView.findViewById(R.id.booking_number);
             dateAndTime = itemView.findViewById(R.id.booking_date_and_time);
             hasPreorderOrNot = itemView.findViewById(R.id.booking_preorder);
@@ -84,8 +86,11 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
         }
 
 
-
-
-
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, BookingDetailsPage.class);
+            intent.putExtra("BookingData", new Gson().toJson(booking)); // посылаем все данные по выбранному бронированию
+            context.startActivity(intent);
+        }
     }
 }

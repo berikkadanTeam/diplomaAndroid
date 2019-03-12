@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -41,8 +41,8 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
         mScannerView = new ZXingScannerView(getActivity());
 //        setContentView(mScannerView);  // Set the scanner view as the content view
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            //Toast.makeText(getActivity(),"camera permission granted",Toast.LENGTH_LONG).show();
-            Snackbar.make(parentLayout, "Доступ к камере для сканирования QR кода разрешен", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Toast.makeText(getActivity(),"Доступ к камере для сканирования QR кода разрешен",Toast.LENGTH_LONG).show();
+            //Snackbar.make(parentLayout, "Доступ к камере для сканирования QR кода разрешен", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else {
             requestCameraPermission();
         }
@@ -69,13 +69,18 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
 
     private void requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-            // Provide an additional rationale to the user if the permission was not granted
-            // and the user would benefit from additional context for the use of the permission.
-            //Toast.makeText(getActivity(), "Camera access is required to Scan The Barcode.", Toast.LENGTH_LONG).show();
-            Snackbar.make(parentLayout, "Необходимо разрешить доступ к камере для сканирования QR кода", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            // Provide an additional rationale to the user if the permission was not granted and the user would benefit from additional context for the use of the permission.
+            Toast.makeText(getActivity(), "Необходимо разрешить доступ к камере для сканирования QR кода", Toast.LENGTH_LONG).show();
+            //Snackbar.make(parentLayout, "Необходимо разрешить доступ к камере для сканирования QR кода", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-            // Request the permission
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Request the permission
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+                }
+            }, 2800);
 
         } else {
             Toast.makeText(getActivity(),

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,7 +141,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
             String now = sdfForTime.format(calendarTime.getTime());
             pickedTimeTextView.setText(now);
         } else {
-            pickedDateTextView.setText(Booking.time);
+            pickedTimeTextView.setText(Booking.time);
         }
         timePickerDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,10 +213,10 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
         CardView plusGuest = (CardView) findViewById(R.id.plus_guest);
         numberOfGuestsTextView = (TextView) findViewById(R.id.guests_count);
         if (Booking.guests == null) {
-            numberOfGuestsTextView.setText(numberOfGuests);
-            //Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
+            numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+            Booking.guests = numberOfGuests;
         } else {
-            numberOfGuestsTextView.setText(Booking.guests);
+            numberOfGuestsTextView.setText(String.valueOf(Booking.guests));
         }
         plusGuest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +224,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
                 if (numberOfGuests < 10) { // TODO: Change max count
                     numberOfGuests++;
                     numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                    Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
                 }
             }
         });
@@ -231,9 +234,11 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
                 if (numberOfGuests != 1) {
                     numberOfGuests--;
                     numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                    Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
                 }
                 if (numberOfGuests == 1){
                     numberOfGuestsTextView.setText(String.valueOf(numberOfGuests));
+                    Booking.guests = Integer.parseInt(numberOfGuestsTextView.getText().toString());
                 }
 
             }
@@ -242,19 +247,31 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
 
         /* Enter preferences  */
         preferences = (EditText) findViewById(R.id.preferences);
-//        if (Booking.preferences == null || Booking.preferences.isEmpty()) {
-//            Booking.preferences = preferences.getText().toString();
-//        } else
-        if (Booking.preferences != null || !Booking.preferences.isEmpty())
+        if (Booking.preferences == null || Booking.preferences.isEmpty()) {
+            Booking.preferences = preferences.getText().toString();
+        } else {
             preferences.setText(Booking.preferences);
-        //Booking.preferences = preferences.getText().toString();
+        }
+        preferences.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Booking.preferences = preferences.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Booking.preferences = preferences.getText().toString();
+            }
+        });
 
 
 
 
 
-
-        /* Select radio buttons Open Menu or No */
+        /* Select radio buttons Open Menu: Yes or No */
         openMenuYes = (RadioButton) findViewById(R.id.open_menu_yes);
         openMenuNo = (RadioButton) findViewById(R.id.open_menu_no);
         radio = (RadioGroup) findViewById(R.id.menu_radio_group);

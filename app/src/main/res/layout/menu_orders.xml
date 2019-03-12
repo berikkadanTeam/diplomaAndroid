@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/icon_calendar"/>
+            android:src="@drawable/icon_clock"/>
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -28,7 +28,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorBlack"
-                android:text="Мои бронирования"/>
+                android:text="Мои заказы"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -71,7 +71,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="6dp"
                     android:background="@android:color/transparent"
-                    android:hint="Поиск бронирования по ресторану..."
+                    android:hint="Поиск заказа по ресторану..."
                     android:imeOptions="actionSearch"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
@@ -81,7 +81,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/bookingsMainTextView"
+        android:id="@+id/ordersMainTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
