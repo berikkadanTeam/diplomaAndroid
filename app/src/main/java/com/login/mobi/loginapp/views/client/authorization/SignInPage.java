@@ -50,7 +50,7 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_page);
 
-        sharedPref = SingletonSharedPref.getInstance();
+        sharedPref = SingletonSharedPref.getInstance(this);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -85,7 +85,20 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
             }
         });
 
-
+//        if(sharedPref.getString(SingletonSharedPref.TOKEN) != null){
+//            switch (sharedPref.getString(SingletonSharedPref.ROLE)) {
+//                case "Admin": {
+//                    startActivity(new Intent(SignInPage.this, MainMenuActivity.class));
+//                    finish();
+//                    break;
+//                }
+//                case "Waiter": {  // TODO на самом деле это для клиента!!!
+//                    startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
+//                    finish();
+//                    break;
+//                }
+//            }
+//        }
 
     }   // from onCreate()
 
@@ -107,17 +120,13 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
             sharedPref.put(TOKEN, response.getAuthToken());
             sharedPref.put(EXPIRES_IN, response.getExpiresIn());
             sharedPref.put(USER_ID, response.getId());
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+
             sharedPref = SingletonSharedPref.getInstance(this);
             GetUserInformation getUserInformation = new GetUserInformation(this, response.getId(), "Bearer " + response.getAuthToken());
             getUserInformation.getUserInformation(sharedPref.getmPref());
 
-
 //          startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
 //          finish();
-
         } else {
             //Toast.makeText(SignInPage.this, "Электронная почта и пароль не совпадают", Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
@@ -142,6 +151,10 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
             public void run() {
                 role = sharedPref.getString(SingletonSharedPref.ROLE);
                 Log.d("UserInformation ROLE", role + "");
+
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
 
                 switch (role){
                     case "Admin": {

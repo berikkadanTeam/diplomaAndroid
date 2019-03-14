@@ -8,13 +8,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.login.mobi.loginapp.views.admin.MainMenuActivity;
+import com.login.mobi.loginapp.views.client.bottomNavigation.BottomNavigationPage;
 
 
-public class WelcomePage extends AppCompatActivity { // implements GetRestaurants.GetRestaurantsInterface{
+public class WelcomePage extends AppCompatActivity {
 
+    // xml elements: textView, buttons
     private TextView btnSignIn;
     private Button btnSignUp;
     private TextView welcomeText;
+
+    // Shared Preferences
+    SingletonSharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +32,34 @@ public class WelcomePage extends AppCompatActivity { // implements GetRestaurant
         btnSignUp = (Button) findViewById(R.id.startButton);
         welcomeText = (TextView) findViewById(R.id.welcomeText);
 
+        sharedPref = SingletonSharedPref.getInstance(this);
+        if (sharedPref.getString(SingletonSharedPref.TOKEN) != null){
+            switch (sharedPref.getString(SingletonSharedPref.ROLE)) {
+                case "Admin": {
+                    startActivity(new Intent(WelcomePage.this, MainMenuActivity.class));
+                    finish();
+                    break;
+                }
+                case "Waiter": {  // TODO на самом деле это для клиента!!!
+                    startActivity(new Intent(WelcomePage.this, BottomNavigationPage.class));
+                    finish();
+                    break;
+                }
+            }
+        }
+//        else {
+//            startActivity(new Intent(WelcomePage.this, SignInPage.class));
+//        }
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomePage.this, SignUpPage.class));
+            startActivity(new Intent(WelcomePage.this, SignUpPage.class));
             }
         });
 
 
-        /*
-        GetRestaurants getRestaurants = new GetRestaurants(this);
-        getRestaurants.getRestaurants();
-        */
+
     }
 
     public void openSignInPage(View v){
@@ -44,15 +67,5 @@ public class WelcomePage extends AppCompatActivity { // implements GetRestaurant
         finish();
     }
 
-    /*
-    @Override
-    public void getRestaurants(List<Restaurant> response) {
-        if(response != null){
-            Toast.makeText(this,"" + response.size(), Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this,"NULL", Toast.LENGTH_LONG).show();
-        }
-    }
-    */
 
 }

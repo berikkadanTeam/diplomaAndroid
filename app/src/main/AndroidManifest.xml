@@ -45,7 +45,12 @@
         <!-- Welcome Page, Sign In, Sign Up Pages -->
         <activity
             android:name=".views.client.authorization.WelcomePage"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".views.client.authorization.SignUpPage"
             android:screenOrientation="portrait"
@@ -53,7 +58,9 @@
         <activity
             android:name=".views.client.authorization.SignInPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
 
         <!-- ADMIN -->
         <!-- Menu Pages -->
@@ -146,12 +153,8 @@
             <!--android:screenOrientation="portrait" />-->
 
         <!-- Bottom Navigation -->
-        <activity android:name=".views.client.bottomNavigation.BottomNavigationPage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".views.client.bottomNavigation.BottomNavigationPage">
         </activity>
 
 

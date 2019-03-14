@@ -33,14 +33,19 @@ public class ServerResponse {
     }
 
 
-    // Booking table
+    // Booking table & Sign Up
     @SerializedName("status")
     @Expose
     private String status;
-
     public String getStatus() { return status; }
-
     public void setStatus(String status) { this.status = status; }
+
+    // Sign Up
+    @SerializedName("DuplicateUserName")
+    @Expose
+    private List<String> duplicateUserName = null;
+    public List<String> getDuplicateUserName() { return duplicateUserName; }
+    public void setDuplicateUserName(List<String> duplicateUserName) { this.duplicateUserName = duplicateUserName; }
 
 
 }

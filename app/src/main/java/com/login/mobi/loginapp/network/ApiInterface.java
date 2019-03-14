@@ -41,12 +41,13 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/accounts")
-    Call<String> signup(
+    Call<ServerResponse> signup(
             @Field("email")     String email,
             @Field("firstName") String firstName,
             @Field("lastName")  String lastName,
             @Field("password")  String password,
-            @Field("location")  String location
+            @Field("location")  String location,
+            @Field("UserRole")  String role
     );
 
     @FormUrlEncoded

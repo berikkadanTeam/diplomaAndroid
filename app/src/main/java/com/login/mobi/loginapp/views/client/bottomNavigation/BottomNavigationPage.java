@@ -1,6 +1,5 @@
 package com.login.mobi.loginapp.views.client.bottomNavigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
-import com.login.mobi.loginapp.views.admin.MainMenuActivity;
-import com.login.mobi.loginapp.views.client.authorization.WelcomePage;
 import com.login.mobi.loginapp.views.client.menu.MenuFragment;
 import com.login.mobi.loginapp.views.client.order.OrderFragment;
 import com.login.mobi.loginapp.views.client.restaurants.RestaurantFragmentTest;
@@ -63,18 +60,19 @@ public class BottomNavigationPage extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // Перенесла проверку роли на SignInPage
 
-        sharedPref = SingletonSharedPref.getInstance(this);
-        switch (sharedPref.getString(SingletonSharedPref.ROLE)){
-            case "Admin":{
-                startActivity(new Intent(this, MainMenuActivity.class));
-                finish();
-                break;
-            }
-        }
-        if(sharedPref.getString(SingletonSharedPref.TOKEN) == null){
-            startActivity(new Intent(this, WelcomePage.class));
-        }
+//        sharedPref = SingletonSharedPref.getInstance(this);
+//        switch (sharedPref.getString(SingletonSharedPref.ROLE)){
+//            case "Admin":{
+//                startActivity(new Intent(this, MainMenuActivity.class));
+//                finish();
+//                break;
+//            }
+//        }
+//        if(sharedPref.getString(SingletonSharedPref.TOKEN) == null){
+//            startActivity(new Intent(this, WelcomePage.class));
+//        }
 //      else if(sharedPref.getInt(EXPIRES_IN > System.currentTimeMillis()/1000)){
 //      }
 

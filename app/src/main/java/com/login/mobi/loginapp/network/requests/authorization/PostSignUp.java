@@ -1,10 +1,15 @@
 package com.login.mobi.loginapp.network.requests.authorization;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
+import com.login.mobi.loginapp.network.model.ServerResponse;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,8 +25,9 @@ public class PostSignUp {
     String lastName;
     String password;
     String location;
+    String role = "CommonUser";
 
-    public PostSignUp(Context context, String email, String firstName, String lastName, String password, String location) {
+    public PostSignUp(PostSignUpInterface context, String email, String firstName, String lastName, String password, String location) {
         anInterface = (PostSignUpInterface) context;
         this.email = email;
         this.firstName = firstName;
@@ -31,7 +37,7 @@ public class PostSignUp {
     }
 
     public interface PostSignUpInterface{
-        public void signUp(int response);
+        public void signUp(ServerResponse response, int code);
     }
 
 
@@ -39,16 +45,37 @@ public class PostSignUp {
     public void postSignUp(){
 
         ApiInterface service = BaseApi.getRetrofit().create(ApiInterface.class);
-        Call<String> call = service.signup(email, firstName, lastName, password, location);
-        call.enqueue(new Callback<String>() {
+        Call<ServerResponse> call = service.signup(email, firstName, lastName, password, location, role);
+        call.enqueue(new Callback<ServerResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d("nurila",response.code()+"");
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+
+                Log.d("postSignUp",response.code() + ""+response.body());
+
+
+                Gson gson = new Gson();
+                Type type = new TypeToken<ServerResponse>(){}.getType();
+                ServerResponse response_message = new ServerResponse();
+                try {
+                    if (response.code() != 200) {
+                        response_message = gson.fromJson(response.errorBody().string(), type);
+                        if (response_message.getDuplicateUserName() != null) {
+                            anInterface.signUp(response_message, response.code());
+                            //Log.d("postSignIn", "error message - " + response_message.get().get(0));
+                        }
+                    }else{
+                        anInterface.signUp(response.body(),response.code());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("nurila","Failure");
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                anInterface.signUp(null,-1);
+                Log.d("postSignUp","error - " + t.getLocalizedMessage());
             }
         });
     }
