@@ -38,6 +38,8 @@ public class SingletonSharedPref {
     public static final String TOKEN = "Token ";
     public static final String USER_ID = "1234";
     public static final String USER_SURNAME_NAME = "Tolegenova Nurila";
+    public static final String USER_SURNAME = "Tolegenova";
+    public static final String USER_NAME = "Tolegenova Nurila";
     public static final String USER_EMAIL = "nurilkaa@gmail.com";
     public static final String ROLE = "User";
 

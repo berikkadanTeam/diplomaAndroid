@@ -44,20 +44,33 @@
 
         <!-- Welcome Page, Sign In, Sign Up Pages -->
         <activity
-            android:name=".views.authorization.WelcomePage"
+            android:name=".views.client.authorization.WelcomePage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.authorization.SignUpPage"
+            android:name=".views.client.authorization.SignUpPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".views.authorization.SignInPage"
+            android:name=".views.client.authorization.SignInPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <!-- ADMIN -->
+        <!-- Menu Pages -->
+        <activity
+            android:name=".views.admin.MainMenuActivity"
+            android:screenOrientation="portrait" />
+
+
+
+
+
+
+
+        <!-- CLIENT -->
         <!-- Order Pages -->
         <activity
-            android:name=".views.order.Version1_QrCodeScanner"
+            android:name=".views.client.order.Version1_QrCodeScanner"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Tabs"
@@ -67,65 +80,65 @@
             android:name=".TabsDynamically"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.order.TabsMainActivity"
+            android:name=".views.client.order.TabsMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.order.OrderedDishesPage"
+            android:name=".views.client.order.OrderedDishesPage"
             android:screenOrientation="portrait" />
 
         <!-- Restaurant Pages -->
         <activity
-            android:name=".views.restaurants.RestaurantInformationPage"
+            android:name=".views.client.restaurants.RestaurantInformationPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.restaurants.RestaurantWebViewPage"
+            android:name=".views.client.restaurants.RestaurantWebViewPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.restaurants.RestaurantTableBookingPage"
+            android:name=".views.client.restaurants.RestaurantTableBookingPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".views.restaurantMenu.RestaurantDishTypesPage"
+            android:name=".views.client.restaurantMenu.RestaurantDishTypesPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".views.restaurantMenu.RestaurantDishesPage"
+            android:name=".views.client.restaurantMenu.RestaurantDishesPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".views.restaurantMenu.RestaurantDishInformationPage"
+            android:name=".views.client.restaurantMenu.RestaurantDishInformationPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.restaurantMenu.RestaurantDishesPreorderPage"
+            android:name=".views.client.restaurantMenu.RestaurantDishesPreorderPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.restaurantMenu.PreorderTabsMainActivity"
+            android:name=".views.client.restaurantMenu.PreorderTabsMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.restaurantMenu.PreorderOrderedDishesPage"
+            android:name=".views.client.restaurantMenu.PreorderOrderedDishesPage"
             android:screenOrientation="portrait" />
 
         <!-- Menu Pages: PROFILE -->
         <activity
-            android:name=".views.menu.profile.ProfilePage"
+            android:name=".views.client.menu.profile.ProfilePage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.menu.profile.ProfileEditPage"
+            android:name=".views.client.menu.profile.ProfileEditPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- Menu Pages: BOOKINGS -->
         <activity
-            android:name=".views.menu.bookings.BookingsPage"
+            android:name=".views.client.menu.bookings.BookingsPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".views.menu.bookings.BookingDetailsPage"
+            android:name=".views.client.menu.bookings.BookingDetailsPage"
             android:screenOrientation="portrait" />
 
         <!-- Menu Pages: ORDERS -->
         <activity
-            android:name=".views.menu.orders.OrdersPage"
+            android:name=".views.client.menu.orders.OrdersPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!--<activity-->
@@ -133,7 +146,7 @@
             <!--android:screenOrientation="portrait" />-->
 
         <!-- Bottom Navigation -->
-        <activity android:name=".views.bottomNavigation.BottomNavigationPage">
+        <activity android:name=".views.client.bottomNavigation.BottomNavigationPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

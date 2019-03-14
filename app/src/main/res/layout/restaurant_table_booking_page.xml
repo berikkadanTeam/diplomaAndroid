@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/coordinator_layout"
     android:animateLayoutChanges="true"
-    tools:context="com.login.mobi.loginapp.views.restaurants.RestaurantTableBookingPage">
+    tools:context=".views.client.restaurants.RestaurantTableBookingPage">
 
     <android.support.v4.widget.NestedScrollView
         android:visibility="visible"

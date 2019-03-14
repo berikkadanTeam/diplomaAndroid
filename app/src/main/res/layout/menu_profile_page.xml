@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:fillViewport="true"
     android:background="@android:color/white"
-    tools:context="com.login.mobi.loginapp.views.menu.profile.ProfilePage"
+    tools:context=".views.client.menu.profile.ProfilePage"
     tools:ignore="HardcodedText">
 
 <LinearLayout
