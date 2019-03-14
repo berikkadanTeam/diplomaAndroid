@@ -68,7 +68,13 @@ public class SignUpPage extends AppCompatActivity implements GetCities.GetCities
                 String str3 = firstName.getText().toString();
                 String str4 = lastName.getText().toString();
                 String str5 = acTextView.getText().toString();
-                signUp (str1, str2, str3, str4, str5);
+
+                if (!str1.isEmpty() && !str2.isEmpty() && !str3.isEmpty() && !str4.isEmpty() && !str5.isEmpty()){
+                    signUp (str1, str2, str3, str4, str5);
+                } else {
+                    Snackbar.make(parentLayout, "Заполните все поля", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+
             }
         });
 
@@ -126,7 +132,7 @@ public class SignUpPage extends AppCompatActivity implements GetCities.GetCities
 
         } else {
             if (response.getDuplicateUserName()!= null){
-                Snackbar.make(parentLayout, "Пользователь с электронной почтой " + email.getText().toString() + " уже существует, введите другой почтовый ящик", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(parentLayout, "Пользователь с электронной почтой " + email.getText().toString() + " уже существует, введите другую почту", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 
         }

@@ -318,6 +318,9 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
                 booking.setMenu(Booking.preorder);
                 BookTable b = new BookTable(booking,RestaurantTableBookingPage.this,"Bearer " + sharedPref.getString(SingletonSharedPref.TOKEN));
                 b.bookTable();
+                // TODO if code == 200 BookTable.reset(); -> in class each string = null; and create this function
+                // https://stackoverflow.com/questions/9749078/clearing-static-data-ondestroy
+
             }
         });
 

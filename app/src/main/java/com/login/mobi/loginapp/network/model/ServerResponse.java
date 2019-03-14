@@ -19,7 +19,6 @@ public class ServerResponse {
     public List<String> getErr() {
         return err;
     }
-
     public void setErr(List<String> err) {
         this.err = err;
     }
@@ -27,7 +26,6 @@ public class ServerResponse {
     public List<String> getPassword() {
         return password;
     }
-
     public void setPassword(List<String> password) {
         this.password = password;
     }

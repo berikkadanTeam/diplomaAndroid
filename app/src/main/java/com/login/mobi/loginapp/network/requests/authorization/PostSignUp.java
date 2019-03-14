@@ -27,13 +27,13 @@ public class PostSignUp {
     String location;
     String role = "CommonUser";
 
-    public PostSignUp(PostSignUpInterface context, String email, String firstName, String lastName, String password, String location) {
+    public PostSignUp(PostSignUpInterface context, String email, String password, String firstName, String lastName, String location) {
         anInterface = (PostSignUpInterface) context;
         this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.location = location;
-        this.password = password;
     }
 
     public interface PostSignUpInterface{
@@ -45,7 +45,7 @@ public class PostSignUp {
     public void postSignUp(){
 
         ApiInterface service = BaseApi.getRetrofit().create(ApiInterface.class);
-        Call<ServerResponse> call = service.signup(email, firstName, lastName, password, location, role);
+        Call<ServerResponse> call = service.signup(email, password, firstName, lastName, location, role);
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {

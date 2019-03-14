@@ -40,11 +40,12 @@ public class WelcomePage extends AppCompatActivity {
                     finish();
                     break;
                 }
-                case "Waiter": {  // TODO на самом деле это для клиента!!!
+                case "User": {
                     startActivity(new Intent(WelcomePage.this, BottomNavigationPage.class));
                     finish();
                     break;
                 }
+                // TODO добавить роль официанта case "Waiter"
             }
         }
 //        else {

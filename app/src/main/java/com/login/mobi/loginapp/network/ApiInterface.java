@@ -43,9 +43,9 @@ public interface ApiInterface {
     @POST("api/accounts")
     Call<ServerResponse> signup(
             @Field("email")     String email,
+            @Field("password")  String password,
             @Field("firstName") String firstName,
             @Field("lastName")  String lastName,
-            @Field("password")  String password,
             @Field("location")  String location,
             @Field("UserRole")  String role
     );

@@ -67,7 +67,7 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         rv.setAdapter(adapter);
         rv.setItemAnimator(new DefaultItemAnimator());
 
-        ordersMainTextView = (TextView) findViewById(R.id.bookingsMainTextView);
+        ordersMainTextView = (TextView) findViewById(R.id.ordersMainTextView);
 
 
         /* Search */
@@ -114,13 +114,14 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        if (response != null) {
+        if (response != null && response.size()>0) {
             list = response;
             adapter.arrayChanged(list);
         }
-        else
+        else if (response == null || response.isEmpty() || response.size() == 0) {
             ordersMainTextView.setText("У Вас нет заказов");
-        //Snackbar.make(parentLayout, "Нет блюд в данном разделе", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            //Snackbar.make(parentLayout, "У Вас нет заказов", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 
 }

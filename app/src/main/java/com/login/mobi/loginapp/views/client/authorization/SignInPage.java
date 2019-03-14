@@ -162,11 +162,12 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
                         finish();
                         break;
                     }
-                    case "Waiter": {  // TODO на самом деле это для клиента!!!
+                    case "User": {
                         startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
                         finish();
                         break;
                     }
+                    // TODO добавить роль официанта case "Waiter"
                 }
             }
         }, 1500);
