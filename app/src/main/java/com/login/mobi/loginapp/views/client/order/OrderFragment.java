@@ -92,17 +92,27 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
 
     @Override
     public void handleResult(Result rawResult) {
-        Log.d("result", rawResult.getText());   // Prints the scan format (qrcode, pdf417 etc.)
-        Log.d("result", rawResult.getBarcodeFormat().toString());
+        Log.d("result", "Restaurant ID & Table ID from QR Code - " + rawResult.getText());   // Prints the scan format (qrcode, pdf417 etc.)
+        Log.d("result", "BarCodeFormat - " + rawResult.getBarcodeFormat().toString());
         //If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
-        Intent intent = new Intent();
-        intent.putExtra("KEY", rawResult.getText());
+        //String qr = rawResult.getText();
+        String qr = "RestaurantID:73048e25-ec04-4da2-98c8-0b496daee9ea; TableID:073bcae3-322d-45d2-88ff-77c70694db1f";
+        String restaurantID = qr.substring(qr.indexOf(":") + 1, qr.indexOf(";"));
+        String tableID = qr.substring(qr.lastIndexOf(":") + 1);
+        Log.d("result", "RestaurantID from QR Code - " + restaurantID);
+        Log.d("result", "TableID from QR Code - " + tableID);
+
+        //Intent intent = new Intent();
+        Intent intent = new Intent(getContext(), TabsMainActivity.class);
+        intent.putExtra("RestaurantID", restaurantID);
+        intent.putExtra("TableID", tableID);
         Toast.makeText(getActivity(), rawResult.getText(), Toast.LENGTH_LONG).show();
 
         getActivity().setResult(Activity.RESULT_OK, intent);
         //getActivity().finish();
-        startActivity(new Intent(getActivity(), TabsMainActivity.class));
+        //startActivity(new Intent(getActivity(), TabsMainActivity.class));
+        startActivity(intent);
     }
 
 

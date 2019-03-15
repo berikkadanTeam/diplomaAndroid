@@ -13,12 +13,14 @@ import java.util.List;
 public class TabsDynamicFragmentAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
     List<RestaurantDishTypes> dishTypes;
+    private String restaurantID;
     //List<RestaurantDishes> dishes;
 
-    TabsDynamicFragmentAdapter(FragmentManager fm, int NumOfTabs, List<RestaurantDishTypes> dishTypes){ //List<RestaurantDishes> dishes) {
+    TabsDynamicFragmentAdapter(FragmentManager fm, int NumOfTabs, List<RestaurantDishTypes> dishTypes, String restaurantID){ //List<RestaurantDishes> dishes) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.dishTypes = dishTypes;
+        this.restaurantID = restaurantID;
         //this.dishes = dishes;
     }
 
@@ -28,7 +30,7 @@ public class TabsDynamicFragmentAdapter extends FragmentStatePagerAdapter {
         b.putInt("Position", position);
 
         b.putInt("DishTypeID", dishTypes.get(position).getId());
-
+        b.putString("RestaurantID", restaurantID);
         //b.putString("Dishes", new Gson().toJson(dishes));
 
         Fragment frag = TabsDynamicFragment.newInstance();

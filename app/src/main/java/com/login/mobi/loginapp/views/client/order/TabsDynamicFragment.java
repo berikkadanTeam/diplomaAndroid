@@ -31,7 +31,7 @@ public class TabsDynamicFragment extends Fragment implements GetRestaurantDishes
     // Shared Preferences
     SingletonSharedPref sharedPref;
     private String token;
-    private String restaurantID = "0f45bb63-68f4-4831-ab57-5a00f430f93a";
+    private String restaurantID;  //= "0f45bb63-68f4-4831-ab57-5a00f430f93a";
 
     // variables
     private EditText searchEditText;
@@ -98,6 +98,8 @@ public class TabsDynamicFragment extends Fragment implements GetRestaurantDishes
         dishTypeID = getArguments().getInt("DishTypeID");
         Log.d("TAB'S FRAGMENT", " DISH TYPE ID FROM FRAGMENT ADAPTER" + dishTypeID);
 
+        restaurantID = getArguments().getString("RestaurantID");
+        Log.d("TAB'S FRAGMENT", " RESTAURANT ID FROM FRAGMENT ADAPTER" + restaurantID);
 //        String jsonData2 = getArguments().getString("Dishes");
 //        Type collectionType2 = new TypeToken<List<RestaurantDishes>>(){}.getType();
 //        dishes = (List<RestaurantDishes>) new Gson().fromJson(jsonData2, collectionType2);

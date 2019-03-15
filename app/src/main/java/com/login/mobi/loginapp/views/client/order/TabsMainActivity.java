@@ -40,8 +40,8 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     // Shared Preferences
     SingletonSharedPref sharedPref;
     private String token;
-    private String restaurantID = "0f45bb63-68f4-4831-ab57-5a00f430f93a";
-
+    private String restaurantID; //= "73048e25-ec04-4da2-98c8-0b496daee9ea";
+    private String tableID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,12 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.setCancelable(false);
         progressDialog.show();
+
+        Intent intent = getIntent();
+        restaurantID = intent.getStringExtra("RestaurantID");
+        tableID = intent.getStringExtra("TableID");
+        Log.d("RestaurantID", "TabsMainActivity - " + restaurantID);
+        Log.d("TableID", "TabsMainActivity - " + tableID);
 
         initViews();
 
@@ -101,7 +107,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         for (int i = 0; i < dishTypes.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(dishTypes.get(i).getTitle()));   // tab name
         }
-        TabsDynamicFragmentAdapter mDynamicFragmentAdapter = new TabsDynamicFragmentAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), dishTypes); //dishes);
+        TabsDynamicFragmentAdapter mDynamicFragmentAdapter = new TabsDynamicFragmentAdapter(getSupportFragmentManager(), mTabLayout.getTabCount(), dishTypes, restaurantID); //dishes);
         viewPager.setAdapter(mDynamicFragmentAdapter);
         viewPager.setCurrentItem(0);
         if (progressDialog.isShowing()) {
@@ -142,6 +148,7 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         intent.putExtra("ChosenDishesListForOrder", new Gson().toJson(chosenDishList));     // посылаем все выбранные блюда
         //intent.putExtra("AllDishesList", new Gson().toJson(dishes));
         intent.putExtra("ChosenDishesListInformation", new Gson().toJson(chosenDishListDishNames));
+        intent.putExtra("TableID", tableID);
         startActivity(intent);
     }
 

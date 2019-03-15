@@ -45,6 +45,7 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
     String jsonData, jsonData2;
     List<RestaurantDishes> filteredDishes = new ArrayList<>();
     private int totalCheck;
+    private String tableID;
 
     // Snackbar
     View parentLayout;
@@ -76,6 +77,8 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
         List<RestaurantDishes> dishes = (List<RestaurantDishes>) new Gson().fromJson(jsonData2, collectionType2);
 //      Log.d("DishesList", dishes.toString());
         Log.d("ChosenDishesList&Names", dishes.toString());
+
+        tableID = intent.getStringExtra("TableID");
 
         if (lcs.size() == 0)
             Snackbar.make(parentLayout, "Вы не выбрали ничего для заказа", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -119,7 +122,7 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
                     Snackbar.make(parentLayout, "Вы не выбрали ничего для заказа", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else {
                     Order order = new Order();
-                    order.setTableId("5f68d523-3b3d-493c-aff3-301f14fb39db");
+                    order.setTableId(tableID);
                     order.setUserId(sharedPref.getString(SingletonSharedPref.USER_ID));
                     order.setMenu(lcs);
                     MakeAnOrder mao = new MakeAnOrder(order, OrderedDishesPage.this, "Bearer " + sharedPref.getString(SingletonSharedPref.TOKEN));
