@@ -5,10 +5,6 @@ import android.util.Log;
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
-import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
-import com.login.mobi.loginapp.network.requests.restaurants.GetRestaurants;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,15 +12,18 @@ import retrofit2.Response;
 
 
 public class GetRestaurantInformation {
-
+    String userID;
+    String token;
     GetRestaurantInformation.GetRestaurantInformationInterface anInterface;
 
-    public GetRestaurantInformation(GetRestaurantInformation.GetRestaurantInformationInterface context) {
+    public GetRestaurantInformation(GetRestaurantInformation.GetRestaurantInformationInterface context, String userID, String token) {
         anInterface = context;
+        this.userID = userID;
+        this.token = token;
     }
 
     public interface GetRestaurantInformationInterface{
-        public void getRestaurantInformation(List<RestaurantInformation> response);
+        public void getRestaurantInformation(RestaurantInformation response);
     }
 
 
@@ -32,16 +31,16 @@ public class GetRestaurantInformation {
     public void getRestaurantInformation(){
 
         ApiInterface service = BaseApi.getRetrofit().create(ApiInterface.class);
-        Call<List<RestaurantInformation>> call = service.getRestaurantInformation();
-        call.enqueue(new Callback<List<RestaurantInformation>>() {
+        Call<RestaurantInformation> call = service.getRestaurantInformation(token, userID);
+        call.enqueue(new Callback<RestaurantInformation>() {
             @Override
-            public void onResponse(Call<List<RestaurantInformation>> call, Response<List<RestaurantInformation>> response) {
+            public void onResponse(Call<RestaurantInformation> call, Response<RestaurantInformation> response) {
                 anInterface.getRestaurantInformation(response.body());
                 Log.d("mylog","body - " + response.body());
             }
 
             @Override
-            public void onFailure(Call<List<RestaurantInformation>> call, Throwable t) {
+            public void onFailure(Call<RestaurantInformation> call, Throwable t) {
                 anInterface.getRestaurantInformation(null);
                 Log.d("mylog","error "+t.getLocalizedMessage());
             }

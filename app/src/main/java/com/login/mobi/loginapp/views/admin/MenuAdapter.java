@@ -74,9 +74,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyHolder> {
                     view.getContext().startActivity(new Intent(view.getContext(), ProfilePage.class));
                     break;
                 case 1:
-                    view.getContext().startActivity(new Intent(view.getContext(), BookingsPage.class));
+                    view.getContext().startActivity(new Intent(view.getContext(), MyRestaurantInformationPage.class));
                     break;
                 case 2:
+                    view.getContext().startActivity(new Intent(view.getContext(), BookingsPage.class));
+                    break;
+                case 3:
                     view.getContext().startActivity(new Intent(view.getContext(), OrdersPage.class));
                     break;
             }

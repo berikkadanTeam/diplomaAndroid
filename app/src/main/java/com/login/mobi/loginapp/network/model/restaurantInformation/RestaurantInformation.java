@@ -1,8 +1,9 @@
 package com.login.mobi.loginapp.network.model.restaurantInformation;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class RestaurantInformation {
 
@@ -17,7 +18,7 @@ public class RestaurantInformation {
     private String addres;
     @SerializedName("number")
     @Expose
-    private Integer number;
+    private String number;
     @SerializedName("kitchen")
     @Expose
     private String kitchen;
@@ -38,7 +39,7 @@ public class RestaurantInformation {
     private Integer cityId;
     @SerializedName("fileName")
     @Expose
-    private Object fileName;
+    private String fileName;
     @SerializedName("filePath")
     @Expose
     private Object filePath;
@@ -76,11 +77,11 @@ public class RestaurantInformation {
         this.addres = addres;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -132,11 +133,11 @@ public class RestaurantInformation {
         this.cityId = cityId;
     }
 
-    public Object getFileName() {
+    public String getFileName() {
         return fileName;
     }
 
-    public void setFileName(Object fileName) {
+    public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 

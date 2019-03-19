@@ -105,4 +105,13 @@ public interface ApiInterface {
     @GET("api/Restaurants/GetRestaurants")
     Call<RestaurantInformation> getRestaurantInformation(@Query("restaurantId") String restaurantId);
 
+
+
+
+    // ADMIN APIs
+    @GET("api/Restinfo/GetUserRestaurant")
+    Call<RestaurantInformation> getRestaurantInformation(
+            @Header("Authorization") String authHeader,
+            @Query("userId") String userID
+    );
 }
