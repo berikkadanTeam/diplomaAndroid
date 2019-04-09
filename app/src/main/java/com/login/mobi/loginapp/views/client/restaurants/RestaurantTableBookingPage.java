@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.network.requests.booking.BookTable;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.client.Booking;
+import com.login.mobi.loginapp.views.client.menu.bookings.BookingsPage;
 import com.login.mobi.loginapp.views.client.restaurantMenu.PreorderTabsMainActivity;
 
 import java.text.SimpleDateFormat;
@@ -63,11 +65,14 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
     // Time: Number Picker from: http://pestohacks.blogspot.com/2015/04/number-money-picker-dialog-in-android.html
     private Button timePickerDialogButton;
 
+    // Snackbar
+    View parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_table_booking_page);
+        parentLayout = findViewById(android.R.id.content);
 
         /* Получение данных ресторана с RestaurantWebViewPage */
         Intent intent = getIntent();
@@ -94,6 +99,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
             sdf = new SimpleDateFormat("dd.MM.yyyy");
             String today = sdf.format(c);
             pickedDateTextView.setText(today);
+            Booking.date = today;
         } else {
             pickedDateTextView.setText(Booking.date);
         }
@@ -140,6 +146,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
             SimpleDateFormat sdfForTime = new SimpleDateFormat("HH:mm");
             String now = sdfForTime.format(calendarTime.getTime());
             pickedTimeTextView.setText(now);
+            Booking.time = now;
         } else {
             pickedTimeTextView.setText(Booking.time);
         }
@@ -337,7 +344,14 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
 
 
     @Override
-    public void getBookTableInformation(ServerResponse response) {
-
+    public void getBookTableInformation(ServerResponse response, int code) {
+        Log.d("code", code + "");
+        if (code == 200){
+            Intent intent = new Intent(this, BookingsPage.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+            Snackbar.make(parentLayout, "Ошибка...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 }

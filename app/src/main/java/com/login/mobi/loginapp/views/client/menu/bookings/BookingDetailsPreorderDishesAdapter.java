@@ -19,7 +19,7 @@ public class BookingDetailsPreorderDishesAdapter extends RecyclerView.Adapter<Bo
     private Context context;
     private List<MyBookingsMenu> list;
 
-    BookingDetailsPreorderDishesAdapter(Context context, List<MyBookingsMenu> list){
+    public BookingDetailsPreorderDishesAdapter(Context context, List<MyBookingsMenu> list){
         this.context = context;
         this.list = list;
     }

@@ -2,19 +2,28 @@ package com.login.mobi.loginapp.views.client.restaurants;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
-import com.squareup.picasso.Picasso;
+import com.login.mobi.loginapp.views.client.Booking;
 
 import java.util.List;
 
@@ -23,6 +32,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
 
     private Context context;
     private List<Restaurant> list;
+    private ProgressBar progressBar;
 
     RestaurantAdapter(Context context, List<Restaurant> list){
         this.context = context;
@@ -51,7 +61,20 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = list.get(i).getFileName();
         String image = filePath.concat(fileName);
-        Picasso.get().load(image).into(viewHolder.iv);
+        Glide.with(viewHolder.iv.getContext()).load(image).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                progressBar.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                progressBar.setVisibility(View.GONE);
+                return false;
+            }
+        }).apply(new RequestOptions().error(R.drawable.photo_no_photo)).into(viewHolder.iv);
+        //Picasso.get().load(image).into(viewHolder.iv);
         // TO-DO
         //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
 
@@ -93,10 +116,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
             iv = itemView.findViewById(R.id.iv);
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
         }
 
         @Override
         public void onClick(View v) {
+            Booking.clear();
             Intent intent = new Intent(context, RestaurantInformationPage.class);
 //          intent.putExtra("RestaurantID", list.get(i).getId());
             intent.putExtra("restaurantData", new Gson().toJson(restaurant)); // посылаем все данные по выбранному ресторану

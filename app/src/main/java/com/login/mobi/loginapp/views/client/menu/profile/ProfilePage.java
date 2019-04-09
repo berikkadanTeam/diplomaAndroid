@@ -98,7 +98,8 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
                 sharedPref.clear();
                 //Intent intent = new Intent(ProfilePage.this, WelcomePage.class); // == startActivity(new Intent(RestaurantInformationPage.this, RestaurantWebViewPage.class));
                 //startActivity(intent);
-                startActivity(new Intent(ProfilePage.this, WelcomePage.class));
+                startActivity(new Intent(ProfilePage.this, WelcomePage.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                ProfilePage.this.finish();
             }
         });
 

@@ -11,6 +11,7 @@ import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.admin.MainMenuActivity;
 import com.login.mobi.loginapp.views.client.bottomNavigation.BottomNavigationPage;
+import com.login.mobi.loginapp.views.waiter.MainMenuActivityWaiter;
 
 
 public class WelcomePage extends AppCompatActivity {
@@ -45,7 +46,12 @@ public class WelcomePage extends AppCompatActivity {
                     finish();
                     break;
                 }
-                // TODO добавить роль официанта case "Waiter"
+                case "Waiter": {
+                    startActivity(new Intent(WelcomePage.this, MainMenuActivityWaiter.class));
+                    finish();
+                    break;
+                }
+                // TODO добавить роль официанта case "Kitchen staff"
             }
         }
 //        else {
@@ -56,10 +62,9 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             startActivity(new Intent(WelcomePage.this, SignUpPage.class));
+            finish();
             }
         });
-
-
 
     }
 
@@ -68,5 +73,9 @@ public class WelcomePage extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
 }

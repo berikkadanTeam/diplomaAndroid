@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.network.model.restaurantInformation.Image;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurantInformation.WorkDay;
 import com.login.mobi.loginapp.network.requests.restaurantInformation.GetRestaurantInformation;
@@ -51,7 +52,7 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
 
     // xml elements: texts, buttons
     private TextView name, address, cuisine, averageCheck, delivery, seats, description;
-    private LinearLayout callBtn, directionBtn;
+    private LinearLayout callBtn, directionBtn, bookTableLinearLayout;
 
     // xml elements: images
     private ImageView mainImageView;
@@ -98,6 +99,8 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         seats = (TextView) findViewById(R.id.restaurant_page_seats);
         description = (TextView) findViewById(R.id.restaurant_page_description);
 
+        bookTableLinearLayout = (LinearLayout)findViewById(R.id.book_table_linear_layout);
+        bookTableLinearLayout.setVisibility(View.GONE);
 
         callBtn = (LinearLayout) findViewById(R.id.call_button);
         callBtn.setOnClickListener(new View.OnClickListener() {
@@ -134,61 +137,7 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         });
 
 
-        /* Вписывание данных ресторана в поля */
-        phoneNumber = restaurant.getNumber();
-        directionAddress = restaurant.getAddres();
-        name.setText(restaurant.getName());
-        address.setText(restaurant.getAddres() + "\n" + restaurant.getCity());
-        cuisine.setText(restaurant.getKitchen());
-        //Log.d("AVG CHECK", Integer.toString(restaurant.getAvgCheck()));
-        //averageCheck.setText(Integer.toString(restaurant.getAvgCheck()));
-        //seats.setText(Integer.toString(restaurant.getSeats()));
-        description.setText(restaurant.getDescription());
-//        boolean hasDelivery = restaurant.getDelivery();
-//        if (hasDelivery)
-//            delivery.setText("Есть");
-//        else
-//            delivery.setText("Нет");
-
-        /* Вписывание данных для времени работы */
-        List<WorkDay> workDayList = restaurant.getWorkDay();
-        arr = new String[workDayList.size()];
-        for (int i=0; i<workDayList.size(); i++){
-            arr[i] = workDayList.get(i).getDayName() + " " + workDayList.get(i).getStartTime() + " - " + workDayList.get(i).getEndTime();
-        }
-        Log.d("WorkDay", Arrays.deepToString(arr));
-        expandableListView = findViewById(R.id.expandableListView);
-        initExpandableListViewListeners();
-        initExpandableListViewObjects();
-        initExpandableListViewData();
-
-
-        /* Вставка фото */
-        String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
-        String fileName = restaurant.getFileName();
-        String image = filePath.concat(fileName);
-        Glide.with(this).load(image).into(mainImageView);
-
-        // пока что для примера я добавляю в list картинку которая главная, позже заменить на
-        ArrayList<String> list = new ArrayList<String>();
-        list.add(image);
-        list.add(image);
-        photoViewPagerAdapter = new MyRestaurantInformationPage.PhotoViewPagerAdapter(getSupportFragmentManager(), list);
-        RestaurantImagesAdapter imagesAdapter = new RestaurantImagesAdapter(list);
-        RecyclerView imagesRecyclerView = (RecyclerView) findViewById(R.id.images_recycler_view);
-        imagesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        imagesRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        imagesRecyclerView.setAdapter(imagesAdapter);
-        imagesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                photoViewSection.setVisibility(View.VISIBLE);
-                photoViewPager.setAdapter(photoViewPagerAdapter);
-                photoViewPager.setCurrentItem(position);
-                currentSection = 1;
-            }
-        }));
-
+    // Тут раньше было все, что внутри fillData();
 
     }
 
@@ -221,8 +170,6 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         });
     }
 
-
-
     private void initExpandableListViewObjects() {
         listDataGroup = new ArrayList<>();
         listDataChild = new HashMap<>();
@@ -239,7 +186,6 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         listDataChild.put(listDataGroup.get(0), workSchedule);
         expandableListViewAdapter.notifyDataSetChanged();
     }
-
 
     /*  Функция, чтобы высчитать размер expandableListView, без нее он не расширяется вниз */
     private void setExpandableListViewHeight(ExpandableListView listView, int group) {
@@ -355,15 +301,74 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
     }
 
 
+    public void fillData(){
+        /* Вписывание данных ресторана в поля */
+        phoneNumber = restaurant.getNumber();
+        directionAddress = restaurant.getAddres();
+        name.setText(restaurant.getName());
+        address.setText(restaurant.getAddres() + "\n" + restaurant.getCity());
+        cuisine.setText(restaurant.getKitchen());
+        averageCheck.setText(Integer.toString(restaurant.getAvgCheck()));
+        seats.setText(Integer.toString(restaurant.getSeats()));
+        description.setText(restaurant.getDescription());
+        boolean hasDelivery = restaurant.getDelivery();
+        if (hasDelivery)
+            delivery.setText("Есть");
+        else
+            delivery.setText("Нет");
+
+        /* Вписывание данных для времени работы */
+        List<WorkDay> workDayList = restaurant.getWorkDay();
+        arr = new String[workDayList.size()];
+        for (int i=0; i<workDayList.size(); i++){
+            arr[i] = workDayList.get(i).getDayName() + " " + workDayList.get(i).getStartTime() + " - " + workDayList.get(i).getEndTime();
+        }
+        Log.d("WorkDay", Arrays.deepToString(arr));
+        expandableListView = findViewById(R.id.expandableListView);
+        initExpandableListViewListeners();
+        initExpandableListViewObjects();
+        initExpandableListViewData();
+
+
+        /* Вставка фото */
+        String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
+        String fileName = restaurant.getFileName();
+        String image = filePath.concat(fileName);
+        Glide.with(this).load(image).into(mainImageView);
+
+        List<Image> imagesList = restaurant.getImages();
+
+        // добавляю в list картинки, которые находятся в image в response
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < imagesList.size(); i++) {
+            list.add(filePath.concat(imagesList.get(i).getName()));
+        }
+        photoViewPagerAdapter = new MyRestaurantInformationPage.PhotoViewPagerAdapter(getSupportFragmentManager(), list);
+        RestaurantImagesAdapter imagesAdapter = new RestaurantImagesAdapter(list);
+        RecyclerView imagesRecyclerView = (RecyclerView) findViewById(R.id.images_recycler_view);
+        imagesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        imagesRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        imagesRecyclerView.setAdapter(imagesAdapter);
+        imagesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                photoViewSection.setVisibility(View.VISIBLE);
+                photoViewPager.setAdapter(photoViewPagerAdapter);
+                photoViewPager.setCurrentItem(position);
+                currentSection = 1;
+            }
+        }));
+    }
+
+
     @Override
     public void getRestaurantInformation(RestaurantInformation response) {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
         if(response != null){
-            Toast.makeText(this,"Info response not NULL", Toast.LENGTH_LONG).show();
             restaurant = response;
-            Log.d("AVG CHECK RES", Integer.toString(response.getAvgCheck()));
+            fillData();
         }else{
             Toast.makeText(this,"NULL", Toast.LENGTH_LONG).show();
         }

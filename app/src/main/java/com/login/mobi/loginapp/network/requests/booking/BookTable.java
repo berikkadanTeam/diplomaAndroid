@@ -22,7 +22,7 @@ public class BookTable {
     }
 
     public interface BookTableInterface{
-        public void getBookTableInformation(ServerResponse response);
+        public void getBookTableInformation(ServerResponse response, int code);
     }
 
 
@@ -33,12 +33,12 @@ public class BookTable {
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                tableInterface.getBookTableInformation(response.body());
+                tableInterface.getBookTableInformation(response.body(), response.code());
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                tableInterface.getBookTableInformation(null);
+                tableInterface.getBookTableInformation(null, -1);
             }
         });
     }

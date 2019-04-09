@@ -138,4 +138,11 @@ public class SignUpPage extends AppCompatActivity implements GetCities.GetCities
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, WelcomePage.class));
+        finish();
+    }
 }

@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.admin;
+package com.login.mobi.loginapp.views.waiter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.views.admin.MyRestaurantBookingsPage;
+import com.login.mobi.loginapp.views.admin.MyRestaurantInformationPage;
 import com.login.mobi.loginapp.views.client.menu.orders.OrdersPage;
 import com.login.mobi.loginapp.views.client.menu.profile.ProfilePage;
 

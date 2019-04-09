@@ -52,6 +52,10 @@ public class RestaurantInformation {
     @SerializedName("tables")
     @Expose
     private List<Table> tables = null;
+    private Object menu;
+    @SerializedName("images")
+    @Expose
+    private List<Image> images = null;
 
     public String getId() {
         return id;
@@ -172,5 +176,9 @@ public class RestaurantInformation {
     public void setTables(List<Table> tables) {
         this.tables = tables;
     }
+
+    public List<Image> getImages() { return images; }
+
+    public void setImages(List<Image> images) { this.images = images; }
 
 }

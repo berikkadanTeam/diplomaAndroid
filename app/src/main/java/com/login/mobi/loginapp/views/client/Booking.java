@@ -13,4 +13,13 @@ public class Booking {
     public static Integer guests;
     public static List<Menu> preorder = new ArrayList<>();
 
+    public static void clear(){
+        tableID = null;
+        restaurant = null;
+        date = null;
+        time = null;
+        preferences = null;
+        guests = null;
+        preorder = new ArrayList<>();
+    }
 }

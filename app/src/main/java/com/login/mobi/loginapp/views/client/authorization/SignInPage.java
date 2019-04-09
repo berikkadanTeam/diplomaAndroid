@@ -23,6 +23,7 @@ import com.login.mobi.loginapp.network.requests.userInformation.GetUserInformati
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.admin.MainMenuActivity;
 import com.login.mobi.loginapp.views.client.bottomNavigation.BottomNavigationPage;
+import com.login.mobi.loginapp.views.waiter.MainMenuActivityWaiter;
 
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.TOKEN;
@@ -167,7 +168,12 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
                         finish();
                         break;
                     }
-                    // TODO добавить роль официанта case "Waiter"
+                    case "Waiter": {
+                        startActivity(new Intent(SignInPage.this, MainMenuActivityWaiter.class));
+                        finish();
+                        break;
+                    }
+                    // TODO добавить роль официанта case "Kitchen staff"
                 }
             }
         }, 1500);

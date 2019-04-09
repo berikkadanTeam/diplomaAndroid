@@ -47,7 +47,8 @@
         <!-- Welcome Page, Sign In, Sign Up Pages -->
         <activity
             android:name=".views.client.authorization.WelcomePage"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -56,11 +57,14 @@
         <activity
             android:name=".views.client.authorization.SignUpPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:noHistory="true">
+        </activity>
         <activity
             android:name=".views.client.authorization.SignInPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:noHistory="true">
         </activity>
 
 
@@ -72,9 +76,22 @@
         <activity
             android:name=".views.admin.MyRestaurantInformationPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.admin.MyRestaurantBookingsPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".views.admin.MyRestaurantBookingDetailsPage"
+            android:screenOrientation="portrait" />
 
 
 
+
+        <!-- WAITER -->
+        <!-- Menu Pages -->
+        <activity
+            android:name=".views.waiter.MainMenuActivityWaiter"
+            android:screenOrientation="portrait" />
 
 
 
