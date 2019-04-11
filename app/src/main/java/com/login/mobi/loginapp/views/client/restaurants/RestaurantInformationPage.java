@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -196,7 +197,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
                 progressBar.setVisibility(View.GONE);
                 return false;
             }
-        }).apply(new RequestOptions().error(R.drawable.photo_no_photo)).into(mainImageView);
+        }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(mainImageView);
 
         // пока что для примера я добавляю в list картинку которая главная, позже заменить на
         ArrayList<String> list = new ArrayList<String>();

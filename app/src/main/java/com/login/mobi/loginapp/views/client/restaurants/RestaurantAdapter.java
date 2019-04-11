@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -73,7 +74,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
                 progressBar.setVisibility(View.GONE);
                 return false;
             }
-        }).apply(new RequestOptions().error(R.drawable.photo_no_photo)).into(viewHolder.iv);
+        }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(viewHolder.iv);
         //Picasso.get().load(image).into(viewHolder.iv);
         // TO-DO
         //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -62,7 +63,7 @@ public class RestaurantImagesAdapter extends RecyclerView.Adapter<com.login.mobi
                 progressBar.setVisibility(View.GONE);
                 return false;
             }
-        }).apply(new RequestOptions().error(R.drawable.photo_no_photo)).into(holder.imageView);
+        }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(holder.imageView);
     }
 
     @Override

@@ -17,6 +17,9 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera.flash" />
 
+    <!-- SignalR -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -26,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/BookMeTheme"
         android:hardwareAccelerated="false"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:usesCleartextTraffic="true">
 
         <!-- android:icon="@mipmap/ic_launcher" -->
         <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
@@ -179,7 +183,13 @@
             android:name=".views.client.bottomNavigation.BottomNavigationPage">
         </activity>
 
-
+        <!-- SignalR -->
+        <service android:name=".network.SignalRService" android:enabled="true"/>
+        <receiver android:name=".network.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
 
     </application>
