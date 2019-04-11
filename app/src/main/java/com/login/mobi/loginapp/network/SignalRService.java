@@ -30,15 +30,20 @@ import io.reactivex.Single;
 
 public class SignalRService extends Service{
     private static final String TAG = SignalRService.class.getSimpleName();
-    public static boolean DEBUG=true;
-    private IBinder binder=new LocalBinder();
-    private final static String DOMAIN= "http://5.23.55.101";
-    private final static String URL="/chat";
+    public static boolean DEBUG = true;
+    private IBinder binder = new LocalBinder();
+    private final static String DOMAIN = "http://5.23.55.101";
+    private final static String URL = "/chat";
     private HubConnection hubConnection;
     private volatile boolean isConnectRunnableRunning;
     private NotificationManager notificationManager;
     private static final int START_FOREGROUND_ID = 245;
-    private static final String CHANEL_ID ="com.login.mobi.loginapp.chanel";
+    private static final String CHANEL_ID = "com.login.mobi.loginapp.chanel";
+
+    // Shared Preferences
+    SingletonSharedPref sharedPref;
+    private String userID, token;
+
 
     @Override
     public void onCreate() {
@@ -54,6 +59,7 @@ public class SignalRService extends Service{
             manager.createNotificationChannel(notificationChannel);
         }
 
+        sharedPref = SingletonSharedPref.getInstance(this);
 
     }
 
@@ -130,9 +136,14 @@ public class SignalRService extends Service{
             if(DEBUG) {
                 Log.d(TAG, "start connecting thread id : " + Thread.currentThread().getId() + " name: " + Thread.currentThread().getName()+" :hubConnection : "+hubConnection);
             }
+
+
             //TODO get token from SharedPreferences
-            String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW1iZXJpa2thZGFuQGdtYWlsLmNvbSIsImp0aSI6IjU1ODMzOWNhLTM5ZTktNDVkNC1iOWI3LTk4NmFmNDBhNGU4ZSIsImlhdCI6MTU1MjYyNzM3OCwicm9sIjoiYXBpX2FjY2VzcyIsImlkIjoiNjJlMDU2MTEtMjY4Ny00NTI1LTk2YTItNDRhZjhmNGYxNTlkIiwibmJmIjoxNTUyNjI3Mzc4LCJleHAiOjE1ODQxNjMzNzgsImlzcyI6IndlYkFwaSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwNC8ifQ.82VykYQZ5d4IneECu_wyn-5VJUVEEC0giZVgZJQFte0";
+            //String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW1iZXJpa2thZGFuQGdtYWlsLmNvbSIsImp0aSI6IjU1ODMzOWNhLTM5ZTktNDVkNC1iOWI3LTk4NmFmNDBhNGU4ZSIsImlhdCI6MTU1MjYyNzM3OCwicm9sIjoiYXBpX2FjY2VzcyIsImlkIjoiNjJlMDU2MTEtMjY4Ny00NTI1LTk2YTItNDRhZjhmNGYxNTlkIiwibmJmIjoxNTUyNjI3Mzc4LCJleHAiOjE1ODQxNjMzNzgsImlzcyI6IndlYkFwaSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwNC8ifQ.82VykYQZ5d4IneECu_wyn-5VJUVEEC0giZVgZJQFte0";
+            token = sharedPref.getString(SingletonSharedPref.TOKEN);
             Log.d(TAG,"token: "+SingletonSharedPref.TOKEN);
+
+
             hubConnection = HubConnectionBuilder.create(DOMAIN.concat(URL))
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();

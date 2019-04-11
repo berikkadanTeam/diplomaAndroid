@@ -89,11 +89,16 @@ public class BookingsPage extends AppCompatActivity implements GetMyBookings.Get
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetMyBookings getMyBookings = new GetMyBookings(this, userID, "Bearer " + token);
-        getMyBookings.getMyBookings();
+
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetMyBookings getMyBookings = new GetMyBookings(this, userID, "Bearer " + token);
+        getMyBookings.getMyBookings();
+    }
 
     /* Search booking by restaurant name */
     public void searchFunc(String text) {

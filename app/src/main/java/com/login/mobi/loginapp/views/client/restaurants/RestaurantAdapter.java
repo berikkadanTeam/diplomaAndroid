@@ -33,7 +33,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
 
     private Context context;
     private List<Restaurant> list;
-    private ProgressBar progressBar;
 
     RestaurantAdapter(Context context, List<Restaurant> list){
         this.context = context;
@@ -65,13 +64,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         Glide.with(viewHolder.iv.getContext()).load(image).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
+                viewHolder.progressBar.setVisibility(View.GONE);
                 return false;
             }
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
+                viewHolder.progressBar.setVisibility(View.GONE);
                 return false;
             }
         }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(viewHolder.iv);
@@ -105,6 +104,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         public ImageView iv;
         public TextView name;
         public TextView description;
+        public ProgressBar progressBar;
 
         Restaurant restaurant;
         public void updateUI(Restaurant restaurant){

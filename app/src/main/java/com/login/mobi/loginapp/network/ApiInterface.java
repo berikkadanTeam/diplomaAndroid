@@ -21,6 +21,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -75,7 +76,7 @@ public interface ApiInterface {
             @Query("restarauntId") String restaurantID
     );
 
-    @POST("/api/Booking/BookingTable")
+    @POST("/api/Booking/BookingTable")  // бронирование
     Call<ServerResponse> bookTable(
             @Header("Authorization") String authHeader,
             @Body TableBookingWithPreorder bookingData
@@ -85,6 +86,12 @@ public interface ApiInterface {
     Call<List<MyBookings>> getMyBookings(
             @Header("Authorization") String authHeader,
             @Query("UserId") String userID
+    );
+
+    @DELETE("/api/booking/DeleteReserve")   // отмена бронирования
+    Call<ServerResponse> deleteBooking(
+            @Header("Authorization") String authHeader,
+            @Query("reserveId") String id
     );
 
     @POST("/api/Order/MakeOrder")
@@ -114,4 +121,10 @@ public interface ApiInterface {
             @Header("Authorization") String authHeader,
             @Query("userId") String userID
     );
+
+
+
+
+    // WAITER APIs
+
 }
