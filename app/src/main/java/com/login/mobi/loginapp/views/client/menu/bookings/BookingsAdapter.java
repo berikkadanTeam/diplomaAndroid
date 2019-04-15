@@ -47,13 +47,17 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
     public void onBindViewHolder(@NonNull BookingsAdapter.ViewHolder viewHolder, final int i) {
         MyBookings booking = list.get(i);
 
-        viewHolder.bookingNumber.setText("Бронирование №" + booking.getId() + " в " + booking.getName());
+        viewHolder.bookingNumber.setText("Бронирование №" + booking.getNumberOfBooking() + " в " + booking.getName());
         viewHolder.dateAndTime.setText(booking.getDate() + " в " + booking.getTime());
         if (booking.getMenu() != null || !booking.getMenu().isEmpty())
             viewHolder.hasPreorderOrNot.setText("Есть");
         else
             viewHolder.hasPreorderOrNot.setText("Нет");
-        viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+
+        if (booking.getReservConfirmed() == true)
+            viewHolder.status.setText("Подтверждено");
+        else
+            viewHolder.status.setText("Не подтверждено");
 
         viewHolder.updateUI(booking);
 

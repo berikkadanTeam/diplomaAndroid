@@ -34,6 +34,14 @@
 
         <!-- android:icon="@mipmap/ic_launcher" -->
         <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
+        <receiver
+            android:name=".network.NetworkStateChangeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".UserActivity"
@@ -177,6 +185,11 @@
         <!--<activity-->
             <!--android:name=".views.menu.orders.OrderDetailsPage"-->
             <!--android:screenOrientation="portrait" />-->
+
+        <!-- Menu Pages: DISCOUNTS -->
+        <activity
+            android:name=".views.client.menu.discounts.DiscountsPage"
+            android:screenOrientation="portrait" />
 
         <!-- Bottom Navigation -->
         <activity

@@ -44,7 +44,7 @@ public class MyBookings {
     private List<MyBookingsMenu> menu = null;
     @SerializedName("reservConfirmed")
     @Expose
-    private Object reservConfirmed;
+    private boolean reservConfirmed;
     @SerializedName("name")
     @Expose
     private String name;
@@ -54,6 +54,13 @@ public class MyBookings {
     @SerializedName("number")
     @Expose
     private String number;
+    @SerializedName("numberOfBooking")
+    @Expose
+    private Integer numberOfBooking;
+    @SerializedName("numberOfGuests")
+    @Expose
+    private Integer numberOfGuests;
+
 
     public String getId() {
         return id;
@@ -151,13 +158,11 @@ public class MyBookings {
         this.menu = menu;
     }
 
-    public Object getReservConfirmed() {
+    public boolean getReservConfirmed() {
         return reservConfirmed;
     }
 
-    public void setReservConfirmed(Object reservConfirmed) {
-        this.reservConfirmed = reservConfirmed;
-    }
+    public void setReservConfirmed(boolean reservConfirmed) { this.reservConfirmed = reservConfirmed; }
 
     public String getName() {
         return name;
@@ -182,4 +187,14 @@ public class MyBookings {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public Integer getNumberOfBooking() { return numberOfBooking; }
+
+    public void setNumberOfBooking(Integer numberOfBooking) { this.numberOfBooking = numberOfBooking; }
+
+    public Integer getNumberOfGuests() { return numberOfGuests; }
+
+    public void setNumberOfGuests(Integer numberOfGuests) { this.numberOfGuests = numberOfGuests; }
+
+
 }

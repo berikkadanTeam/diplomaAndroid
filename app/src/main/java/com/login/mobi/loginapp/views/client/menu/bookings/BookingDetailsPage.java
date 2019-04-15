@@ -1,5 +1,7 @@
 package com.login.mobi.loginapp.views.client.menu.bookings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -96,15 +98,34 @@ public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBoo
         phone = (TextView) findViewById(R.id.input_phone);
         phone.setText(booking.getNumber());
 
+        // TODO в зависимости от статуса показывать/скрывать эту кнопку
         deleteBookingBtn = (LinearLayout) findViewById(R.id.delete_booking);
         deleteBookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Snackbar.make(parentLayout, "DELETE BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                token = sharedPref.getString(SingletonSharedPref.TOKEN);
-                bookingId = booking.getId();
-                DeleteMyBooking deleteMyBooking = new DeleteMyBooking(BookingDetailsPage.this, "Bearer " + token, bookingId);
-                deleteMyBooking.deleteBooking();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingDetailsPage.this);
+                alertDialogBuilder.setIcon(R.drawable.icon_remove);
+                alertDialogBuilder.setTitle("Отмена бронирования");
+                alertDialogBuilder.setMessage("Вы действительно хотите отменить бронирование? Отменить это действие после подтверждения будет уже невозможно");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("ДА",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        token = sharedPref.getString(SingletonSharedPref.TOKEN);
+                        bookingId = booking.getId();
+                        DeleteMyBooking deleteMyBooking = new DeleteMyBooking(BookingDetailsPage.this, "Bearer " + token, bookingId);
+                        deleteMyBooking.deleteBooking();
+                    }
+                })
+                        .setNegativeButton("ОТМЕНА", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+
             }
         });
     }

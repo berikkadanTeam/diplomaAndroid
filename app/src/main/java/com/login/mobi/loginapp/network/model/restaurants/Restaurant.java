@@ -2,6 +2,7 @@ package com.login.mobi.loginapp.network.model.restaurants;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.login.mobi.loginapp.network.model.restaurantInformation.Image;
 
 import java.util.List;
 
@@ -58,6 +59,9 @@ public class Restaurant {
     @SerializedName("menu")
     @Expose
     private Object menu;
+    @SerializedName("images")
+    @Expose
+    private List<Image> images = null;
 
     public String getId() { return id; }
 
@@ -126,6 +130,11 @@ public class Restaurant {
     public Object getMenu() { return menu; }
 
     public void setMenu(Object menu) { this.menu = menu; }
+
+    public List<Image> getImages() { return images; }
+
+    public void setImages(List<Image> images) { this.images = images; }
+
 
     @Override
     public String toString() {

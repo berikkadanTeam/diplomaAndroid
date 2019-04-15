@@ -19,6 +19,9 @@ public class MyOrders {
     @SerializedName("menu")
     @Expose
     private List<Object> menu = null;
+    @SerializedName("numberOfOrder")
+    @Expose
+    private Integer numberOfOrder;
 
     public String getId() {
         return id;
@@ -51,6 +54,11 @@ public class MyOrders {
     public void setMenu(List<Object> menu) {
         this.menu = menu;
     }
+
+    public Integer getNumberOfOrder() { return numberOfOrder; }
+
+    public void setNumberOfOrder(Integer numberOfOrder) { this.numberOfOrder = numberOfOrder; }
+
 
     @Override
     public String toString() {

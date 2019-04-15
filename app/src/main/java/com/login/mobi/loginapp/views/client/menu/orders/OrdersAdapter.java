@@ -48,7 +48,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     public void onBindViewHolder(@NonNull OrdersAdapter.ViewHolder viewHolder, final int i) {
         MyOrders order = list.get(i);
 
-        viewHolder.orderNumber.setText("Заказ №" + order.getId());
+        viewHolder.orderNumber.setText("Заказ №" + order.getNumberOfOrder());
         viewHolder.tableNumber.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
         viewHolder.waiter.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
         viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");

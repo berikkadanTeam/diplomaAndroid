@@ -38,6 +38,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.ApiInterface;
+import com.login.mobi.loginapp.network.model.restaurantInformation.Image;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurants.Restaurant;
 import com.login.mobi.loginapp.network.model.restaurants.WorkDay;
@@ -61,7 +62,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
     private boolean open = true;
 
     // xml elements: texts, buttons
-    private TextView name, address, cuisine, averageCheck, delivery, seats, description;
+    private TextView name, address, cuisine, averageCheck, delivery, seats, description, noPhotosAvailable;
     private Spinner spinner;
     private LinearLayout bookBtn, callBtn, directionBtn;
 
@@ -97,6 +98,7 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
         delivery = (TextView) findViewById(R.id.restaurant_page_delivery);
         seats = (TextView) findViewById(R.id.restaurant_page_seats);
         description = (TextView) findViewById(R.id.restaurant_page_description);
+        noPhotosAvailable = (TextView) findViewById(R.id.no_photos_available);
 
         // buttons
         bookBtn = findViewById(R.id.call_to_action_button);
@@ -199,10 +201,20 @@ public class RestaurantInformationPage extends AppCompatActivity {  //implements
             }
         }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(mainImageView);
 
-        // пока что для примера я добавляю в list картинку которая главная, позже заменить на
+        List<Image> imagesList = restaurant.getImages();
+
+        // добавляю в list картинки, которые находятся в image в response
         ArrayList<String> list = new ArrayList<String>();
-        list.add(image);
-        list.add(image);
+        if (restaurant.getImages().size() == 0){
+            noPhotosAvailable.setVisibility(View.VISIBLE);
+        }
+        for (int i = 0; i < imagesList.size(); i++) {
+            list.add(filePath.concat(imagesList.get(i).getName()));
+        }
+        // пока что для примера я добавляю в list картинку которая главная, позже заменить на
+        //ArrayList<String> list = new ArrayList<String>();
+        //list.add(image);
+        //list.add(image);
         photoViewPagerAdapter = new PhotoViewPagerAdapter(getSupportFragmentManager(), list);
         RestaurantImagesAdapter imagesAdapter = new RestaurantImagesAdapter(list);
         RecyclerView imagesRecyclerView = (RecyclerView) findViewById(R.id.images_recycler_view);
