@@ -48,16 +48,19 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
         MyBookings booking = list.get(i);
 
         viewHolder.bookingNumber.setText("Бронирование №" + booking.getNumberOfBooking() + " в " + booking.getName());
-        viewHolder.dateAndTime.setText(booking.getDate() + " в " + booking.getTime());
+        viewHolder.dateAndTime.setText(booking.getGetDate() + " в " + booking.getTime());
         if (booking.getMenu() != null || !booking.getMenu().isEmpty())
             viewHolder.hasPreorderOrNot.setText("Есть");
         else
             viewHolder.hasPreorderOrNot.setText("Нет");
 
-        if (booking.getReservConfirmed() == true)
-            viewHolder.status.setText("Подтверждено");
-        else
-            viewHolder.status.setText("Не подтверждено");
+        if (booking.getReservConfirmed() == true) {
+            //viewHolder.status.setText("Подтверждено");
+            viewHolder.statusConfirmed.setVisibility(View.VISIBLE);
+            viewHolder.statusRejected.setVisibility(View.GONE);
+        }
+        //else
+            //viewHolder.status.setText("Не подтверждено");
 
         viewHolder.updateUI(booking);
 
@@ -68,7 +71,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView bookingNumber, dateAndTime, hasPreorderOrNot, status;
+        private TextView bookingNumber, dateAndTime, hasPreorderOrNot, statusConfirmed, statusRejected;
         private LinearLayout removePreorderDishBtn;
 
         MyBookings booking;
@@ -84,8 +87,8 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
             bookingNumber = itemView.findViewById(R.id.booking_number);
             dateAndTime = itemView.findViewById(R.id.booking_date_and_time);
             hasPreorderOrNot = itemView.findViewById(R.id.booking_preorder);
-            status = itemView.findViewById(R.id.booking_status);
-
+            statusConfirmed = itemView.findViewById(R.id.booking_status_confirmed);
+            statusRejected = itemView.findViewById(R.id.booking_status_rejected);
 
         }
 

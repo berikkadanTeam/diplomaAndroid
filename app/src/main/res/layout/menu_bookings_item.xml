@@ -95,17 +95,40 @@
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="@android:color/black"
-                            android:text="Статус бронирования: "/>
+                            android:text="Статус: "/>
                         <TextView
-                            android:id="@+id/booking_status"
+                            android:id="@+id/booking_status_rejected"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
-                            android:text="Еще не подтверждено"
+                            android:text="Не подтверждено"
+                            android:drawableRight="@drawable/icon_remove_2"
                             android:textStyle="bold"
                             android:textSize="13sp"
                             android:layout_marginLeft="6dp"
-                            android:textColor="@android:color/black"/>
+                            android:textColor="@color/colorRed"/>
+                        <TextView
+                            android:id="@+id/booking_status_confirmed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text="Подтверждено"
+                            android:drawableRight="@drawable/icon_accept"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/lightGreen"
+                            android:visibility="gone"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/booking_status"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:maxLines="2"-->
+                            <!--android:text="Еще не подтвержденоЕще не подтвержденоЕще не подтверждено"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textSize="13sp"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:textColor="@android:color/black"/>-->
 
                     </LinearLayout>
                 </LinearLayout>

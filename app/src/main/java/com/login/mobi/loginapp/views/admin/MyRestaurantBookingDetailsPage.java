@@ -14,14 +14,17 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.booking.MyBookings;
 import com.login.mobi.loginapp.network.model.booking.MyBookingsMenu;
+import com.login.mobi.loginapp.network.requests.booking.admin.ConfirmBooking;
+import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.client.menu.bookings.BookingDetailsPreorderDishesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyRestaurantBookingDetailsPage extends AppCompatActivity {
+public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements ConfirmBooking.ConfirmBookingInterface {
 
     // xml elements: recyclerView, buttons
     private TextView restaurantName, date, time, numberOfGuests, preferences, preorder, surname, name, email, phone;
@@ -32,15 +35,23 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity {
     String jsonData;
     private BookingDetailsPreorderDishesAdapter adapter;
     private List<MyBookingsMenu> list = new ArrayList<>();
+    String bookingId;
+    boolean isConfirmed;
 
     // Snackbar
     View parentLayout;
+
+    // Shared Preferences
+    SingletonSharedPref sharedPref;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_menu_booking_details);
         parentLayout = findViewById(android.R.id.content);
+
+        sharedPref = SingletonSharedPref.getInstance(this);
 
         /* Получение данных ресторана с фрагмента Restaurant */
         Intent intent = getIntent();
@@ -87,7 +98,10 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity {
         phone = (TextView) findViewById(R.id.input_phone);
         phone.setText(booking.getNumber());
 
+        acceptBookingBtn = (LinearLayout) findViewById(R.id.accept_booking_button);
         declineBookingBtn = (LinearLayout) findViewById(R.id.decline_booking_button);
+
+
         declineBookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,12 +109,48 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity {
             }
         });
 
-        acceptBookingBtn = (LinearLayout) findViewById(R.id.accept_booking_button);
-        acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(parentLayout, "ACCEPT BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
+        if (booking.getReservConfirmed() == false) {
+            acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Snackbar.make(parentLayout, "ACCEPT BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    token = sharedPref.getString(SingletonSharedPref.TOKEN);
+                    bookingId = booking.getId();
+                    isConfirmed = true;
+                    ConfirmBooking confirmBooking = new ConfirmBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId, isConfirmed);
+                    confirmBooking.confirmBooking();
+                }
+            });
+        } else
+            acceptBookingBtn.setVisibility(LinearLayout.GONE);
     }
+
+    @Override
+    public void getConfirmBookingResponse(ServerResponse response, int code) {
+        if (response != null){
+            Log.d("ConfirmBooking", response.toString());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Snackbar.make(parentLayout, response.getStatus(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Thread.sleep(3000);
+                        runOnUiThread(new Runnable(){
+                            public void run() {
+                                //MyRestaurantBookingDetailsPage.this.onBackPressed();
+                                startActivity(new Intent(MyRestaurantBookingDetailsPage.this, MyRestaurantBookingsPage.class));
+                                finish();
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }
+    }
+
+
 }

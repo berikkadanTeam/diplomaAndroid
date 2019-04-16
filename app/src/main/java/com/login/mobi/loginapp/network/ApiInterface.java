@@ -85,7 +85,7 @@ public interface ApiInterface {
     @GET("api/Booking/GetBookedTableForClient")
     Call<List<MyBookings>> getMyBookings(
             @Header("Authorization") String authHeader,
-            @Query("UserId") String userID
+            @Query("userId") String userID
     );
 
     @DELETE("/api/booking/DeleteReserve")   // отмена бронирования
@@ -122,6 +122,12 @@ public interface ApiInterface {
             @Query("userId") String userID
     );
 
+    @POST("/api/Booking/ConfirmationReserv")
+    Call<ServerResponse> confirmBooking(
+            @Header("Authorization") String authHeader,
+            @Query("reserveId") String id,
+            @Query("reservConfirmed") boolean confirmed
+    );
 
 
 

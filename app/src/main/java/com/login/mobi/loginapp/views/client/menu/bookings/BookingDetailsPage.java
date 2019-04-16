@@ -99,35 +99,39 @@ public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBoo
         phone.setText(booking.getNumber());
 
         // TODO в зависимости от статуса показывать/скрывать эту кнопку
-        deleteBookingBtn = (LinearLayout) findViewById(R.id.delete_booking);
-        deleteBookingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingDetailsPage.this);
-                alertDialogBuilder.setIcon(R.drawable.icon_remove);
-                alertDialogBuilder.setTitle("Отмена бронирования");
-                alertDialogBuilder.setMessage("Вы действительно хотите отменить бронирование? Отменить это действие после подтверждения будет уже невозможно");
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setPositiveButton("ДА",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        token = sharedPref.getString(SingletonSharedPref.TOKEN);
-                        bookingId = booking.getId();
-                        DeleteMyBooking deleteMyBooking = new DeleteMyBooking(BookingDetailsPage.this, "Bearer " + token, bookingId);
-                        deleteMyBooking.deleteBooking();
-                    }
-                })
-                        .setNegativeButton("ОТМЕНА", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+        if (booking.getReservConfirmed() == true){
+            deleteBookingBtn.setVisibility(View.GONE);
+        } else {
+            deleteBookingBtn = (LinearLayout) findViewById(R.id.delete_booking);
+            deleteBookingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingDetailsPage.this);
+                    alertDialogBuilder.setIcon(R.drawable.icon_remove);
+                    alertDialogBuilder.setTitle("Отмена бронирования");
+                    alertDialogBuilder.setMessage("Вы действительно хотите отменить бронирование? Отменить это действие после подтверждения будет уже невозможно");
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            token = sharedPref.getString(SingletonSharedPref.TOKEN);
+                            bookingId = booking.getId();
+                            DeleteMyBooking deleteMyBooking = new DeleteMyBooking(BookingDetailsPage.this, "Bearer " + token, bookingId);
+                            deleteMyBooking.deleteBooking();
+                        }
+                    })
+                            .setNegativeButton("ОТМЕНА", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
 
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

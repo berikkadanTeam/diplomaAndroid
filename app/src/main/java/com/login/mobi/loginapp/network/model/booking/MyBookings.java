@@ -60,7 +60,9 @@ public class MyBookings {
     @SerializedName("numberOfGuests")
     @Expose
     private Integer numberOfGuests;
-
+    @SerializedName("getDate")
+    @Expose
+    private String getDate;
 
     public String getId() {
         return id;
@@ -196,5 +198,8 @@ public class MyBookings {
 
     public void setNumberOfGuests(Integer numberOfGuests) { this.numberOfGuests = numberOfGuests; }
 
+    public String getGetDate() { return getDate; }
+
+    public void setGetDate(String getDate) { this.getDate = getDate; }
 
 }

@@ -13,8 +13,6 @@ import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.client.menu.AddMenuItems;
 
-import java.util.ArrayList;
-
 public class DiscountsPage extends AppCompatActivity {
 
     public DiscountsPage() { }
@@ -50,13 +48,8 @@ public class DiscountsPage extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        ArrayList list = new ArrayList();
-        list.add("Васька 1");
-        list.add("Васька 2");
-        list.add("Васька 3");
-        list.add("Васька 4");
-        list.add("Васька 5");
-        /* Discounts RecyclerView*/
+
+        /* Discounts RecyclerView */
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DiscountsAdapter(this, AddMenuItems.getSpaceships());
