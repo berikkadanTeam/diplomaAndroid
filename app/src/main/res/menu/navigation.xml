@@ -11,10 +11,10 @@
         android:icon="@drawable/icon_table"
         android:title="Бронировать" />
 
-    <item
-        android:id="@+id/navigation_delivery"
-        android:icon="@drawable/icon_delivery"
-        android:title="Доставка" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_delivery"-->
+        <!--android:icon="@drawable/icon_delivery"-->
+        <!--android:title="Доставка" />-->
 
     <item
         android:id="@+id/navigation_menu"

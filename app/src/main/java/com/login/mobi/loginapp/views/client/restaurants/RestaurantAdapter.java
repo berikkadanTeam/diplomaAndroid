@@ -60,23 +60,26 @@ public class RestaurantAdapter extends RecyclerView.Adapter<com.login.mobi.login
         Restaurant restaurant = list.get(i);
         String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = list.get(i).getFileName();
-        String image = filePath.concat(fileName);
-        Glide.with(viewHolder.iv.getContext()).load(image).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                viewHolder.progressBar.setVisibility(View.GONE);
-                return false;
-            }
+        if (fileName != null) {
+            String image = filePath.concat(fileName);
+            Glide.with(viewHolder.iv.getContext()).load(image).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    viewHolder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                viewHolder.progressBar.setVisibility(View.GONE);
-                return false;
-            }
-        }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(viewHolder.iv);
-        //Picasso.get().load(image).into(viewHolder.iv);
-        // TO-DO
-        //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    viewHolder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(viewHolder.iv);
+            //Picasso.get().load(image).into(viewHolder.iv);
+            // TO-DO
+            //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
+        } else
+            Glide.with(viewHolder.iv.getContext()).load(R.drawable.photo_no_photo).into(viewHolder.iv);
 
         Log.d("FUN", "onBindViewHolder: "+list.get(i).getFilePath());
         viewHolder.name.setText(list.get(i).getName());

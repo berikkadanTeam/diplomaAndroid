@@ -35,8 +35,8 @@ public class BottomNavigationPage extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            bounded=true;
-            SignalRService.LocalBinder localBinder= (SignalRService.LocalBinder) service;
+            bounded = true;
+            SignalRService.LocalBinder localBinder = (SignalRService.LocalBinder) service;
             signalRService=localBinder.getInstance();
         }
 
@@ -63,9 +63,9 @@ public class BottomNavigationPage extends AppCompatActivity {
                 case R.id.navigation_book:
                     loadFragment(new RestaurantFragmentTest());
                     return true;
-                case R.id.navigation_delivery:
-                    mTextMessage.setText(R.string.title_delivery);
-                    return true;
+//                case R.id.navigation_delivery:
+//                    mTextMessage.setText(R.string.title_delivery);
+//                    return true;
                 case R.id.navigation_menu:
                     loadFragment(new MenuFragment());
                     return true;

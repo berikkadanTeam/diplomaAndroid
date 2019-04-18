@@ -60,7 +60,7 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
     RestaurantInformation restaurant = new RestaurantInformation();
 
     // xml elements: texts, buttons
-    private TextView name, address, cuisine, averageCheck, delivery, seats, description;
+    private TextView name, address, cuisine, averageCheck, delivery, seats, description, cardViewNumberOfSeats;
     private LinearLayout callBtn, directionBtn, bookTableLinearLayout;
 
     // xml elements: images
@@ -111,6 +111,7 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         delivery = (TextView) findViewById(R.id.restaurant_page_delivery);
         seats = (TextView) findViewById(R.id.restaurant_page_seats);
         description = (TextView) findViewById(R.id.restaurant_page_description);
+        cardViewNumberOfSeats = (TextView) findViewById(R.id.rating_card_text_res);
 
         bookTableLinearLayout = (LinearLayout)findViewById(R.id.book_table_linear_layout);
         bookTableLinearLayout.setVisibility(View.GONE);
@@ -329,6 +330,7 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
             delivery.setText("Есть");
         else
             delivery.setText("Нет");
+        cardViewNumberOfSeats.setText(Integer.toString(restaurant.getSeats()));
 
         /* Вписывание данных для времени работы */
         List<WorkDay> workDayList = restaurant.getWorkDay();
@@ -346,20 +348,23 @@ public class MyRestaurantInformationPage extends AppCompatActivity implements Ge
         /* Вставка фото */
         String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = restaurant.getFileName();
-        String image = filePath.concat(fileName);
-        Glide.with(this).load(image).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
-                return false;
-            }
+        if (fileName != null) {
+            String image = filePath.concat(fileName);
+            Glide.with(this).load(image).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    progressBar.setVisibility(View.GONE);
+                    return false;
+                }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
-                return false;
-            }
-        }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(mainImageView);
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            }).apply(new RequestOptions().error(R.drawable.photo_no_photo).diskCacheStrategy(DiskCacheStrategy.ALL)).into(mainImageView);
+        } else
+            Glide.with(this).load(R.drawable.photo_no_photo).into(mainImageView);
 
         List<Image> imagesList = restaurant.getImages();
 

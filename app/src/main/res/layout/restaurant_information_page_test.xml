@@ -114,21 +114,29 @@
 
                                 </LinearLayout>
 
+                                <!-- RATING IN NUMBERS -->
                                 <android.support.v7.widget.CardView
                                     android:id="@+id/rating_card_res"
-                                    android:layout_width="32dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="62dp"
+                                    android:layout_height="25dp"
                                     android:layout_gravity="center_vertical"
                                     android:layout_margin="1dp"
-                                    app:cardBackgroundColor="@android:color/holo_green_dark"
+                                    app:cardBackgroundColor="@color/lightBlue"
                                     app:cardCornerRadius="2dp">
-
+                                    <ImageView
+                                        android:layout_width="22dp"
+                                        android:layout_height="22dp"
+                                        android:layout_marginRight="8dp"
+                                        android:layout_marginLeft="2dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@drawable/icon_chair_white"/>
                                     <TextView
                                         android:id="@+id/rating_card_text_res"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="4.5"
+                                        android:layout_marginLeft="8dp"
+                                        android:text="200"
                                         android:textColor="@android:color/white"
                                         android:textSize="13sp"
                                         android:textStyle="bold" />
@@ -142,28 +150,30 @@
                                 android:textSize="16sp"
                                 tools:text="Байтурсынова, 88" />
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:visibility="visible">
 
-                                <RatingBar
-                                    android:id="@+id/restaurant_page_ratingbar"
-                                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    tools:rating="4.5" />
+                            <!-- RATING -->
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:visibility="visible">-->
 
-                                <TextView
-                                    android:id="@+id/restaurant_page_ratingtext"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="2dp"
-                                    android:layout_marginTop="4dp"
-                                    android:textSize="12sp"
-                                    tools:text="4.5 BookMe stars" />
-                            </LinearLayout>
+                                <!--<RatingBar-->
+                                    <!--android:id="@+id/restaurant_page_ratingbar"-->
+                                    <!--style="@style/Base.Widget.AppCompat.RatingBar.Small"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="4dp"-->
+                                    <!--tools:rating="4.5" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/restaurant_page_ratingtext"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginLeft="2dp"-->
+                                    <!--android:layout_marginTop="4dp"-->
+                                    <!--android:textSize="12sp"-->
+                                    <!--tools:text="4.5 BookMe stars" />-->
+                            <!--</LinearLayout>-->
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -257,36 +267,37 @@
                                     android:textSize="15sp" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp">
+                            <!-- OPEN NOW -->
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="6dp">-->
 
-                                <TextView
-                                    android:id="@+id/restaurant_page_openstatus"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Open Now"
-                                    android:textColor="@color/colorRed"
-                                    android:textSize="15sp"
-                                    android:textStyle="bold" />
+                                <!--<TextView-->
+                                    <!--android:id="@+id/restaurant_page_openstatus"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="Open Now"-->
+                                    <!--android:textColor="@color/colorRed"-->
+                                    <!--android:textSize="15sp"-->
+                                    <!--android:textStyle="bold" />-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:text="-"
-                                    android:textSize="15sp" />
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginLeft="5dp"-->
+                                    <!--android:layout_marginRight="5dp"-->
+                                    <!--android:text="-"-->
+                                    <!--android:textSize="15sp" />-->
 
-                                <TextView
-                                    android:id="@+id/restaurant_page_hours"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="c 12:00 до 01:00"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="15sp" />
-                            </LinearLayout>
+                                <!--<TextView-->
+                                    <!--android:id="@+id/restaurant_page_hours"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="c 12:00 до 01:00"-->
+                                    <!--android:textColor="@android:color/black"-->
+                                    <!--android:textSize="15sp" />-->
+                            <!--</LinearLayout>-->
 
                             <android.support.constraint.ConstraintLayout
                                 android:layout_width="wrap_content"
