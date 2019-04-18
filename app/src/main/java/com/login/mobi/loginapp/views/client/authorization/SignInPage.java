@@ -23,6 +23,7 @@ import com.login.mobi.loginapp.network.requests.userInformation.GetUserInformati
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.admin.MainMenuActivity;
 import com.login.mobi.loginapp.views.client.bottomNavigation.BottomNavigationPage;
+import com.login.mobi.loginapp.views.kitchen.MainMenuActivityKitchen;
 import com.login.mobi.loginapp.views.waiter.MainMenuActivityWaiter;
 
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
@@ -173,7 +174,12 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
                         finish();
                         break;
                     }
-                    // TODO добавить роль официанта case "Kitchen staff"
+                    case "KitchenStuff": {
+                        startActivity(new Intent(SignInPage.this, MainMenuActivityKitchen.class));
+                        finish();
+                        break;
+                    }
+
                 }
             }
         }, 1500);

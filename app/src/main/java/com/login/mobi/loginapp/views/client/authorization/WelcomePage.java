@@ -17,6 +17,7 @@ import com.login.mobi.loginapp.network.NetworkStateChangeReceiver;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.admin.MainMenuActivity;
 import com.login.mobi.loginapp.views.client.bottomNavigation.BottomNavigationPage;
+import com.login.mobi.loginapp.views.kitchen.MainMenuActivityKitchen;
 import com.login.mobi.loginapp.views.waiter.MainMenuActivityWaiter;
 
 import static com.login.mobi.loginapp.network.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
@@ -40,6 +41,7 @@ public class WelcomePage extends AppCompatActivity {
         setContentView(R.layout.welcome_page);
         parentLayout = findViewById(android.R.id.content);
 
+        // TODO доделать network internet connection
         IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -47,7 +49,6 @@ public class WelcomePage extends AppCompatActivity {
                 boolean isNetworkAvailable = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false);
                 String networkStatus = isNetworkAvailable ? "connected" : "disconnected";
                 Snackbar.make(parentLayout, "Network Status: " + networkStatus, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                //Snackbar.make(findViewById(R.id.activity_main), "Network Status: " + networkStatus, Snackbar.LENGTH_LONG).show();
             }
         }, intentFilter);
 
@@ -74,7 +75,12 @@ public class WelcomePage extends AppCompatActivity {
                     finish();
                     break;
                 }
-                // TODO добавить роль официанта case "Kitchen staff"
+                case "KitchenStuff": {
+                    startActivity(new Intent(WelcomePage.this, MainMenuActivityKitchen.class));
+                    finish();
+                    break;
+                }
+
             }
         }
 //        else {

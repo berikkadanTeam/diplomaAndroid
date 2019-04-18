@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
 /**
- * Created by vakidzaci on 10/2/18.
+ * Created by nurilkaa on 10/2/18.
  */
 
 public class BaseApi {

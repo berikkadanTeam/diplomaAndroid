@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.waiter;
+package com.login.mobi.loginapp.views.kitchen;
 
 import com.login.mobi.loginapp.R;
 
@@ -32,15 +32,15 @@ public class AddMenuItems {
         s.setImage(R.drawable.icon_clock);
         menuList.add(s);
 
-        s = new MenuItem();
-        s.setName("Баланс");
-        s.setImage(R.drawable.icon_money_heart);
-        menuList.add(s);
-
-        s = new MenuItem();
-        s.setName("Акции");
-        s.setImage(R.drawable.icon_discount);
-        menuList.add(s);
+//        s = new MenuItem();
+//        s.setName("Баланс");
+//        s.setImage(R.drawable.icon_money_heart);
+//        menuList.add(s);
+//
+//        s = new MenuItem();
+//        s.setName("Акции");
+//        s.setImage(R.drawable.icon_discount);
+//        menuList.add(s);
 
         return menuList;
     }

@@ -1,7 +1,7 @@
 package com.login.mobi.loginapp.singleton;
 
 /**
- * Created by root on 5/1/17.
+ * Created by nurilkaa on 5/12/18.
  */
 
 import android.content.Context;

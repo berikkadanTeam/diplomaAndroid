@@ -13,7 +13,8 @@ public class AddMenuItems {
 
         MenuItem s = new MenuItem();
         s.setName("Мой профиль");
-        s.setImage(R.drawable.icon_profile_rounded);
+        s.setImage(R.drawable.icon_user_with_border_48px);
+        //s.setImage(R.drawable.icon_profile_rounded);
         menuList.add(s);
 
         s = new MenuItem();

@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.waiter;
+package com.login.mobi.loginapp.views.kitchen;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 
 // from: https://camposha.info/source/android-recyclerview-ratingbarimages-text
 
-public class MainMenuActivityWaiter extends AppCompatActivity {
+public class MainMenuActivityKitchen extends AppCompatActivity {
     // xml elements: texts, buttons, recyclerView
     private TextView fullName, email;
     private RecyclerView rv;
@@ -35,7 +35,7 @@ public class MainMenuActivityWaiter extends AppCompatActivity {
 
 
         sharedPref = SingletonSharedPref.getInstance(this);
-        fullName.setText(sharedPref.getString(SingletonSharedPref.USER_SURNAME) + " " + sharedPref.getString(SingletonSharedPref.USER_NAME) + "\n" + "Официант");
+        fullName.setText(sharedPref.getString(SingletonSharedPref.USER_SURNAME) + " " + sharedPref.getString(SingletonSharedPref.USER_NAME) + "\n" + "Кухня");
         email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
 
     }

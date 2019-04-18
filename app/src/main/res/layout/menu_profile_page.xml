@@ -26,13 +26,21 @@
                 android:background="@drawable/gradient_blue_image"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/profile_photo"-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="35dp"-->
+                    <!--android:src="@drawable/icon_user_info_white_96px" />-->
+
+                <ImageView
                     android:id="@+id/profile_photo"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp"
-                    android:src="@drawable/photo_profile_girl" />
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/icon_user_info_white_96px" />
 
                 <TextView
                     android:id="@+id/full_name"

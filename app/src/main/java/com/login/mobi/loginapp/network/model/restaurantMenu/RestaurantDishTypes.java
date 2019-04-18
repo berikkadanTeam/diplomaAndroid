@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RestaurantDishTypes {
 
-    @SerializedName("Id")
+    @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("title")

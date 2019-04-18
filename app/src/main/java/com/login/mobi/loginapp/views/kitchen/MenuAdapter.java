@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.waiter;
+package com.login.mobi.loginapp.views.kitchen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.views.admin.MyRestaurantBookingsPage;
 import com.login.mobi.loginapp.views.admin.MyRestaurantInformationPage;
-import com.login.mobi.loginapp.views.waiter.orders.OrdersPage;
 import com.login.mobi.loginapp.views.client.menu.profile.ProfilePage;
+import com.login.mobi.loginapp.views.waiter.orders.OrdersPage;
 
 import java.util.ArrayList;
 

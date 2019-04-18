@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 /**
- * Created by nurzat on 7/4/17.
+ * Created by nurilkaa on 7/12/18.
  */
 
 public class LiveDateSharedPref extends ViewModel {
