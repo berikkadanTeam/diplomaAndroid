@@ -26,19 +26,19 @@ public class MyBookings {
     private Integer numberOfTable;
     @SerializedName("tableName")
     @Expose
-    private Object tableName;
+    private String tableName;
     @SerializedName("firstName")
     @Expose
-    private Object firstName;
+    private String firstName;
     @SerializedName("lastName")
     @Expose
-    private Object lastName;
+    private String lastName;
     @SerializedName("phoneNumber")
     @Expose
     private Object phoneNumber;
     @SerializedName("email")
     @Expose
-    private Object email;
+    private String email;
     @SerializedName("menu")
     @Expose
     private List<MyBookingsMenu> menu = null;
@@ -63,6 +63,9 @@ public class MyBookings {
     @SerializedName("getDate")
     @Expose
     private String getDate;
+    @SerializedName("reserveStatus")
+    @Expose
+    private Integer reserveStatus;      // 1 - сonfirmed; 2 - rejected; 3 - expecting;
 
     public String getId() {
         return id;
@@ -112,27 +115,25 @@ public class MyBookings {
         this.numberOfTable = numberOfTable;
     }
 
-    public Object getTableName() {
+    public String getTableName() {
         return tableName;
     }
 
-    public void setTableName(Object tableName) {
+    public void setTableName(String tableName) {
         this.tableName = tableName;
     }
 
-    public Object getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
 
-    public void setFirstName(Object firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public Object getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(Object lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -144,11 +145,11 @@ public class MyBookings {
         this.phoneNumber = phoneNumber;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -201,5 +202,9 @@ public class MyBookings {
     public String getGetDate() { return getDate; }
 
     public void setGetDate(String getDate) { this.getDate = getDate; }
+
+    public Integer getReserveStatus() { return reserveStatus; }
+
+    public void setReserveStatus(Integer reserveStatus) { this.reserveStatus = reserveStatus; }
 
 }

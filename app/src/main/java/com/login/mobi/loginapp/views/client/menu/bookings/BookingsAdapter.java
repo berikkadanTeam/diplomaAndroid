@@ -49,15 +49,29 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
 
         viewHolder.bookingNumber.setText("Бронирование №" + booking.getNumberOfBooking() + " в " + booking.getName());
         viewHolder.dateAndTime.setText(booking.getGetDate() + " в " + booking.getTime());
-        if (booking.getMenu() != null || !booking.getMenu().isEmpty())
+        //Log.d("BOOKING.MENU", String.valueOf(booking.getMenu().size()));
+        if (booking.getMenu().size() > 0 || booking.getMenu().isEmpty() == false) {    // booking.getMenu() != null из-за этого, когда menu пустой, выходило "Есть"
             viewHolder.hasPreorderOrNot.setText("Есть");
-        else
+        } else {
             viewHolder.hasPreorderOrNot.setText("Нет");
+        }
 
-        if (booking.getReservConfirmed() == true) {
-            //viewHolder.status.setText("Подтверждено");
-            viewHolder.statusConfirmed.setVisibility(View.VISIBLE);
-            viewHolder.statusRejected.setVisibility(View.GONE);
+        switch(booking.getReserveStatus()){
+            case 1:
+                viewHolder.statusExpecting.setVisibility(View.GONE);
+                viewHolder.statusConfirmed.setVisibility(View.VISIBLE);
+                viewHolder.statusRejected.setVisibility(View.GONE);
+                break;
+            case 2:
+                viewHolder.statusExpecting.setVisibility(View.GONE);
+                viewHolder.statusConfirmed.setVisibility(View.GONE);
+                viewHolder.statusRejected.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                viewHolder.statusExpecting.setVisibility(View.VISIBLE);
+                viewHolder.statusConfirmed.setVisibility(View.GONE);
+                viewHolder.statusRejected.setVisibility(View.GONE);
+                break;
         }
         //else
             //viewHolder.status.setText("Не подтверждено");
@@ -71,7 +85,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView bookingNumber, dateAndTime, hasPreorderOrNot, statusConfirmed, statusRejected;
+        private TextView bookingNumber, dateAndTime, hasPreorderOrNot, statusConfirmed, statusRejected, statusExpecting;
         private LinearLayout removePreorderDishBtn;
 
         MyBookings booking;
@@ -89,7 +103,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.ViewHo
             hasPreorderOrNot = itemView.findViewById(R.id.booking_preorder);
             statusConfirmed = itemView.findViewById(R.id.booking_status_confirmed);
             statusRejected = itemView.findViewById(R.id.booking_status_rejected);
-
+            statusExpecting = itemView.findViewById(R.id.booking_status_expecting);
         }
 
 

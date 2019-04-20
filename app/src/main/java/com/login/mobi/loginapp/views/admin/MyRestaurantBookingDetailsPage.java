@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +19,18 @@ import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.booking.MyBookings;
 import com.login.mobi.loginapp.network.model.booking.MyBookingsMenu;
 import com.login.mobi.loginapp.network.requests.booking.admin.ConfirmBooking;
+import com.login.mobi.loginapp.network.requests.booking.admin.RejectBooking;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.client.menu.bookings.BookingDetailsPreorderDishesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements ConfirmBooking.ConfirmBookingInterface {
+public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements ConfirmBooking.ConfirmBookingInterface, RejectBooking.RejectBookingInterface {
 
     // xml elements: recyclerView, buttons
-    private TextView restaurantName, date, time, numberOfGuests, preferences, preorder, surname, name, email, phone;
+    private TextView bookingNumber, date, time, numberOfGuests, preferences, preorder, bookingClientData, surname, name, email, phone;
+    private CardView acceptRejectBtns;
     private LinearLayout acceptBookingBtn, declineBookingBtn;
     private RecyclerView rv;
 
@@ -53,20 +56,20 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
 
         sharedPref = SingletonSharedPref.getInstance(this);
 
-        /* Получение данных ресторана с фрагмента Restaurant */
+        /* Получение данных ресторана с MyRestaurantBookingsPage */
         Intent intent = getIntent();
         jsonData = intent.getStringExtra("BookingData");
         MyBookings booking = new Gson().fromJson(jsonData, MyBookings.class);
         Log.d("BookingData", jsonData);
 
-        restaurantName = (TextView) findViewById(R.id.restaurant_name);
-        restaurantName.setText(booking.getName());
+        bookingNumber = (TextView) findViewById(R.id.booking_current_page_text);
+        bookingNumber.setText("Бронирование №" + Integer.toString(booking.getNumberOfBooking()));
         date = (TextView) findViewById(R.id.picked_date_textview);
-        date.setText(booking.getDate());
+        date.setText(booking.getGetDate());
         time = (TextView) findViewById(R.id.picked_time_textview);
         time.setText(booking.getTime());
         numberOfGuests = (TextView) findViewById(R.id.guests_count);
-        numberOfGuests.setText(booking.getCountPerson() + " -> ПОЗЖЕ НАДО ИЗМЕНИТЬ");
+        numberOfGuests.setText(Integer.toString(booking.getNumberOfGuests()));
         preferences = (TextView) findViewById(R.id.preferences);
         if (booking.getComments() != null || !booking.getComments().isEmpty() || booking.getComments().length() != 0) {
             preferences.setText(booking.getComments());
@@ -86,43 +89,46 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
             preorder.setText("Отсутствует");
         }
 
-
+        bookingClientData = (TextView) findViewById(R.id.booking_client_data);
+        bookingClientData.setText("Данные гостя");
         surname = (TextView) findViewById(R.id.input_surname);
         //surname.setText((CharSequence) booking.getFirstName().toString());
-        surname.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        surname.setText(booking.getLastName());
         name = (TextView) findViewById(R.id.input_name);
         //name.setText(booking.getLastName());
-        name.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        name.setText(booking.getFirstName());
         email = (TextView) findViewById(R.id.input_email);
-        email.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        email.setText(booking.getEmail());
         phone = (TextView) findViewById(R.id.input_phone);
-        phone.setText(booking.getNumber());
+        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
 
+        acceptRejectBtns = (CardView) findViewById(R.id.accept_reject_buttons);
         acceptBookingBtn = (LinearLayout) findViewById(R.id.accept_booking_button);
         declineBookingBtn = (LinearLayout) findViewById(R.id.decline_booking_button);
+        token = sharedPref.getString(SingletonSharedPref.TOKEN);
+        bookingId = booking.getId();
 
-
-        declineBookingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(parentLayout, "DELETE BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-
-        if (booking.getReservConfirmed() == false) {
-            acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
+        if (booking.getReserveStatus() == 3) {
+            declineBookingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Snackbar.make(parentLayout, "ACCEPT BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    token = sharedPref.getString(SingletonSharedPref.TOKEN);
-                    bookingId = booking.getId();
-                    isConfirmed = true;
-                    ConfirmBooking confirmBooking = new ConfirmBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId, isConfirmed);
-                    confirmBooking.confirmBooking();
+                    //Snackbar.make(parentLayout, "DELETE BOOKING BUTTON", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    RejectBooking rejectBooking = new RejectBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId);
+                    rejectBooking.rejectBooking();
                 }
             });
-        } else
-            acceptBookingBtn.setVisibility(LinearLayout.GONE);
+
+
+                acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ConfirmBooking confirmBooking = new ConfirmBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId);
+                        confirmBooking.confirmBooking();
+                    }
+                });
+        } else {
+            acceptRejectBtns.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -153,4 +159,30 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void getRejectBookingResponse(ServerResponse response, int code) {
+        if (response != null){
+            Log.d("RejectBooking", response.toString());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Snackbar.make(parentLayout, response.getStatus(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Thread.sleep(3000);
+                        runOnUiThread(new Runnable(){
+                            public void run() {
+                                //MyRestaurantBookingDetailsPage.this.onBackPressed();
+                                startActivity(new Intent(MyRestaurantBookingDetailsPage.this, MyRestaurantBookingsPage.class));
+                                finish();
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }
+    }
 }

@@ -110,11 +110,11 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
 
     @Override
     public void getMyOrders(List<MyOrders> response) {
-        Log.d("MyOrders", response.toString() + " ");
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
         if (response != null && response.size()>0) {
+            Log.d("MyOrders", response.toString() + " ");
             list = response;
             adapter.arrayChanged(list);
         }

@@ -5,13 +5,14 @@ package com.login.mobi.loginapp.network.model.booking;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class TableBookingWithPreorder {
 
     @SerializedName("date")
     @Expose
-    private String date;
+    private Date date;
     @SerializedName("time")
     @Expose
     private String time;
@@ -27,12 +28,15 @@ public class TableBookingWithPreorder {
     @SerializedName("menu")
     @Expose
     private List<Menu> menu = null;
+    @SerializedName("numberOfGuests")
+    @Expose
+    private Integer numberOfGuests;
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -76,4 +80,11 @@ public class TableBookingWithPreorder {
         this.menu = menu;
     }
 
+    public Integer getNumberOfGuests() {
+        return numberOfGuests;
+    }
+
+    public void setNumberOfGuests(Integer numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
+    }
 }

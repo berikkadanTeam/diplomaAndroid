@@ -196,9 +196,9 @@
             android:name=".views.client.menu.orders.OrdersPage"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <!--<activity-->
-            <!--android:name=".views.menu.orders.OrderDetailsPage"-->
-            <!--android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".views.client.menu.orders.OrderDetailsPage"
+            android:screenOrientation="portrait" />
 
         <!-- Menu Pages: DISCOUNTS -->
         <activity

@@ -8,35 +8,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConfirmBooking {
+public class RejectBooking {
 
     String token, bookingId;
-    ConfirmBooking.ConfirmBookingInterface confirmBookingInterface;
+    RejectBooking.RejectBookingInterface rejectBookingInterface;
 
-    public ConfirmBooking(ConfirmBooking.ConfirmBookingInterface confirmBookingInterface, String token, String bookingId) {
-        this.confirmBookingInterface = confirmBookingInterface;
+    public RejectBooking(RejectBooking.RejectBookingInterface rejectBookingInterface, String token, String bookingId) {
+        this.rejectBookingInterface = rejectBookingInterface;
         this.token = token;
         this.bookingId = bookingId;
     }
 
-    public interface ConfirmBookingInterface{
-        public void getConfirmBookingResponse(ServerResponse response, int code);
+    public interface RejectBookingInterface{
+        public void getRejectBookingResponse(ServerResponse response, int code);
     }
 
 
 
-    public void confirmBooking(){
+    public void rejectBooking(){
         ApiInterface service = BaseApi.getRetrofit().create(ApiInterface.class);
-        Call<ServerResponse> call = service.confirmBooking(token, bookingId);
+        Call<ServerResponse> call = service.rejectBooking(token, bookingId);
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                confirmBookingInterface.getConfirmBookingResponse(response.body(), response.code());
+                rejectBookingInterface.getRejectBookingResponse(response.body(), response.code());
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                confirmBookingInterface.getConfirmBookingResponse(null, -1);
+                rejectBookingInterface.getRejectBookingResponse(null, -1);
             }
         });
     }

@@ -32,6 +32,7 @@ import com.login.mobi.loginapp.views.client.Booking;
 import com.login.mobi.loginapp.views.client.menu.bookings.BookingsPage;
 import com.login.mobi.loginapp.views.client.restaurantMenu.PreorderTabsMainActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
     SingletonSharedPref sharedPref;
 
     // xml elements: texts, buttons
-    private TextView numberOfGuestsTextView, pickedDateTextView, pickedTimeTextView, restaurantName, averageCheck, delivery, seats, description;
+    private TextView numberOfGuestsTextView, pickedDateTextView, pickedTimeTextView, restaurantName, averageCheck, delivery, seats, description, surname, name, email, phone;
     private EditText preferences;
     private CardView plusGuest, minusGuest;
     private Button pickDateButton;
@@ -74,6 +75,8 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
         setContentView(R.layout.restaurant_table_booking_page);
         parentLayout = findViewById(android.R.id.content);
 
+        sharedPref = SingletonSharedPref.getInstance(this);
+
         /* Получение данных ресторана с RestaurantWebViewPage */
         Intent intent = getIntent();
         //selectedTableID = intent.getStringExtra("TableID");
@@ -95,13 +98,22 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
         pickDateButton = (Button) findViewById(R.id.pick_date_button);
         pickedDateTextView = (TextView) findViewById(R.id.picked_date_textview);
         Date c = Calendar.getInstance().getTime();
-        if (Booking.date == null || Booking.date.isEmpty()) {
-            sdf = new SimpleDateFormat("dd.MM.yyyy");
+        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        if (Booking.date == null){      //|| Booking.date.isEmpty()) {
+            //sdf = new SimpleDateFormat("dd.MM.yyyy");
             String today = sdf.format(c);
             pickedDateTextView.setText(today);
-            Booking.date = today;
+            try {
+                Date todayDate = sdf.parse(today);
+                Booking.date = todayDate;
+                Log.d("BOOKING.DATE NULL", todayDate.toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //Booking.date = today;
         } else {
-            pickedDateTextView.setText(Booking.date);
+            Log.d("BOOKING.DATE NOT NULL", Booking.date.toString());
+            pickedDateTextView.setText(sdf.format(Booking.date)); //Booking.date
         }
         pickDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +140,12 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
                                 else
                                     monthToSdf = String.valueOf(month+1);
                                 pickedDateTextView.setText(dateToSdf + "." + monthToSdf + "." + year);
-                                Booking.date = pickedDateTextView.getText().toString();
+                                //Booking.date = pickedDateTextView.getText().toString();
+                                try {
+                                    Booking.date = sdf.parse(pickedDateTextView.getText().toString());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -308,14 +325,21 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
         });
 
 
-
-
+        surname = findViewById(R.id.input_surname);
+        surname.setText(sharedPref.getString(SingletonSharedPref.USER_SURNAME));
+        name = findViewById(R.id.input_name);
+        name.setText(sharedPref.getString(SingletonSharedPref.USER_NAME));
+        email = findViewById(R.id.input_email);
+        email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
+        phone = (TextView) findViewById(R.id.input_phone);
+        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
 
         /* Book table in restaurant */
         bookTableBtn = findViewById(R.id.book_table_button);
         bookTableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userID = sharedPref.getString(SingletonSharedPref.USER_ID);
                 TableBookingWithPreorder booking = new TableBookingWithPreorder();
                 booking.setTableId(Booking.tableID);
                 booking.setUserId(userID);
@@ -323,6 +347,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
                 booking.setTime(Booking.time);
                 booking.setComments(Booking.preferences);
                 booking.setMenu(Booking.preorder);
+                booking.setNumberOfGuests(Booking.guests);
                 BookTable b = new BookTable(booking,RestaurantTableBookingPage.this,"Bearer " + sharedPref.getString(SingletonSharedPref.TOKEN));
                 b.bookTable();
                 // TODO if code == 200 BookTable.reset(); -> in class each string = null; and create this function
@@ -333,12 +358,6 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
 
 
 
-        sharedPref = SingletonSharedPref.getInstance(this);
-        userID = sharedPref.getString(SingletonSharedPref.USER_ID);
-        Log.d("UserID", userID);
-        if(userID != null){
-            // TODO
-        }
 
     }
 

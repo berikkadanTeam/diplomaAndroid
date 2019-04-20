@@ -27,6 +27,7 @@ import com.login.mobi.loginapp.views.kitchen.MainMenuActivityKitchen;
 import com.login.mobi.loginapp.views.waiter.MainMenuActivityWaiter;
 
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.Key.EXPIRES_IN;
+import static com.login.mobi.loginapp.singleton.SingletonSharedPref.RESTAURANT_ID;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.TOKEN;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_EMAIL;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_ID;
@@ -160,6 +161,7 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
 
                 switch (role){
                     case "Admin": {
+                        sharedPref.put(RESTAURANT_ID, response.getRestaurantId());
                         startActivity(new Intent(SignInPage.this, MainMenuActivity.class));
                         finish();
                         break;

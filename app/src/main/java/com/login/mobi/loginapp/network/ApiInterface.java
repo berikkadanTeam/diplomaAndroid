@@ -7,6 +7,7 @@ package com.login.mobi.loginapp.network;
 import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
 import com.login.mobi.loginapp.network.model.booking.MyBookings;
+import com.login.mobi.loginapp.network.model.booking.MyRestaurantBookings;
 import com.login.mobi.loginapp.network.model.booking.TableBookingWithPreorder;
 import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
@@ -27,6 +28,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 //import okhttp
@@ -122,14 +124,23 @@ public interface ApiInterface {
             @Query("userId") String userID
     );
 
+    @GET("api/Booking/GetBookedTables")
+    Call<List<MyRestaurantBookings>> getMyRestaurantBookings(
+            @Header("Authorization") String authHeader,
+            @Query("restarauntId") String restarauntID
+    );
+
     @POST("/api/Booking/ConfirmationReserv")
     Call<ServerResponse> confirmBooking(
             @Header("Authorization") String authHeader,
-            @Query("reserveId") String id,
-            @Query("reservConfirmed") boolean confirmed
+            @Query("reserveId") String id
     );
 
-
+    @PUT("/api/Booking/RejectTableReserv")
+    Call<ServerResponse> rejectBooking(
+            @Header("Authorization") String authHeader,
+            @Query("reserveId") String id
+    );
 
     // WAITER APIs
 

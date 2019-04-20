@@ -98,6 +98,7 @@ public class RestaurantWebViewPage extends AppCompatActivity {
                     Booking.restaurant = restaurant;
                     //intent.putExtra("RestaurantData", jsonData);
                     startActivity(intent);
+                    finish();
                     //startActivity(new Intent(RestaurantWebViewPage.this, RestaurantTableBookingPage.class));
                 }
                 else {

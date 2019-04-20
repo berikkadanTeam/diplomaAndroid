@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +29,8 @@ import java.util.List;
 public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBooking.DeleteMyBookingInterface{
 
     // xml elements: recyclerView, buttons
-    private TextView restaurantName, date, time, numberOfGuests, preferences, preorder, surname, name, email, phone;
+    private TextView bookingNumber, restaurantName, date, time, numberOfGuests, preferences, preorder, surname, name, email, phone;
+    private CardView deleteBookingButton;
     private LinearLayout deleteBookingBtn;
     private RecyclerView rv;
 
@@ -59,22 +61,24 @@ public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBoo
         MyBookings booking = new Gson().fromJson(jsonData, MyBookings.class);
         Log.d("BookingData", jsonData);
 
+        bookingNumber = (TextView) findViewById(R.id.booking_current_page_text);
+        bookingNumber.setText("Бронирование №" + booking.getNumberOfBooking() + " в");
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
         restaurantName.setText(booking.getName());
         date = (TextView) findViewById(R.id.picked_date_textview);
-        date.setText(booking.getDate());
+        date.setText(booking.getGetDate());
         time = (TextView) findViewById(R.id.picked_time_textview);
         time.setText(booking.getTime());
         numberOfGuests = (TextView) findViewById(R.id.guests_count);
-        numberOfGuests.setText(booking.getCountPerson() + " -> ПОЗЖЕ НАДО ИЗМЕНИТЬ");
+        numberOfGuests.setText(Integer.toString(booking.getNumberOfGuests()));
         preferences = (TextView) findViewById(R.id.preferences);
-        if (booking.getComments() != null || !booking.getComments().isEmpty() || booking.getComments().length() != 0) {
+        if ( !booking.getComments().isEmpty() || booking.getComments().length() != 0) {
             preferences.setText(booking.getComments());
         } else {
             preferences.setText("Отсутствуют");
         }
         preorder = (TextView) findViewById(R.id.has_preorder_or_not);
-        if (booking.getMenu() != null || !booking.getMenu().isEmpty()) {
+        if (booking.getMenu().size() > 0 || booking.getMenu().isEmpty() == false) {    // booking.getMenu() != null из-за этого, когда menu пустой, выходило "Есть"
             preorder.setText("Есть");
             rv = findViewById(R.id.rv);
             rv.setLayoutManager(new LinearLayoutManager(this));
@@ -83,24 +87,23 @@ public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBoo
             rv.setAdapter(adapter);
             rv.setItemAnimator(new DefaultItemAnimator());
         } else {
-            preorder.setText("Отсутствует");
+            preorder.setText("Нет");
         }
 
 
         surname = (TextView) findViewById(R.id.input_surname);
-        //surname.setText((CharSequence) booking.getFirstName().toString());
-        surname.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        surname.setText(sharedPref.getString(SingletonSharedPref.USER_SURNAME));
         name = (TextView) findViewById(R.id.input_name);
         //name.setText(booking.getLastName());
-        name.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        name.setText(sharedPref.getString(SingletonSharedPref.USER_NAME));
         email = (TextView) findViewById(R.id.input_email);
-        email.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
         phone = (TextView) findViewById(R.id.input_phone);
-        phone.setText(booking.getNumber());
+        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
 
-        // TODO в зависимости от статуса показывать/скрывать эту кнопку
-        if (booking.getReservConfirmed() == true){
-            deleteBookingBtn.setVisibility(View.GONE);
+        if (booking.getReserveStatus() != 3){
+            deleteBookingButton = (CardView) findViewById(R.id.delete_booking_button);
+            deleteBookingButton.setVisibility(View.GONE);
         } else {
             deleteBookingBtn = (LinearLayout) findViewById(R.id.delete_booking);
             deleteBookingBtn.setOnClickListener(new View.OnClickListener() {

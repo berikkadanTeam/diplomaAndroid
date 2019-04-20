@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
-import com.login.mobi.loginapp.views.client.menu.bookings.BookingDetailsPage;
 
 import java.util.List;
 
@@ -92,9 +92,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, BookingDetailsPage.class);
-            intent.putExtra("OrderData", new Gson().toJson(order)); // посылаем все данные по выбранному бронированию
-            //context.startActivity(intent);
+            Intent intent = new Intent(context, OrderDetailsPage.class);
+            intent.putExtra("OrderData", new Gson().toJson(order)); // посылаем все данные по выбранному заказу
+            Log.d("SENDED OrderData", order.toString());
+            context.startActivity(intent);
         }
     }
 }

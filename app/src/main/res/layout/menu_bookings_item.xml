@@ -97,28 +97,40 @@
                             android:textColor="@android:color/black"
                             android:text="Статус: "/>
                         <TextView
-                            android:id="@+id/booking_status_rejected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="2"
-                            android:text="Не подтверждено"
-                            android:drawableRight="@drawable/icon_remove_2"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:layout_marginLeft="6dp"
-                            android:textColor="@color/colorRed"/>
-                        <TextView
                             android:id="@+id/booking_status_confirmed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
-                            android:text="Подтверждено"
-                            android:drawableRight="@drawable/icon_accept"
+                            android:text=" Подтверждено"
+                            android:drawableLeft="@drawable/icon_accept"
                             android:textStyle="bold"
                             android:textSize="13sp"
                             android:layout_marginLeft="6dp"
                             android:textColor="@color/lightGreen"
                             android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/booking_status_rejected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text=" Не подтверждено"
+                            android:drawableLeft="@drawable/icon_remove_2"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/colorRed"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/booking_status_expecting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text=" В ожидании"
+                            android:drawableLeft="@drawable/icon_wait"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/middleGrey" />
                         <!--<TextView-->
                             <!--android:id="@+id/booking_status"-->
                             <!--android:layout_width="wrap_content"-->

@@ -42,14 +42,15 @@
                         android:id="@+id/booking_current_page_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Бронирование в" />
+                        android:text="Бронирование в"
+                        android:maxLines="2"/>
 
                     <TextView
                         android:id="@+id/restaurant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Julia"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -402,6 +403,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/delete_booking_button"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginBottom="20dp"

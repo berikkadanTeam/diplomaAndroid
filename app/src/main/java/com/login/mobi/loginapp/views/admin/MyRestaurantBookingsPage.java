@@ -14,26 +14,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.network.model.booking.MyBookings;
-import com.login.mobi.loginapp.network.requests.booking.GetMyBookings;
+import com.login.mobi.loginapp.network.model.booking.MyRestaurantBookings;
+import com.login.mobi.loginapp.network.requests.booking.admin.GetMyRestaurantBookings;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMyBookings.GetMyBookingsInterface{
+public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMyRestaurantBookings.GetMyRestaurantBookingsInterface{
 
     public MyRestaurantBookingsPage() { }
 
     // xml elements: recyclerView, buttons
-    private TextView bookingsMainTextView;
+    private TextView pageTitle, bookingsMainTextView;
     private EditText searchEditText;
     private RecyclerView rv;
 
     // variables
     private MyRestaurantBookingsAdapter adapter;
-    private List<MyBookings> list = new ArrayList<>();
+    private List<MyRestaurantBookings> list = new ArrayList<>();
 
     // Snackbar
     View parentLayout;
@@ -43,7 +43,7 @@ public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMy
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
-    private String userID, token;
+    private String restaurantID, token;
 
 
 
@@ -68,10 +68,12 @@ public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMy
         rv.setItemAnimator(new DefaultItemAnimator());
 
         bookingsMainTextView = (TextView) findViewById(R.id.bookingsMainTextView);
-
+        pageTitle = (TextView) findViewById(R.id.page_title);
+        pageTitle.setText("Бронирования в ресторане");
 
         /* Search */
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
+        searchEditText.setHint("Поиск бронирования по номеру");
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -87,19 +89,19 @@ public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMy
         });
 
         sharedPref = SingletonSharedPref.getInstance(this);
-        userID = sharedPref.getString(SingletonSharedPref.USER_ID);
+        restaurantID = sharedPref.getString(SingletonSharedPref.RESTAURANT_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetMyBookings getMyBookings = new GetMyBookings(this, userID, "Bearer " + token);
-        getMyBookings.getMyBookings();
+        GetMyRestaurantBookings getMyRestaurantBookings = new GetMyRestaurantBookings(this, restaurantID, "Bearer " + token);
+        getMyRestaurantBookings.getMyRestaurantBookings();
 
     }
 
 
-    /* Search booking by restaurant name */
+    /* Search booking by booking number */
     public void searchFunc(String text) {
-        ArrayList<MyBookings> founded = new ArrayList<>();
-        for (MyBookings s : list) {
-            int i = s.getName().toLowerCase().indexOf(text.toLowerCase());
+        ArrayList<MyRestaurantBookings> founded = new ArrayList<>();
+        for (MyRestaurantBookings s : list) {
+            int i = s.getNumberOfBooking().toString().toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }
@@ -109,7 +111,7 @@ public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMy
 
 
     @Override
-    public void getMyBookings(List<MyBookings> response) {
+    public void getMyRestaurantBookings(List<MyRestaurantBookings> response) {
         Log.d("MyRestaurantBookings", response.toString() + " ");
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
