@@ -43,7 +43,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
     private ServiceConnection signalRServiceConnection = new ServiceConnection(){
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            bounded=true;
+            bounded = true;
             SignalRService.LocalBinder localBinder= (SignalRService.LocalBinder) service;
             signalRService=localBinder.getInstance();
         }
@@ -73,7 +73,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-
+        balance = (TextView) findViewById(R.id.balance);
         fullName = (TextView) findViewById(R.id.full_name);
         balance = (TextView) findViewById(R.id.balance);
         surname = (TextView) findViewById(R.id.surname);
@@ -118,6 +118,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+            balance.setText(Integer.toString(response.getVirtualMoney()));
             fullName.setText(response.getLastName() + " " + response.getFirstName());
             surname.setText(response.getLastName());
             name.setText(response.getFirstName());

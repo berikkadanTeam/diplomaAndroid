@@ -13,6 +13,7 @@ import com.login.mobi.loginapp.network.model.cities.Cities;
 import com.login.mobi.loginapp.network.model.discounts.Discount;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
 import com.login.mobi.loginapp.network.model.order.Order;
+import com.login.mobi.loginapp.network.model.personnel.Personnel;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishTypes;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
@@ -128,6 +129,12 @@ public interface ApiInterface {
     Call<RestaurantInformation> getRestaurantInformation(
             @Header("Authorization") String authHeader,
             @Query("userId") String userID
+    );
+
+    @GET("/api/Restinfo/GetRestaurantPersonal")
+    Call<List<Personnel>> getPersonnel(
+            @Header("Authorization") String authHeader,
+            @Query("restaurantId") String restaurantID
     );
 
     @GET("api/Booking/GetBookedTables")

@@ -95,6 +95,10 @@
         <activity
             android:name=".views.admin.MyRestaurantBookingDetailsPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.admin.MyRestaurantPersonnelPage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
 
 

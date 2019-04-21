@@ -1,5 +1,7 @@
 package com.login.mobi.loginapp.views.client.order;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -21,6 +23,7 @@ import com.login.mobi.loginapp.network.model.order.Order;
 import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
 import com.login.mobi.loginapp.network.requests.order.MakeAnOrder;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.login.mobi.loginapp.views.client.menu.orders.OrdersPage;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -138,7 +141,24 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
 
 
     @Override
-    public void getOrder(ServerResponse response) {
-
+    public void getOrder(ServerResponse response, int code) {
+        Log.d("code", code + "");
+        if (code == 200){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderedDishesPage.this);
+            alertDialogBuilder.setIcon(R.drawable.icon_accept);
+            alertDialogBuilder.setTitle(response.getStatus());
+            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.setPositiveButton("ОК", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(OrderedDishesPage.this, OrdersPage.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+        else
+            Snackbar.make(parentLayout, "Ошибка...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 }

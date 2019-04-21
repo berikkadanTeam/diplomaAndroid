@@ -92,12 +92,13 @@ public class OrderFragment extends Fragment implements ZXingScannerView.ResultHa
 
     @Override
     public void handleResult(Result rawResult) {
-        Log.d("result", "Restaurant ID & Table ID from QR Code - " + rawResult.getText());   // Prints the scan format (qrcode, pdf417 etc.)
+        Log.d("result", "Restaurant ID & Table ID from QR Code - " + rawResult.getText());
         Log.d("result", "BarCodeFormat - " + rawResult.getBarcodeFormat().toString());
         //If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
         //String qr = rawResult.getText();
-        String qr = "RestaurantID:73048e25-ec04-4da2-98c8-0b496daee9ea; TableID:073bcae3-322d-45d2-88ff-77c70694db1f";
+        //String qr = "RestaurantID:73048e25-ec04-4da2-98c8-0b496daee9ea; TableID:073bcae3-322d-45d2-88ff-77c70694db1f";
+        String qr = rawResult.getText();
         String restaurantID = qr.substring(qr.indexOf(":") + 1, qr.indexOf(";"));
         String tableID = qr.substring(qr.lastIndexOf(":") + 1);
         Log.d("result", "RestaurantID from QR Code - " + restaurantID);

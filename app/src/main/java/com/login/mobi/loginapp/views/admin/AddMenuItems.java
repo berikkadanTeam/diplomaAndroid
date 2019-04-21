@@ -23,6 +23,11 @@ public class AddMenuItems {
         menuList.add(s);
 
         s = new MenuItem();
+        s.setName("Персонал");
+        s.setImage(R.drawable.icon_personnel);
+        menuList.add(s);
+
+        s = new MenuItem();
         s.setName("Бронирования");
         s.setImage(R.drawable.icon_calendar);
         menuList.add(s);

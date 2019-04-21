@@ -22,6 +22,9 @@ public class UserInformation {
     @SerializedName("restaurantId")
     @Expose
     private String restaurantId;
+    @SerializedName("virtualMoney")
+    @Expose
+    private Integer virtualMoney;
 
     public String getUserName() {
         return userName;
@@ -47,6 +50,7 @@ public class UserInformation {
         this.firstName = firstName;
     }
 
+
     // Pojo cделал его List, но для того, чтобы хранить роль в SharedPreferences, сделали Set<String>
     public Set<String> getRoles() {
         return roles;
@@ -64,6 +68,10 @@ public class UserInformation {
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
+
+    public Integer getVirtualMoney() { return virtualMoney; }
+
+    public void setVirtualMoney(Integer virtualMoney) { this.virtualMoney = virtualMoney; }
 
     @Override
     public String toString() {

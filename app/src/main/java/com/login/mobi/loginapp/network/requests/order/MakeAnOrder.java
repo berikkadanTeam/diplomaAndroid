@@ -21,7 +21,7 @@ public class MakeAnOrder {
     }
 
     public interface OrderInterface{
-        public void getOrder(ServerResponse response);
+        public void getOrder(ServerResponse response, int code);
     }
 
 
@@ -32,12 +32,12 @@ public class MakeAnOrder {
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                orderInterface.getOrder(response.body());
+                orderInterface.getOrder(response.body(), response.code());
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                orderInterface.getOrder(null);
+                orderInterface.getOrder(null, -1);
             }
         });
     }

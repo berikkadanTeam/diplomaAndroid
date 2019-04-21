@@ -1,4 +1,4 @@
-package com.login.mobi.loginapp.views.waiter.orders;
+package com.login.mobi.loginapp.views.admin;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -14,26 +14,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.network.model.order.MyOrders;
-import com.login.mobi.loginapp.network.requests.order.GetMyOrders;
+import com.login.mobi.loginapp.network.model.personnel.Personnel;
+import com.login.mobi.loginapp.network.requests.personnel.GetPersonnel;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOrdersInterface{
+public class MyRestaurantPersonnelPage extends AppCompatActivity implements GetPersonnel.GetPersonnelInterface{
 
-    public OrdersPage() { }
+    public MyRestaurantPersonnelPage() { }
 
     // xml elements: recyclerView, buttons
-    private TextView ordersMainTextView, pageTitle;
+    private TextView pageTitle, bookingsMainTextView;
     private EditText searchEditText;
     private RecyclerView rv;
 
     // variables
-    private OrdersAdapter adapter;
-    private List<MyOrders> list = new ArrayList<>();
+    private MyRestaurantPersonnelAdapter adapter;
+    private List<Personnel> list = new ArrayList<>();
 
     // Snackbar
     View parentLayout;
@@ -43,14 +43,14 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
-    private String userID, token;
+    private String restaurantID, token;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_orders);
+        setContentView(R.layout.admin_menu_personnel);
         parentLayout = findViewById(android.R.id.content);
 
 
@@ -60,16 +60,14 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         progressDialog.show();
 
 
-        /* My orders RecyclerView*/
+        /* My bookings RecyclerView*/
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new OrdersAdapter(this, list);
+        adapter = new MyRestaurantPersonnelAdapter(this, list);
         rv.setAdapter(adapter);
         rv.setItemAnimator(new DefaultItemAnimator());
 
-        ordersMainTextView = (TextView) findViewById(R.id.ordersMainTextView);
-        pageTitle = (TextView) findViewById(R.id.page_title);
-        pageTitle.setText("Заказы в ресторане");
+        bookingsMainTextView = (TextView) findViewById(R.id.bookingsMainTextView);
 
         /* Search */
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
@@ -80,7 +78,7 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchQuery = searchEditText.getText().toString();
-                OrdersPage.this.searchFunc(searchQuery);
+                MyRestaurantPersonnelPage.this.searchFunc(searchQuery);
             }
 
             @Override
@@ -88,19 +86,19 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         });
 
         sharedPref = SingletonSharedPref.getInstance(this);
-        userID = sharedPref.getString(SingletonSharedPref.USER_ID);
+        restaurantID = sharedPref.getString(SingletonSharedPref.RESTAURANT_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetMyOrders getMyOrders = new GetMyOrders(this, userID, "Bearer " + token);
-        getMyOrders.getMyOrders();
+        GetPersonnel getPersonnel = new GetPersonnel(this, "Bearer " + token, restaurantID);
+        getPersonnel.getPersonnel();
 
     }
 
 
-    /* Search booking by restaurant name */
+    /* Search booking by booking number */
     public void searchFunc(String text) {
-        ArrayList<MyOrders> founded = new ArrayList<>();
-        for (MyOrders s : list) {
-            int i = s.getId().toLowerCase().indexOf(text.toLowerCase());
+        ArrayList<Personnel> founded = new ArrayList<>();
+        for (Personnel s : list) {
+            int i = s.getFirstName().toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }
@@ -110,19 +108,18 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
 
 
     @Override
-    public void getMyOrders(List<MyOrders> response, int code) {
+    public void getPersonnel(List<Personnel> response) {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
         if (response != null && response.size()>0) {
-            Log.d("MyOrders", response.toString() + " ");
+            Log.d("MyRestaurantPersonnel", response.toString() + " ");
             list = response;
             adapter.arrayChanged(list);
         }
-        else if (response == null || response.isEmpty() || response.size() == 0) {
-            ordersMainTextView.setText("В ресторане нет заказов");
-            //Snackbar.make(parentLayout, "У Вас нет заказов", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        else if (response == null || response.isEmpty() || response.size() == 0){
+            bookingsMainTextView.setText("У ресторана нет персонала");
+            //Snackbar.make(parentLayout, "У Вас нет бронирований", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
-
 }

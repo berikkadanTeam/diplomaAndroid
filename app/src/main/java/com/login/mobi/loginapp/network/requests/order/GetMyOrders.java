@@ -24,7 +24,7 @@ public class GetMyOrders {
     }
 
     public interface GetMyOrdersInterface{
-        public void getMyOrders(List<MyOrders> response);
+        public void getMyOrders(List<MyOrders> response, int code);
     }
 
 
@@ -36,13 +36,13 @@ public class GetMyOrders {
         call.enqueue(new Callback<List<MyOrders>>() {
             @Override
             public void onResponse(Call<List<MyOrders>> call, Response<List<MyOrders>> response) {
-                anInterface.getMyOrders(response.body());
+                anInterface.getMyOrders(response.body(), response.code());
                 Log.d("mylog","body - " + response.body());
             }
 
             @Override
             public void onFailure(Call<List<MyOrders>> call, Throwable t) {
-                anInterface.getMyOrders(null);
+                anInterface.getMyOrders(null, -1);
                 Log.d("mylog","error " + t.getLocalizedMessage());
             }
         });

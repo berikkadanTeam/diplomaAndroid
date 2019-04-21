@@ -136,7 +136,7 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
 
 
     @Override
-    public void getOrder(ServerResponse response) {
+    public void getOrder(ServerResponse response, int code) {
 
     }
 }
