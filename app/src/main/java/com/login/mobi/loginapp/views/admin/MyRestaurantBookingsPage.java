@@ -121,7 +121,7 @@ public class MyRestaurantBookingsPage extends AppCompatActivity implements GetMy
             adapter.arrayChanged(list);
         }
         else if (response == null || response.isEmpty() || response.size() == 0){
-            bookingsMainTextView.setText("В Вашем ресторане нет бронирований");
+            bookingsMainTextView.setText("В ресторане нет бронирований");
             //Snackbar.make(parentLayout, "У Вас нет бронирований", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }

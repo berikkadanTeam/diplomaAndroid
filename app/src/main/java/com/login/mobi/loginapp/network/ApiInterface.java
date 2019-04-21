@@ -10,6 +10,7 @@ import com.login.mobi.loginapp.network.model.booking.MyBookings;
 import com.login.mobi.loginapp.network.model.booking.MyRestaurantBookings;
 import com.login.mobi.loginapp.network.model.booking.TableBookingWithPreorder;
 import com.login.mobi.loginapp.network.model.cities.Cities;
+import com.login.mobi.loginapp.network.model.discounts.Discount;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
 import com.login.mobi.loginapp.network.model.order.Order;
 import com.login.mobi.loginapp.network.model.restaurantInformation.RestaurantInformation;
@@ -106,6 +107,11 @@ public interface ApiInterface {
     Call<List<MyOrders>> getMyOrders(
             @Header("Authorization") String authHeader,
             @Query("UserId") String userID
+    );
+
+    @GET("/api/Restinfo/GetPromotion")
+    Call<List<Discount>> getDiscounts(
+            @Header("Authorization") String authHeader
     );
 
     @GET("api/Restaurants/GetRestaurants")

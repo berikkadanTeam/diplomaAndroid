@@ -204,6 +204,9 @@
         <activity
             android:name=".views.client.menu.discounts.DiscountsPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.client.menu.discounts.DiscountDetailsPage"
+            android:screenOrientation="portrait" />
 
         <!-- Bottom Navigation -->
         <activity

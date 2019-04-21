@@ -52,7 +52,7 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
 
         surname = (EditText) findViewById(R.id.surname);
         name = (EditText) findViewById(R.id.name);
-        birthDate = (EditText) findViewById(R.id.birth_date);
+        //birthDate = (EditText) findViewById(R.id.birth_date);
         email = (EditText) findViewById(R.id.email);
         phone = (EditText) findViewById(R.id.phone);
 
@@ -75,7 +75,7 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
         }
         surname.setText(response.getLastName());
         name.setText(response.getFirstName());
-        birthDate.setText("Пока такие данные не присылаются");
+        //birthDate.setText("Пока такие данные не присылаются");
         email.setText(response.getUserName());
         phone.setText("Пока такие данные не присылаются");
     }

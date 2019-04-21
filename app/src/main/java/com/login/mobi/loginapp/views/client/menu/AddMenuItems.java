@@ -27,10 +27,10 @@ public class AddMenuItems {
         s.setImage(R.drawable.icon_clock);
         menuList.add(s);
 
-        s = new MenuItem();
-        s.setName("Мои доставки");
-        s.setImage(R.drawable.icon_delivery_blue);
-        menuList.add(s);
+//        s = new MenuItem();
+//        s.setName("Мои доставки");
+//        s.setImage(R.drawable.icon_delivery_blue);
+//        menuList.add(s);
 
         s = new MenuItem();
         s.setName("Пополнить баланс");

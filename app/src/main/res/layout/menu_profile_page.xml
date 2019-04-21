@@ -209,24 +209,24 @@
                     android:text="Nurila"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_calendar"/>
-                <TextView
-                    android:id="@+id/birth_date"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:text="24.09.1998"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="24dp"-->
+                    <!--android:layout_height="24dp"-->
+                    <!--android:src="@drawable/icon_calendar"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/birth_date"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="20dp"-->
+                    <!--android:text="24.09.1998"/>-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_marginTop="15dp"

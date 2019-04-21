@@ -78,7 +78,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
         balance = (TextView) findViewById(R.id.balance);
         surname = (TextView) findViewById(R.id.surname);
         name = (TextView) findViewById(R.id.name);
-        birthDate = (TextView) findViewById(R.id.birth_date);
+        //birthDate = (TextView) findViewById(R.id.birth_date);
         email = (TextView) findViewById(R.id.email);
         phone = (TextView) findViewById(R.id.phone);
 
@@ -121,9 +121,9 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
             fullName.setText(response.getLastName() + " " + response.getFirstName());
             surname.setText(response.getLastName());
             name.setText(response.getFirstName());
-            birthDate.setText("Пока такие данные не присылаются");
+            //birthDate.setText("Пока такие данные не присылаются");
             email.setText(response.getUserName());
-            phone.setText("Пока такие данные не присылаются");
+            phone.setText("НЕТ ТАКОЙ ИНФЫ");
 
     }
 

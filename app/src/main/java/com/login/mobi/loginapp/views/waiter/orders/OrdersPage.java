@@ -111,16 +111,16 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
 
     @Override
     public void getMyOrders(List<MyOrders> response) {
-        Log.d("MyOrders", response.toString() + " ");
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
         if (response != null && response.size()>0) {
+            Log.d("MyOrders", response.toString() + " ");
             list = response;
             adapter.arrayChanged(list);
         }
         else if (response == null || response.isEmpty() || response.size() == 0) {
-            ordersMainTextView.setText("У Вас нет заказов");
+            ordersMainTextView.setText("В ресторане нет заказов");
             //Snackbar.make(parentLayout, "У Вас нет заказов", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
