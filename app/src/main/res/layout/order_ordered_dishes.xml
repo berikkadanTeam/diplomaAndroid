@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Выбранные блюда по меню для заказа: "
+                android:text="Выбранные блюда для заказа: "
                 android:maxLines="2"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -83,6 +83,41 @@
                         android:src="@drawable/icon_next" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/take_order_waiter_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentBottom="true"
+        app:cardBackgroundColor="@color/lightGreen"
+        app:cardCornerRadius="0dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/take_order_waiter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Взять заказ"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/icon_waiter_2_white" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

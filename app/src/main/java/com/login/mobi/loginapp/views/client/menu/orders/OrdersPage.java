@@ -113,9 +113,7 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        //Log.d("MyOrders222222", response.toString() + " ");
-        if (code == 200){
-        //if (response.size()>0 || response.isEmpty() == false) { //response != null){
+        if (code == 200){   //if (response.size()>0 || response.isEmpty() == false) { //response != null){
             Log.d("MyOrders", response.toString() + " ");
             list = response;
             adapter.arrayChanged(list);

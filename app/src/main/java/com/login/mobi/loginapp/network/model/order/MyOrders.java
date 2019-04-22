@@ -2,7 +2,7 @@ package com.login.mobi.loginapp.network.model.order;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.login.mobi.loginapp.network.model.booking.Menu;
+import com.login.mobi.loginapp.network.model.booking.MyBookingsMenu;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MyOrders {
     private String userId;
     @SerializedName("menu")
     @Expose
-    private List<Menu> menu;
+    private List<MyBookingsMenu> menu;
     @SerializedName("numberOfOrder")
     @Expose
     private Integer numberOfOrder;
@@ -48,11 +48,11 @@ public class MyOrders {
         this.userId = userId;
     }
 
-    public List<Menu> getMenu() {
+    public List<MyBookingsMenu> getMenu() {
         return menu;
     }
 
-    public void setMenu(List<Menu> menu) {
+    public void setMenu(List<MyBookingsMenu> menu) {
         this.menu = menu;
     }
 

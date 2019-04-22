@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -52,11 +50,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         viewHolder.tableNumber.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
         viewHolder.waiter.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
         viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-//        if (booking.getMenu() != null || !booking.getMenu().isEmpty())
-//            viewHolder.hasPreorderOrNot.setText("Есть");
-//        else
-//            viewHolder.hasPreorderOrNot.setText("Нет");
-//        viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
 
         viewHolder.updateUI(order);
 
@@ -68,7 +61,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView orderNumber, tableNumber, waiter, status;
-        private LinearLayout removePreorderDishBtn;
 
         MyOrders order;
 
@@ -94,7 +86,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         public void onClick(View v) {
             Intent intent = new Intent(context, OrderDetailsPage.class);
             intent.putExtra("OrderData", new Gson().toJson(order)); // посылаем все данные по выбранному заказу
-            Log.d("SENDED OrderData", order.toString());
             context.startActivity(intent);
         }
     }
