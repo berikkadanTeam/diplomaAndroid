@@ -15,14 +15,14 @@ import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
-import com.login.mobi.loginapp.network.requests.order.GetMyOrders;
+import com.login.mobi.loginapp.network.requests.order.waiter.GetRestaurantOrders;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOrdersInterface{
+public class OrdersPage extends AppCompatActivity implements GetRestaurantOrders.GetRestaurantOrdersInterface{
 
     public OrdersPage() { }
 
@@ -43,7 +43,7 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
-    private String userID, token;
+    private String restaurantID, token;
 
 
 
@@ -88,10 +88,10 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         });
 
         sharedPref = SingletonSharedPref.getInstance(this);
-        userID = sharedPref.getString(SingletonSharedPref.USER_ID);
+        restaurantID = sharedPref.getString(SingletonSharedPref.RESTAURANT_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetMyOrders getMyOrders = new GetMyOrders(this, userID, "Bearer " + token);
-        getMyOrders.getMyOrders();
+        GetRestaurantOrders getRestaurantOrders = new GetRestaurantOrders(this, restaurantID, "Bearer " + token);
+        getRestaurantOrders.getRestaurantOrders();
 
     }
 
@@ -109,20 +109,20 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
     }
 
 
+
     @Override
-    public void getMyOrders(List<MyOrders> response, int code) {
+    public void getRestaurantOrders(List<MyOrders> response, int code) {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        if (response != null && response.size()>0) {
+        if (code == 200){         // response != null && response.size()>0) {
             Log.d("MyOrders", response.toString() + " ");
             list = response;
             adapter.arrayChanged(list);
         }
-        else if (response == null || response.isEmpty() || response.size() == 0) {
+        else { // if (response == null || response.isEmpty() || response.size() == 0) {
             ordersMainTextView.setText("В ресторане нет заказов");
             //Snackbar.make(parentLayout, "У Вас нет заказов", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
-
 }

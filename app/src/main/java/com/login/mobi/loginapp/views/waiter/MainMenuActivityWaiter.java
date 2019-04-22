@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 // from: https://camposha.info/source/android-recyclerview-ratingbarimages-text
@@ -16,6 +19,7 @@ public class MainMenuActivityWaiter extends AppCompatActivity {
     // xml elements: texts, buttons, recyclerView
     private TextView fullName, email;
     private RecyclerView rv;
+    private CircleImageView menuImage;
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
@@ -38,6 +42,8 @@ public class MainMenuActivityWaiter extends AppCompatActivity {
         fullName.setText(sharedPref.getString(SingletonSharedPref.USER_SURNAME) + " " + sharedPref.getString(SingletonSharedPref.USER_NAME) + "\n" + "Официант");
         email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
 
+        menuImage = (CircleImageView) findViewById(R.id.booking_page_top_icon);
+        Picasso.get().load(R.drawable.icon_waiter_2_white_96px).into(menuImage);
     }
 
 }

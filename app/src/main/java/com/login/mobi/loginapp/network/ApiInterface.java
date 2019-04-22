@@ -104,7 +104,7 @@ public interface ApiInterface {
             @Body Order orderData
     );
 
-    @GET("api/Order/GetOrder")
+    @GET("/api/Order/GetOrder")
     Call<List<MyOrders>> getMyOrders(
             @Header("Authorization") String authHeader,
             @Query("UserId") String userID
@@ -156,5 +156,10 @@ public interface ApiInterface {
     );
 
     // WAITER APIs
+    @GET("/api/Order/GetRestOrder")
+    Call<List<MyOrders>> getRestaurantOrders(
+            @Header("Authorization") String authHeader,
+            @Query("restaurantId") String restaurantID
+    );
 
 }

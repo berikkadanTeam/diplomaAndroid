@@ -2,7 +2,11 @@ package com.login.mobi.loginapp.views.waiter.orders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -11,35 +15,30 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.network.model.ServerResponse;
-import com.login.mobi.loginapp.network.model.order.Order;
-import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
-import com.login.mobi.loginapp.network.requests.order.MakeAnOrder;
+import com.login.mobi.loginapp.network.model.booking.MyBookingsMenu;
+import com.login.mobi.loginapp.network.model.order.MyOrders;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.login.mobi.loginapp.views.client.menu.orders.OrderDetailsOrderedDishesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.OrderInterface{
+public class OrderedDishesPage extends AppCompatActivity{
 
     public OrderedDishesPage() { }
 
     // xml elements: editText, recyclerView, buttons
-    private TextView totalSum;
+    private TextView total;
     private RecyclerView rv;
-    private LinearLayout orderBtn;
+    private LinearLayout takeOrderBtn;
+    private CardView makePreorderBtn, takeOrderCardView;
 
     // variables
-    private OrderedDishesAdapter adapter;
-    private List<RestaurantDishes> list = new ArrayList<>();
-    int dishTypeID;
-    private String restaurantID;
-    private int amountOfDish = 1;
-    String jsonData, jsonData2;
-    List<RestaurantDishes> filteredDishes = new ArrayList<>();
-    private int totalCheck;
-    private String tableID;
+    private OrderDetailsOrderedDishesAdapter adapter;
+    private List<MyBookingsMenu> list = new ArrayList<>();
+    String jsonData;
+    private int totalSum = 0;
 
     // Snackbar
     View parentLayout;
@@ -60,83 +59,43 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
         /* Получение данных ресторана с OrdersPage */
         Intent intent = getIntent();
         jsonData = intent.getStringExtra("OrderData");
-        Order order = new Gson().fromJson(jsonData, Order.class);
+        MyOrders order = new Gson().fromJson(jsonData, MyOrders.class);
         Log.d("OrderData", jsonData);
 
-        /* Получение выбранных блюд с TabsMainActivity */
-//        Intent intent = getIntent();
-//        jsonData = intent.getStringExtra("ChosenDishesListForOrder");
-//        jsonData2 = intent.getStringExtra("ChosenDishesListInformation");
-//        Type collectionType = new TypeToken<List<Menu>>(){}.getType();
-//        final List<Menu> lcs = (List<Menu>) new Gson().fromJson(jsonData, collectionType);
-//        Log.d("ChosenDishesList", lcs.toString());
-//
-//        Type collectionType2 = new TypeToken<List<RestaurantDishes>>(){}.getType();
-//        List<RestaurantDishes> dishes = (List<RestaurantDishes>) new Gson().fromJson(jsonData2, collectionType2);
-//        Log.d("ChosenDishesList&Names", dishes.toString());
 
 
+        makePreorderBtn = (CardView) findViewById(R.id.booking_info_complete_button);
+        makePreorderBtn.setVisibility(View.GONE);
+        takeOrderCardView = (CardView) findViewById(R.id.take_order_waiter_cardview);
+        takeOrderCardView.setVisibility(View.VISIBLE);
 
-//        if (lcs.size() == 0)
-//            Snackbar.make(parentLayout, "Вы не выбрали ничего для заказа", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//
-//
-//        for (int k=0; k<lcs.size(); k++) {
-//            for (int j=0; j<dishes.size(); j++){
-//                Log.d("filteredDishes1", filteredDishes.toString() + ": " + lcs.get(k).getId() + " vs. " + dishes.get(j).getId());
-//                if (lcs.get(k).getId().equals(dishes.get(j).getId())) {
-//                    filteredDishes.add(dishes.get(j));
-//
-//                    if (lcs.get(k).getDishCount() > 1){
-//                        totalCheck += (dishes.get(j).getPrice()) * lcs.get(k).getDishCount();
-//                    }
-//                    else {
-//                        totalCheck += dishes.get(j).getPrice();
-//                    }
-//                    Log.d("filteredDishes2", filteredDishes.toString());
-//                }
-//            }
-//        }
-        TextView totalPrice = (TextView) findViewById(R.id.total_price);
-        //totalPrice.setText("Итого: " + totalCheck + " тг.");
 
-        /* Dish Types RecyclerView*/
-//        rv = findViewById(R.id.rv);
-//        rv.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new OrderedDishesAdapter(this, lcs, filteredDishes);
-//        rv.setAdapter(adapter);
-//        rv.setItemAnimator(new DefaultItemAnimator());
+        if (order.getMenu().size() > 0 || order.getMenu().isEmpty() == false) {    // order.getMenu() != null из-за этого, когда menu пустой, выходило "Есть"
+            rv = findViewById(R.id.rv);
+            rv.setLayoutManager(new LinearLayoutManager(this));
+            list = order.getMenu();
+            adapter = new OrderDetailsOrderedDishesAdapter(this, list);
+            rv.setAdapter(adapter);
+            rv.setItemAnimator(new DefaultItemAnimator());
+        }
 
-        totalSum = (TextView) findViewById(R.id.total_price);
+        for (int i=0; i<list.size(); i++){
+            totalSum += (list.get(i).getDishCount() * list.get(i).getPrice());
+        }
+        total = (TextView) findViewById(R.id.total_price);
+        total.setText("Итого: " + Integer.toString(totalSum) + " тг.");
 
-        // order button
-//        orderBtn = findViewById(R.id.make_preorder);
-//        orderBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //startActivity(new Intent(OrderedDishesPage.this, RestaurantTableBookingPage.class));
-//                if (lcs.size() == 0) {
-//                    Snackbar.make(parentLayout, "Вы не выбрали ничего для заказа", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                } else {
-////                    Order order = new Order();
-////                    order.setTableId(tableID);
-////                    order.setUserId(sharedPref.getString(SingletonSharedPref.USER_ID));
-////                    order.setMenu(lcs);
-////                    MakeAnOrder mao = new MakeAnOrder(order, OrderedDishesPage.this, "Bearer " + sharedPref.getString(SingletonSharedPref.TOKEN));
-////                    mao.makeAnOrder();
-//                    Snackbar.make(parentLayout, "Взять заказ", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                }
-//            }
-//        });
 
+        takeOrderBtn = (LinearLayout) findViewById(R.id.take_order_waiter);
+        takeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(parentLayout, "Взять заказ", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
 
 
 
     }
 
-
-    @Override
-    public void getOrder(ServerResponse response, int code) {
-
-    }
 }

@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.network.model.booking.Menu;
-import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
+import com.login.mobi.loginapp.network.model.booking.MyBookingsMenu;
 
 import java.util.List;
 
@@ -19,16 +17,19 @@ import java.util.List;
 public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdapter.ViewHolder>{
 
     private Context context;
-    //private List<RestaurantDishes> list;
-    private List<Menu> list;
-    private List<RestaurantDishes> dishes;
+    private List<MyBookingsMenu> list;
 
-    OrderedDishesAdapter(Context context, List<Menu> list, List<RestaurantDishes> dishes){
+    OrderedDishesAdapter(Context context, List<MyBookingsMenu> list){
         this.context = context;
         this.list = list;
-        this.dishes = dishes;
     }
 
+
+    // Чтобы при поиске отобразить новый список найденных заказов
+    public void arrayChanged(List<MyBookingsMenu> list){
+        this.list = list;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -42,29 +43,12 @@ public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdap
 
     @Override
     public void onBindViewHolder(@NonNull OrderedDishesAdapter.ViewHolder viewHolder, final int i) {
-        RestaurantDishes dish = dishes.get(i);
-        Menu m = list.get(i);
+        MyBookingsMenu dish = list.get(i);
 
-//        for (int k=0; k<list.size(); k++) {
-//            for (int j=0; j<dishes.size(); j++){
-//                if (dishes.get(j).getId() == list.get(k).getId()) {
-//                    viewHolder.dishName.setText(dishes.get(j).getNameOfDish());
-//                    viewHolder.dishPrice.setText(Integer.toString(dishes.get(j).getPrice()) + " тг.");
-//                    viewHolder.dishAmount.setText(Integer.toString(list.get(k).getDishCount()));
-//                }
-//            }
-//        }
+        viewHolder.dishName.setText(dish.getNameOfDish());
+        viewHolder.dishPrice.setText(Integer.toString(dish.getPrice()));
+        viewHolder.dishAmount.setText(Integer.toString(dish.getDishCount()));
 
-//for (int j = 0; j<dishes.size(); j++) {
-//    if (dishes.get(j).getId() == list.get(i).getId()) {
-//        viewHolder.dishName.setText(dishes.get(j).getNameOfDish());
-//        viewHolder.dishPrice.setText(Integer.toString(dishes.get(j).getPrice()) + " тг.");
-//        viewHolder.dishAmount.setText(Integer.toString(list.get(i).getDishCount()));
-//    }
-//}
-        viewHolder.dishName.setText(dishes.get(i).getNameOfDish());
-        viewHolder.dishPrice.setText(Integer.toString(dishes.get(i).getPrice()) + " тг.");
-        viewHolder.dishAmount.setText(Integer.toString(list.get(i).getDishCount()));
         viewHolder.updateUI(dish);
 
     }
@@ -75,14 +59,12 @@ public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdap
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView dishName, dishPrice, dishAmount;
-        private LinearLayout removePreorderDishBtn;
 
-        RestaurantDishes dishes;
+        MyBookingsMenu booking;
 
-        public void updateUI(RestaurantDishes restaurant){
-            this.dishes = restaurant;
+        public void updateUI(MyBookingsMenu booking){
+            this.booking = booking;
         }
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,13 +72,7 @@ public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdap
             dishName = itemView.findViewById(R.id.preoder_dish_name);
             dishPrice = itemView.findViewById(R.id.preorder_dish_price);
             dishAmount = itemView.findViewById(R.id.preoder_dish_amount);
-            removePreorderDishBtn = itemView.findViewById(R.id.preorder_dish_remove_button);
-
-
         }
-
-
-
 
 
     }

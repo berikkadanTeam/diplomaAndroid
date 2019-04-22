@@ -24,7 +24,7 @@ public class OrderDetailsOrderedDishesAdapter extends RecyclerView.Adapter<Order
         this.list = list;
     }
 
-    // Чтобы при поиске отобразить новый список найденных бронирований
+    // Чтобы при поиске отобразить новый список найденных заказов
     public void arrayChanged(List<MyBookingsMenu> list){
         this.list = list;
         notifyDataSetChanged();

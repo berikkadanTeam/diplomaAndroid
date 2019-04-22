@@ -172,11 +172,13 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
                         break;
                     }
                     case "Waiter": {
+                        sharedPref.put(RESTAURANT_ID, response.getRestaurantId());
                         startActivity(new Intent(SignInPage.this, MainMenuActivityWaiter.class));
                         finish();
                         break;
                     }
                     case "KitchenStuff": {
+                        sharedPref.put(RESTAURANT_ID, response.getRestaurantId());
                         startActivity(new Intent(SignInPage.this, MainMenuActivityKitchen.class));
                         finish();
                         break;
