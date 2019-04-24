@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -96,16 +95,16 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         GetMyOrders getMyOrders = new GetMyOrders(this, userID, "Bearer " + token);
         getMyOrders.getMyOrders();
 
-        String orderJson=null;//by Grant
-        if(getIntent()!=null){
-            orderJson=getIntent().getStringExtra("orderJson");
-        }
-        Log.d("myLog","onCreate: " + orderJson);
-        if(!TextUtils.isEmpty(orderJson)){
-            MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
-            list.add(myOrders);
-            adapter.notifyDataSetChanged();
-        }
+//        String orderJson=null;//by Grant
+//        if(getIntent()!=null){
+//            orderJson=getIntent().getStringExtra("orderJson");
+//        }
+//        Log.d("myLog","onCreate: " + orderJson);
+//        if(!TextUtils.isEmpty(orderJson)){
+//            MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
+//            list.add(myOrders);
+//            adapter.notifyDataSetChanged();
+//        }
 
     }
 

@@ -1,18 +1,21 @@
 package com.login.mobi.loginapp.views.waiter.orders;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.order.MyOrders;
 import com.login.mobi.loginapp.network.requests.order.waiter.GetRestaurantOrders;
@@ -93,6 +96,28 @@ public class OrdersPage extends AppCompatActivity implements GetRestaurantOrders
         GetRestaurantOrders getRestaurantOrders = new GetRestaurantOrders(this, restaurantID, "Bearer " + token);
         getRestaurantOrders.getRestaurantOrders();
 
+        String orderJson=null;//by Grant
+        if(getIntent()!=null){
+            orderJson=getIntent().getStringExtra("orderJson");
+        }
+        Log.d("myLog","onCreate: " + orderJson);
+        if(!TextUtils.isEmpty(orderJson)){
+            MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
+            list.add(myOrders);
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {//by Grant
+        super.onNewIntent(intent);
+        String orderJson=intent.getStringExtra("orderJson");
+        Log.d("myLog","onNewIntent: "+orderJson);
+
+        MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
+        list.add(myOrders);
+        adapter.notifyDataSetChanged();
     }
 
 

@@ -162,4 +162,11 @@ public interface ApiInterface {
             @Query("restaurantId") String restaurantID
     );
 
+    @POST("/api/Order/SetOrderWaiter")
+    Call<ServerResponse> acceptOrder(
+            @Header("Authorization") String authHeader,
+            @Query("id") String orderID,
+            @Query("waiterId") String waiterID
+    );
+
 }

@@ -12,25 +12,26 @@ import android.util.Log;
 import com.login.mobi.loginapp.network.SignalRService;
 
 /**
- * Created by grant on 2019-04-23.
+ * Created by nurilkaa on 2019-04-23.
  */
-public class CommonActivity extends AppCompatActivity {//by Grant
+
+public class CommonActivity extends AppCompatActivity {
     // SignalR
     private boolean bounded;
     private SignalRService signalRService;
-    private ServiceConnection signalRServiceConnection =new ServiceConnection(){
+    private ServiceConnection signalRServiceConnection = new ServiceConnection(){
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             bounded = true;
             SignalRService.LocalBinder localBinder = (SignalRService.LocalBinder) service;
-            signalRService=localBinder.getInstance();
+            signalRService = localBinder.getInstance();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            bounded=false;
-            signalRService=null;
+            bounded = false;
+            signalRService = null;
         }
     };
 
@@ -44,16 +45,16 @@ public class CommonActivity extends AppCompatActivity {//by Grant
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("SignalRService","CommonActivity onDestroy>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
+        Log.d("SignalRService","CommonActivity onDestroy>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         if(bounded){
             unbindService(signalRServiceConnection);
         }
     }
 
     private void connectToSignalRService() {
-        Intent signalRServiceIntent=new Intent(getBaseContext(),SignalRService.class);
-//        signalRServiceIntent.putExtra("isStartForegroundService",true);
+        Intent signalRServiceIntent = new Intent(getBaseContext(), SignalRService.class);
+//      signalRServiceIntent.putExtra("isStartForegroundService",true);
         startService(signalRServiceIntent);
-        bindService(signalRServiceIntent,signalRServiceConnection,BIND_AUTO_CREATE);
+        bindService(signalRServiceIntent, signalRServiceConnection,BIND_AUTO_CREATE);
     }
 }

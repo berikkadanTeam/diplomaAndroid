@@ -31,7 +31,7 @@ public class ServerResponse {
     }
 
 
-    // Booking table & Sign Up
+    // Booking table & Sign Up & OrderedDishesPage (client + waiter)
     @SerializedName("status")
     @Expose
     private String status;

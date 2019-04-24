@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
@@ -17,7 +18,7 @@ import android.util.Log;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
-import com.login.mobi.loginapp.views.client.menu.orders.OrdersPage;
+import com.login.mobi.loginapp.views.waiter.orders.OrdersPage;
 import com.microsoft.signalr.HubConnection;
 import com.microsoft.signalr.HubConnectionBuilder;
 import com.microsoft.signalr.HubConnectionState;
@@ -65,20 +66,20 @@ public class SignalRService extends Service{
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG,"onBind>>>>>>>>>>>>>>>>>>>>>>.");
+        Log.d(TAG,"onBind>>>>>>>>>>>>>>>>>>>>>>");
         connect();
         return binder;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.d(TAG,"onUnbind>>>>>>>>>>>>>>>>>>>>>>.");
+        Log.d(TAG,"onUnbind>>>>>>>>>>>>>>>>>>>>>>");
         return super.onUnbind(intent);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG,"onStartCommand>>>>>>>>>>>>>>>>>>>>>>.");
+        Log.d(TAG,"onStartCommand>>>>>>>>>>>>>>>>>>>>>>");
         if(intent!=null){
             boolean isStartForegroundService=intent.getBooleanExtra("isStartForegroundService",false);
             if(isStartForegroundService){
@@ -140,11 +141,9 @@ public class SignalRService extends Service{
                 return;
             }
             if(DEBUG) {
-                Log.d(TAG, "start connecting thread id : " + Thread.currentThread().getId() + " name: " + Thread.currentThread().getName()+" :hubConnection : "+hubConnection);
+                Log.d(TAG, "start connecting thread id: " + Thread.currentThread().getId() + " name: " + Thread.currentThread().getName()+" :hubConnection : "+hubConnection);
             }
 
-
-            //TODO get token from SharedPreferences
             //String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW1iZXJpa2thZGFuQGdtYWlsLmNvbSIsImp0aSI6IjU1ODMzOWNhLTM5ZTktNDVkNC1iOWI3LTk4NmFmNDBhNGU4ZSIsImlhdCI6MTU1MjYyNzM3OCwicm9sIjoiYXBpX2FjY2VzcyIsImlkIjoiNjJlMDU2MTEtMjY4Ny00NTI1LTk2YTItNDRhZjhmNGYxNTlkIiwibmJmIjoxNTUyNjI3Mzc4LCJleHAiOjE1ODQxNjMzNzgsImlzcyI6IndlYkFwaSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwNC8ifQ.82VykYQZ5d4IneECu_wyn-5VJUVEEC0giZVgZJQFte0";
             token = sharedPref.getString(SingletonSharedPref.TOKEN);
             Log.d(TAG,"token: "+SingletonSharedPref.TOKEN);
@@ -154,11 +153,11 @@ public class SignalRService extends Service{
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();
 
-            if(sharedPref.getStringSet("roles").contains("Waiter")){//by Grant
+            if(sharedPref.getStringSet("roles").contains("Waiter")){ //by Grant
                 hubConnection.on("ListenToOrder", (userName,message) -> {
                     Log.d(TAG,"New Message: " + message);
 
-                    Intent intent = new Intent(getBaseContext(), OrdersPage.class);//by Grant
+                    Intent intent = new Intent(getBaseContext(), OrdersPage.class); //by Grant
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -172,20 +171,51 @@ public class SignalRService extends Service{
                         notificationManager.createNotificationChannel(notificationChannel);
                     }
 
-                    NotificationCompat.Builder builder=new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
-                    builder.setSmallIcon(R.drawable.icon_order)
-                            .setContentTitle("You have a new order")
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_food)
+                            .setContentTitle("В ресторане появился новый заказ!")
                             .setContentText(message)
-                            .setTicker("You have a new order")
+                            .setTicker("В ресторане появился новый заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
                             .setContentIntent(pendingIntent)
-                            .setDefaults(NotificationCompat.DEFAULT_ALL);
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_food))
+                            .setDefaults(NotificationCompat.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
 
-                    int notificationId=159;
+                    int notificationId = 159;
                     notificationManager.notify(notificationId,builder.build());
 
                 }, String.class,String.class);
-            }else if(sharedPref.getStringSet("roles").contains("Client")){
+            } else if(sharedPref.getStringSet("roles").contains("Client")){
                 //TODO
+                hubConnection.on("ListenToAccept", (userName,message) -> {
+                    Log.d(TAG,"New Message2: " + message);
+
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    intent.putExtra("orderJson", message);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.enableLights(true);
+                        notificationChannel.setLightColor(Color.GREEN);
+                        notificationChannel.setShowBadge(true);
+                        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_food)
+                            .setContentTitle("Официант взял Ваш заказ!")
+                            .setContentText(message)
+                            .setTicker("Официант взял Ваш заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
+                            .setContentIntent(pendingIntent)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_food))
+                            .setDefaults(NotificationCompat.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
+
+                    int notificationId = 159;
+                    notificationManager.notify(notificationId,builder.build());
+
+                }, String.class,String.class);
             }
 
             try {
@@ -195,7 +225,7 @@ public class SignalRService extends Service{
                 }).blockingAwait();
             }catch (RuntimeException e){
                 if(DEBUG){
-                    Log.d(TAG,"can not connect to network: "+e.getMessage());
+                    Log.d(TAG,"can not connect to network: " + e.getMessage());
                 }
             }
 
