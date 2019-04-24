@@ -108,7 +108,8 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
         bookingId = booking.getId();
 
-        if (booking.getReserveStatus() == 3) {
+        Log.d("SHOW/HIDE BUTTONS", "ROLE: " + sharedPref.getString(SingletonSharedPref.ROLE) + " STATUS: " + booking.getReserveStatus().toString());
+        if (booking.getReserveStatus() == 3 && sharedPref.getString(SingletonSharedPref.ROLE).equals("Admin")) {
             declineBookingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,13 +120,13 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
             });
 
 
-                acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ConfirmBooking confirmBooking = new ConfirmBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId);
-                        confirmBooking.confirmBooking();
-                    }
-                });
+            acceptBookingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ConfirmBooking confirmBooking = new ConfirmBooking(MyRestaurantBookingDetailsPage.this, "Bearer " + token, bookingId);
+                    confirmBooking.confirmBooking();
+                }
+            });
         } else {
             acceptRejectBtns.setVisibility(View.GONE);
         }

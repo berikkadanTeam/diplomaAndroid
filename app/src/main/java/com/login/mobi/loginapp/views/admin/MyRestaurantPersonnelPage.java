@@ -98,7 +98,8 @@ public class MyRestaurantPersonnelPage extends AppCompatActivity implements GetP
     public void searchFunc(String text) {
         ArrayList<Personnel> founded = new ArrayList<>();
         for (Personnel s : list) {
-            int i = s.getFirstName().toLowerCase().indexOf(text.toLowerCase());
+            String surnameAndName = s.getFirstName() + s.getLastName();
+            int i = surnameAndName.toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }

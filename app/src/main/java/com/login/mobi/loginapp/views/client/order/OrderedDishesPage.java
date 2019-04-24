@@ -151,7 +151,7 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
             alertDialogBuilder.setPositiveButton("ОК", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(OrderedDishesPage.this, OrdersPage.class);
-                    startActivity(intent);
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     finish();
                 }
             });
@@ -161,4 +161,6 @@ public class OrderedDishesPage extends AppCompatActivity implements MakeAnOrder.
         else
             Snackbar.make(parentLayout, "Ошибка...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
+
+
 }

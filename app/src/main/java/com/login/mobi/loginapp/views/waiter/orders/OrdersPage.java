@@ -100,7 +100,7 @@ public class OrdersPage extends AppCompatActivity implements GetRestaurantOrders
     public void searchFunc(String text) {
         ArrayList<MyOrders> founded = new ArrayList<>();
         for (MyOrders s : list) {
-            int i = s.getId().toLowerCase().indexOf(text.toLowerCase());
+            int i = s.getNumberOfOrder().toString().toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }
