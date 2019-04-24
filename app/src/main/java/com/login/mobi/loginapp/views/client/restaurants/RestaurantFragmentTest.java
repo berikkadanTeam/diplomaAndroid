@@ -79,8 +79,7 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
 
         /* Filter dialog window */
         final DialogPlus filterDialog = DialogPlus.newDialog(getContext())
-                .setContentHolder(new ViewHolder(R.layout.filter_page))
-                .setOnClickListener(new OnClickListener() {
+                .setContentHolder(new ViewHolder(R.layout.filter_page)).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(DialogPlus dialog, View view) {
                         switch (view.getId()) {
@@ -102,9 +101,7 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
                         Toast.makeText(getContext(), "Никакой фильтр не был применён", Toast.LENGTH_LONG).show();
                     }
                 })
-                .setExpanded(true)
-                .setCancelable(true)
-                .create();
+                .setExpanded(true).setCancelable(true).create();
 
 
         /* When clicked on Filter button */
@@ -115,11 +112,13 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
                 filterDialog.show();
             }
         });
+        // TODO доделать фильтрацию
+        filterButton.setVisibility(View.GONE);
+
 
 
         GetRestaurants getRestaurants = new GetRestaurants(this);
         getRestaurants.getRestaurants();
-
 
         return rootView;
     }

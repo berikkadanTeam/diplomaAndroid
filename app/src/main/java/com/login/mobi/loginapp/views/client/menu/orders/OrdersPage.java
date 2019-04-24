@@ -99,7 +99,7 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
     public void searchFunc(String text) {
         ArrayList<MyOrders> founded = new ArrayList<>();
         for (MyOrders s : list) {
-            int i = s.getId().toLowerCase().indexOf(text.toLowerCase());
+            int i = s.getNumberOfOrder().toString().toLowerCase().indexOf(text.toLowerCase());
             if (i >= 0) {
                 founded.add(s);
             }
@@ -125,4 +125,12 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
         }
     }
 
+
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent = new Intent(OrdersPage.this, BottomNavigationPage.class);
+//        intent.putExtra("status", 1);
+//        startActivity(intent);
+//        finish();
+//    }
 }
