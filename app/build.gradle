@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.4.0'
     }
 }
 
@@ -96,7 +96,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     // QR Code
-    compile 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
     //compile 'com.google.zxing:android-integration:3.1.0'
     //implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 

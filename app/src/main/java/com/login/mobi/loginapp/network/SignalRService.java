@@ -58,7 +58,6 @@ public class SignalRService extends Service{
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             manager.createNotificationChannel(notificationChannel);
         }
-
         sharedPref = SingletonSharedPref.getInstance(this);
 
     }
@@ -69,6 +68,12 @@ public class SignalRService extends Service{
         Log.d(TAG,"onBind>>>>>>>>>>>>>>>>>>>>>>.");
         connect();
         return binder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG,"onUnbind>>>>>>>>>>>>>>>>>>>>>>.");
+        return super.onUnbind(intent);
     }
 
     @Override
@@ -107,6 +112,7 @@ public class SignalRService extends Service{
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
+        Log.d(TAG,"onTaskRemoved>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         PendingIntent pendingIntent=PendingIntent.getService(this,258,new Intent(this,SignalRService.class),PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
@@ -148,40 +154,51 @@ public class SignalRService extends Service{
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();
 
+            if(sharedPref.getStringSet("roles").contains("Waiter")){//by Grant
+                hubConnection.on("ListenToOrder", (userName,message) -> {
+                    Log.d(TAG,"New Message: " + message);
 
-            hubConnection.on("ListenToOrder", (userName,message) -> {
-                Log.d(TAG,"New Message: " + message);
+                    Intent intent = new Intent(getBaseContext(), OrdersPage.class);//by Grant
+                    intent.putExtra("orderJson", message);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-                Intent intent=new Intent(getBaseContext(), OrdersPage.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.enableLights(true);
+                        notificationChannel.setLightColor(Color.GREEN);
+                        notificationChannel.setShowBadge(true);
+                        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
-                    notificationChannel.enableLights(true);
-                    notificationChannel.setLightColor(Color.GREEN);
-                    notificationChannel.setShowBadge(true);
-                    notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-                    notificationManager.createNotificationChannel(notificationChannel);
+                    NotificationCompat.Builder builder=new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_order)
+                            .setContentTitle("You have a new order")
+                            .setContentText(message)
+                            .setTicker("You have a new order")
+                            .setContentIntent(pendingIntent)
+                            .setDefaults(NotificationCompat.DEFAULT_ALL);
+
+                    int notificationId=159;
+                    notificationManager.notify(notificationId,builder.build());
+
+                }, String.class,String.class);
+            }else if(sharedPref.getStringSet("roles").contains("Client")){
+                //TODO
+            }
+
+            try {
+                hubConnection.start().doFinally(() -> {
+                    Log.d(TAG,"isConnected>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    isConnectRunnableRunning=false;
+                }).blockingAwait();
+            }catch (RuntimeException e){
+                if(DEBUG){
+                    Log.d(TAG,"can not connect to network: "+e.getMessage());
                 }
+            }
 
-                NotificationCompat.Builder builder=new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
-                builder.setSmallIcon(R.drawable.icon_order)
-                        .setContentTitle("You have a new order")
-                        .setContentText(message)
-                        .setTicker("You have a new order")
-                        .setContentIntent(pendingIntent)
-                        .setDefaults(NotificationCompat.DEFAULT_ALL);
-
-                int notificationId=159;
-                notificationManager.notify(notificationId,builder.build());
-
-            }, String.class,String.class);
-
-            hubConnection.start().doFinally(() -> {
-                Log.d(TAG,"isConnected>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                isConnectRunnableRunning=false;
-            }).blockingAwait();
             //hubConnection.send("MakeOrder","Test from android");
         }
     }

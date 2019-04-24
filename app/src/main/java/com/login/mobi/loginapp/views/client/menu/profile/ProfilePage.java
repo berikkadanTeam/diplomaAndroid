@@ -1,11 +1,8 @@
 package com.login.mobi.loginapp.views.client.menu.profile;
 
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
-import com.login.mobi.loginapp.network.SignalRService;
 import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
 import com.login.mobi.loginapp.network.requests.userInformation.GetUserInformation;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
@@ -35,25 +31,6 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
 
 
     private ProgressDialog progressDialog;
-
-
-    private boolean bounded;
-    private SignalRService signalRService;
-
-    private ServiceConnection signalRServiceConnection = new ServiceConnection(){
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            bounded = true;
-            SignalRService.LocalBinder localBinder= (SignalRService.LocalBinder) service;
-            signalRService=localBinder.getInstance();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            bounded=false;
-            signalRService=null;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +79,6 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
                 ProfilePage.this.finish();
             }
         });
-
-        connectToSignalRService();
-    }
-
-    private void connectToSignalRService() {
-        Intent signalRServiceIntent=new Intent(getBaseContext(),SignalRService.class);
-        startService(signalRServiceIntent);
-        bindService(signalRServiceIntent,signalRServiceConnection,BIND_AUTO_CREATE);
     }
 
     @Override
@@ -131,9 +100,6 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(bounded){
-            unbindService(signalRServiceConnection);
-        }
     }
 
 }

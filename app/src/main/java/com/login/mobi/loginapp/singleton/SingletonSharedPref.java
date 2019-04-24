@@ -7,6 +7,9 @@ package com.login.mobi.loginapp.singleton;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /*
  * A Singleton for managing your SharedPreferences.
  *
@@ -215,6 +218,10 @@ public class SingletonSharedPref {
 
     public boolean getBoolean(String key) {
         return mPref.getBoolean(key, false);
+    }
+
+    public Set<String> getStringSet(String key){
+        return mPref.getStringSet(key,new HashSet<>());
     }
 
     /**

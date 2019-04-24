@@ -1,11 +1,11 @@
 package com.login.mobi.loginapp.views.kitchen;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.login.mobi.loginapp.CommonActivity;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.squareup.picasso.Picasso;
@@ -15,7 +15,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 // from: https://camposha.info/source/android-recyclerview-ratingbarimages-text
 
-public class MainMenuActivityKitchen extends AppCompatActivity {
+public class MainMenuActivityKitchen extends CommonActivity {
     // xml elements: texts, buttons, recyclerView
     private TextView fullName, email;
     private RecyclerView rv;

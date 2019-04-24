@@ -1,18 +1,18 @@
 package com.login.mobi.loginapp.views.admin;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.login.mobi.loginapp.CommonActivity;
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 
 
 // from: https://camposha.info/source/android-recyclerview-ratingbarimages-text
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends CommonActivity {
     // xml elements: texts, buttons, recyclerView
     private TextView fullName, email;
     private RecyclerView rv;
