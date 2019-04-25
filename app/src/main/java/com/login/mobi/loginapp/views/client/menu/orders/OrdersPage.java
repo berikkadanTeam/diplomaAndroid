@@ -112,10 +112,10 @@ public class OrdersPage extends AppCompatActivity implements GetMyOrders.GetMyOr
     @Override
     protected void onNewIntent(Intent intent) {//by Grant
         super.onNewIntent(intent);
-        String orderJson=intent.getStringExtra("orderJson");
-        Log.d("myLog","onNewIntent: "+orderJson);
+        String orderJson = intent.getStringExtra("orderJson");
+        Log.d("myLog","onNewIntent: " + orderJson);
 
-        MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
+        MyOrders myOrders = new Gson().fromJson(orderJson, MyOrders.class);
         list.add(myOrders);
         adapter.notifyDataSetChanged();
     }

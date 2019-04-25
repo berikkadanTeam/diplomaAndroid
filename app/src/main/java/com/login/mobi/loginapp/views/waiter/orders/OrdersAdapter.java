@@ -49,14 +49,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
         viewHolder.orderNumber.setText("Заказ №" + order.getNumberOfOrder());
         viewHolder.tableNumber.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-        viewHolder.waiter.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-        viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-//        if (booking.getMenu() != null || !booking.getMenu().isEmpty())
-//            viewHolder.hasPreorderOrNot.setText("Есть");
-//        else
-//            viewHolder.hasPreorderOrNot.setText("Нет");
-//        viewHolder.status.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-
+        if (order.getWaiter() != null) {
+            viewHolder.waiter.setText(order.getWaiterLastName() + " " + order.getWaiterName());
+            viewHolder.statusAccepted.setVisibility(View.VISIBLE);
+            viewHolder.statusExpecting.setVisibility(View.GONE);
+        } else {
+            viewHolder.waiter.setText("");
+            viewHolder.statusAccepted.setVisibility(View.GONE);
+            viewHolder.statusExpecting.setVisibility(View.VISIBLE);
+        }
         viewHolder.updateUI(order);
 
     }
@@ -66,7 +67,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView orderNumber, tableNumber, waiter, status;
+        private TextView orderNumber, tableNumber, waiter, statusAccepted, statusExpecting;
         private LinearLayout removePreorderDishBtn;
 
         MyOrders order;
@@ -83,7 +84,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             orderNumber = itemView.findViewById(R.id.order_number);
             tableNumber = itemView.findViewById(R.id.order_table_number);
             waiter = itemView.findViewById(R.id.order_waiter);
-            status = itemView.findViewById(R.id.order_status);
+            statusAccepted = itemView.findViewById(R.id.order_status_accepted);
+            statusExpecting = itemView.findViewById(R.id.order_status_expecting);
 
 
         }

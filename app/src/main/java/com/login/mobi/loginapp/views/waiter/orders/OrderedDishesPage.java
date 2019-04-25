@@ -92,17 +92,20 @@ public class OrderedDishesPage extends AppCompatActivity implements AcceptOrder.
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
         waiterID = sharedPref.getString(SingletonSharedPref.USER_ID);
         takeOrderBtn = (LinearLayout) findViewById(R.id.take_order_waiter);
-        // TODO if waiter == null, display this button; if not don't display
-        takeOrderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Snackbar.make(parentLayout, "Взять заказ", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                orderID = order.getId();
-                AcceptOrder acceptOrder = new AcceptOrder(OrderedDishesPage.this, "Bearer " + token, orderID, waiterID);
-                acceptOrder.acceptOrder();
-            }
-        });
 
+        if (order.getWaiter() != null) {
+            takeOrderCardView.setVisibility(View.GONE);
+        } else {
+            takeOrderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Snackbar.make(parentLayout, "Взять заказ", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    orderID = order.getId();
+                    AcceptOrder acceptOrder = new AcceptOrder(OrderedDishesPage.this, "Bearer " + token, orderID, waiterID);
+                    acceptOrder.acceptOrder();
+                }
+            });
+        }
 
 
     }

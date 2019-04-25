@@ -80,10 +80,10 @@ public class SignalRService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG,"onStartCommand>>>>>>>>>>>>>>>>>>>>>>");
-        if(intent!=null){
-            boolean isStartForegroundService=intent.getBooleanExtra("isStartForegroundService",false);
-            if(isStartForegroundService){
-                NotificationCompat.Builder builder=new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+        if (intent!=null){
+            boolean isStartForegroundService = intent.getBooleanExtra("isStartForegroundService",false);
+            if (isStartForegroundService){
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
                 Intent deleteIntent = new Intent(this, SignalRService.class);
                 deleteIntent.putExtra("isCancelNotification", true);
                 PendingIntent deletePendingIntent = PendingIntent.getService(this,
@@ -92,7 +92,7 @@ public class SignalRService extends Service{
                         PendingIntent.FLAG_CANCEL_CURRENT);
                 startForeground(START_FOREGROUND_ID, builder.setDeleteIntent(deletePendingIntent).build());
             }
-            if(intent.getBooleanExtra("isCancelNotification",false)){
+            if (intent.getBooleanExtra("isCancelNotification",false)){
                 notificationManager.cancel(START_FOREGROUND_ID);
             }
         }
@@ -103,7 +103,7 @@ public class SignalRService extends Service{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(DEBUG){
+        if (DEBUG){
             Log.d(TAG,"onDestroy()>>>>>>>>>>>>>>>>>>>>>>");
         }
         new Thread(new DisconnectRunnable()).start();
@@ -111,7 +111,7 @@ public class SignalRService extends Service{
 
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
+    public void onTaskRemoved (Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
         Log.d(TAG,"onTaskRemoved>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         PendingIntent pendingIntent=PendingIntent.getService(this,258,new Intent(this,SignalRService.class),PendingIntent.FLAG_ONE_SHOT);
@@ -132,35 +132,35 @@ public class SignalRService extends Service{
     private class ConnectRunnable implements Runnable {
         @Override
         public void run() {
-            if(isConnectRunnableRunning){
+            if (isConnectRunnableRunning){
                 return;
             }
-            isConnectRunnableRunning=true;
-            if(hubConnection!=null && hubConnection.getConnectionState() == HubConnectionState.CONNECTED){
-                isConnectRunnableRunning=false;
+            isConnectRunnableRunning = true;
+            if (hubConnection!=null && hubConnection.getConnectionState() == HubConnectionState.CONNECTED){
+                isConnectRunnableRunning = false;
                 return;
             }
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.d(TAG, "start connecting thread id: " + Thread.currentThread().getId() + " name: " + Thread.currentThread().getName()+" :hubConnection : "+hubConnection);
             }
 
             //String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW1iZXJpa2thZGFuQGdtYWlsLmNvbSIsImp0aSI6IjU1ODMzOWNhLTM5ZTktNDVkNC1iOWI3LTk4NmFmNDBhNGU4ZSIsImlhdCI6MTU1MjYyNzM3OCwicm9sIjoiYXBpX2FjY2VzcyIsImlkIjoiNjJlMDU2MTEtMjY4Ny00NTI1LTk2YTItNDRhZjhmNGYxNTlkIiwibmJmIjoxNTUyNjI3Mzc4LCJleHAiOjE1ODQxNjMzNzgsImlzcyI6IndlYkFwaSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwNC8ifQ.82VykYQZ5d4IneECu_wyn-5VJUVEEC0giZVgZJQFte0";
             token = sharedPref.getString(SingletonSharedPref.TOKEN);
-            Log.d(TAG,"token: "+SingletonSharedPref.TOKEN);
+            Log.d(TAG,"token: " + SingletonSharedPref.TOKEN);
 
 
             hubConnection = HubConnectionBuilder.create(DOMAIN.concat(URL))
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();
 
-            if(sharedPref.getStringSet("roles").contains("Waiter")){ //by Grant
+            if (sharedPref.getStringSet("roles").contains("Waiter")){ //by Grant
                 hubConnection.on("ListenToOrder", (userName,message) -> {
                     Log.d(TAG,"New Message: " + message);
 
                     Intent intent = new Intent(getBaseContext(), OrdersPage.class); //by Grant
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                         NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
@@ -184,15 +184,15 @@ public class SignalRService extends Service{
                     notificationManager.notify(notificationId,builder.build());
 
                 }, String.class,String.class);
-            } else if(sharedPref.getStringSet("roles").contains("Client")){
+            } else if(sharedPref.getStringSet("roles").contains("User")){
                 //TODO
-                hubConnection.on("ListenToAccept", (userName,message) -> {
-                    Log.d(TAG,"New Message2: " + message);
+                hubConnection.on("ListenToAccept", (username, messageOrder) -> {
+                    Log.d(TAG,"AcceptMess: " + messageOrder);
 
                     Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
-                    intent.putExtra("orderJson", message);
+                    intent.putExtra("orderJson", messageOrder);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    PendingIntent pendingIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                         NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
@@ -206,7 +206,7 @@ public class SignalRService extends Service{
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
                     builder.setSmallIcon(R.drawable.icon_food)
                             .setContentTitle("Официант взял Ваш заказ!")
-                            .setContentText(message)
+                            .setContentText(messageOrder)
                             .setTicker("Официант взял Ваш заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
                             .setContentIntent(pendingIntent)
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_food))
@@ -223,7 +223,7 @@ public class SignalRService extends Service{
                     Log.d(TAG,"isConnected>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                     isConnectRunnableRunning=false;
                 }).blockingAwait();
-            }catch (RuntimeException e){
+            } catch (RuntimeException e){
                 if(DEBUG){
                     Log.d(TAG,"can not connect to network: " + e.getMessage());
                 }
@@ -233,13 +233,14 @@ public class SignalRService extends Service{
         }
     }
 
-    private class DisconnectRunnable implements Runnable{
+    private class DisconnectRunnable implements Runnable {
         @Override
         public void run() {
-            if(hubConnection!=null && hubConnection.getConnectionState()== HubConnectionState.CONNECTED){
+            if (hubConnection != null && hubConnection.getConnectionState() == HubConnectionState.CONNECTED){
                 hubConnection.stop();
             }
         }
     }
+
 
 }

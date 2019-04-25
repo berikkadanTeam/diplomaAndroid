@@ -74,18 +74,29 @@
                             android:textSize="13sp"
                             android:textColor="@android:color/black"
                             android:text="Обслуживает официант: "/>
-                        <TextView
-                            android:id="@+id/order_waiter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="2"
-                            android:text="Бериккалиев Данияр"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:layout_marginLeft="6dp"
-                            android:textColor="@android:color/black"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/order_waiter"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:maxLines="2"-->
+                            <!--android:text="Бериккалиев Данияр"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textSize="13sp"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:textColor="@android:color/black"/>-->
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/order_waiter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@android:color/black"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,17 +107,39 @@
                             android:textSize="13sp"
                             android:textColor="@android:color/black"
                             android:text="Статус: "/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/order_status"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:maxLines="2"-->
+                            <!--android:text="Готовится..."-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textSize="13sp"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:textColor="@android:color/black"/>-->
                         <TextView
-                            android:id="@+id/order_status"
+                            android:id="@+id/order_status_accepted"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
-                            android:text="Готовится..."
+                            android:text=" Принят"
+                            android:drawableLeft="@drawable/icon_accept"
                             android:textStyle="bold"
                             android:textSize="13sp"
                             android:layout_marginLeft="6dp"
-                            android:textColor="@android:color/black"/>
-
+                            android:textColor="@color/lightGreen"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/order_status_expecting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text=" В ожидании"
+                            android:drawableLeft="@drawable/icon_wait"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/middleGrey" />
                     </LinearLayout>
                 </LinearLayout>
 

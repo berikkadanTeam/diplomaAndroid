@@ -23,6 +23,15 @@ public class MyOrders {
     @SerializedName("numberOfOrder")
     @Expose
     private Integer numberOfOrder;
+    @SerializedName("waiter")
+    @Expose
+    private String waiter;
+    @SerializedName("waiterLastName")
+    @Expose
+    private String waiterLastName;
+    @SerializedName("waiterName")
+    @Expose
+    private String waiterName;
 
     public String getId() {
         return id;
@@ -60,6 +69,17 @@ public class MyOrders {
 
     public void setNumberOfOrder(Integer numberOfOrder) { this.numberOfOrder = numberOfOrder; }
 
+    public String getWaiter() { return waiter; }
+
+    public void setWaiter(String waiter) { this.waiter = waiter; }
+
+    public String getWaiterLastName() { return waiterLastName; }
+
+    public void setWaiterLastName(String waiterLastName) { this.waiterLastName = waiterLastName; }
+
+    public String getWaiterName() { return waiterName; }
+
+    public void setWaiterName(String waiterName) { this.waiterName = waiterName; }
 
     @Override
     public String toString() {

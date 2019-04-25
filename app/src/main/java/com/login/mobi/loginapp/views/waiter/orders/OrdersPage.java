@@ -96,13 +96,13 @@ public class OrdersPage extends AppCompatActivity implements GetRestaurantOrders
         GetRestaurantOrders getRestaurantOrders = new GetRestaurantOrders(this, restaurantID, "Bearer " + token);
         getRestaurantOrders.getRestaurantOrders();
 
-        String orderJson=null;//by Grant
-        if(getIntent()!=null){
-            orderJson=getIntent().getStringExtra("orderJson");
+        String orderJson = null;//by Grant
+        if(getIntent() != null){
+            orderJson = getIntent().getStringExtra("orderJson");
         }
         Log.d("myLog","onCreate: " + orderJson);
         if(!TextUtils.isEmpty(orderJson)){
-            MyOrders myOrders=new Gson().fromJson(orderJson,MyOrders.class);
+            MyOrders myOrders = new Gson().fromJson(orderJson,MyOrders.class);
             list.add(myOrders);
             adapter.notifyDataSetChanged();
         }
