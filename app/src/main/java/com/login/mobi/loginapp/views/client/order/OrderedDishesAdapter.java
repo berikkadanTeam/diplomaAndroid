@@ -63,7 +63,7 @@ public class OrderedDishesAdapter extends RecyclerView.Adapter<OrderedDishesAdap
 //    }
 //}
         viewHolder.dishName.setText(dishes.get(i).getNameOfDish());
-        viewHolder.dishPrice.setText(Integer.toString(dishes.get(i).getPrice()) + " тг.");
+        viewHolder.dishPrice.setText(Integer.toString(dishes.get(i).getPrice()) + " ₸");
         viewHolder.dishAmount.setText(Integer.toString(list.get(i).getDishCount()));
         viewHolder.updateUI(dish);
 

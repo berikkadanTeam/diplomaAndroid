@@ -13,6 +13,9 @@ public class Menu {
     @SerializedName("dishCount")
     @Expose
     private Integer dishCount;
+    @SerializedName("price")
+    @Expose
+    private Integer dishPrice;
 
     public String getId() {
         return id;
@@ -28,6 +31,14 @@ public class Menu {
 
     public void setDishCount(Integer dishCount) {
         this.dishCount = dishCount;
+    }
+
+    public Integer getDishPrice() {
+        return dishPrice;
+    }
+
+    public void setDishPrice(Integer dishPrice) {
+        this.dishPrice = dishPrice;
     }
 
     @Override

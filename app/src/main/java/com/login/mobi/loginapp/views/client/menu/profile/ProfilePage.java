@@ -87,7 +87,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            balance.setText(Integer.toString(response.getVirtualMoney()));
+            balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
             fullName.setText(response.getLastName() + " " + response.getFirstName());
             surname.setText(response.getLastName());
             name.setText(response.getFirstName());

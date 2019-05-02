@@ -371,6 +371,6 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
             finish();
         }
         else
-            Snackbar.make(parentLayout, "Ошибка...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(parentLayout, "Ошибка! " + response.getStatus(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 }

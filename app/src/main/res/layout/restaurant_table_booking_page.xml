@@ -66,6 +66,31 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_error"
+                android:layout_marginLeft="26dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="italic|bold"
+                android:text="При бронировании:\n- без предзаказа списывается 2000₸ с баланса\n- с предзаказом списывается общая сумма предзаказа"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="10dp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
             <!-- Booking Info -->
 
             <LinearLayout

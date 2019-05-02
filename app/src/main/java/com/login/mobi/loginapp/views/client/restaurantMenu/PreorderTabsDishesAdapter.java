@@ -66,7 +66,7 @@ public class PreorderTabsDishesAdapter extends RecyclerView.Adapter<PreorderTabs
             //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
             //viewHolder.iv.setImageResource(R.drawable.photo_salad_2);
         viewHolder.name.setText(list.get(i).getNameOfDish());
-        viewHolder.price.setText(Integer.toString(list.get(i).getPrice()) + " тг.");
+        viewHolder.price.setText(Integer.toString(list.get(i).getPrice()) + " ₸");
         //}
 
         viewHolder.updateUI(dish);
@@ -107,6 +107,7 @@ public class PreorderTabsDishesAdapter extends RecyclerView.Adapter<PreorderTabs
                                     Menu m = new Menu();
                                     m.setId(dishes.getId());
                                     m.setDishCount(amountOfDish);
+                                    m.setDishPrice(dishes.getPrice());
                                     chosenDishList.add(m);
                                     activity.chosenDishList.add(m);
                                     activity.chosenDishListDishNames.add(dishes);
@@ -118,6 +119,7 @@ public class PreorderTabsDishesAdapter extends RecyclerView.Adapter<PreorderTabs
                             Menu m = new Menu();
                             m.setId(dishes.getId());
                             m.setDishCount(amountOfDish);
+                            m.setDishPrice(dishes.getPrice());
                             chosenDishList.add(m);
                             activity.chosenDishList.add(m);
                             activity.chosenDishListDishNames.add(dishes);

@@ -45,7 +45,7 @@ public class OrderDetailsOrderedDishesAdapter extends RecyclerView.Adapter<Order
         MyBookingsMenu dish = list.get(i);
 
         viewHolder.dishName.setText(dish.getNameOfDish());
-        viewHolder.dishPrice.setText(Integer.toString(dish.getPrice()));
+        viewHolder.dishPrice.setText(Integer.toString(dish.getPrice()) + " ₸");
         viewHolder.dishAmount.setText(Integer.toString(dish.getDishCount()));
 
         viewHolder.updateUI(dish);

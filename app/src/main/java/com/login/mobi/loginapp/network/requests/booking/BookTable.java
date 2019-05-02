@@ -1,9 +1,14 @@
 package com.login.mobi.loginapp.network.requests.booking;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.login.mobi.loginapp.network.ApiInterface;
 import com.login.mobi.loginapp.network.BaseApi;
 import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.model.booking.TableBookingWithPreorder;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +38,23 @@ public class BookTable {
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                tableInterface.getBookTableInformation(response.body(), response.code());
+                Gson gson = new Gson();
+                Type type = new TypeToken<ServerResponse>(){}.getType();
+                ServerResponse response_message = new ServerResponse();
+
+                //tableInterface.getBookTableInformation(response.body(), response.code());
+                try {
+                    if (response.code() != 200) {
+                        response_message = gson.fromJson(response.errorBody().string(), type);
+                        if (response_message.getStatus() != null) {
+                            tableInterface.getBookTableInformation(response_message, response.code());
+                        }
+                    } else{
+                        tableInterface.getBookTableInformation(response.body(), response.code());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

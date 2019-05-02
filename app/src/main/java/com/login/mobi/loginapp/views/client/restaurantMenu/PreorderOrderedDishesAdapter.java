@@ -44,7 +44,7 @@ public class PreorderOrderedDishesAdapter extends RecyclerView.Adapter<PreorderO
         RestaurantDishes dish = dishes.get(i);
 
         viewHolder.dishName.setText(dishes.get(i).getNameOfDish());
-        viewHolder.dishPrice.setText(Integer.toString(dishes.get(i).getPrice()) + " тг.");
+        viewHolder.dishPrice.setText(Integer.toString(dishes.get(i).getPrice()) + " ₸");
         viewHolder.dishAmount.setText(Integer.toString(list.get(i).getDishCount()));
         viewHolder.updateUI(dish);
 

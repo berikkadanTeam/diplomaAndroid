@@ -67,7 +67,7 @@ public class TabsDishesAdapter extends RecyclerView.Adapter<TabsDishesAdapter.Vi
             //Picasso.get().load(list.get(i).getFilePath()).into(viewHolder.iv);
             //viewHolder.iv.setImageResource(R.drawable.photo_salad_2);
         viewHolder.name.setText(list.get(i).getNameOfDish());
-        viewHolder.price.setText(Integer.toString(list.get(i).getPrice()) + " тг.");
+        viewHolder.price.setText(Integer.toString(list.get(i).getPrice()) + " ₸");
         //}
 
         viewHolder.updateUI(dish);

@@ -92,7 +92,7 @@ public class PreorderOrderedDishesPage extends AppCompatActivity{
             }
         }
         TextView totalPrice = (TextView) findViewById(R.id.total_price);
-        totalPrice.setText("Итого: " + totalCheck + " тг.");
+        totalPrice.setText("Итого: " + totalCheck + " ₸");
 
         /* Dish Types RecyclerView*/
         rv = findViewById(R.id.rv);
