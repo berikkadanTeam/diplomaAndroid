@@ -153,11 +153,11 @@ public class SignalRService extends Service{
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();
 
-            if (sharedPref.getStringSet("roles").contains("Waiter")){ //by Grant
+            if (sharedPref.getStringSet("roles").contains("Waiter")){
                 hubConnection.on("ListenToOrder", (userName,message) -> {
                     Log.d(TAG,"New Message: " + message);
 
-                    Intent intent = new Intent(getBaseContext(), OrdersPage.class); //by Grant
+                    Intent intent = new Intent(getBaseContext(), OrdersPage.class);
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
