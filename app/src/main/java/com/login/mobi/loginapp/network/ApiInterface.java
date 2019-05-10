@@ -52,7 +52,8 @@ public interface ApiInterface {
             @Field("firstName") String firstName,
             @Field("lastName")  String lastName,
             @Field("location")  String location,
-            @Field("UserRole")  String role
+            @Field("UserRole")  String role,
+            @Field("phoneNumber") String phoneNumber
     );
 
     @FormUrlEncoded
@@ -110,6 +111,13 @@ public interface ApiInterface {
             @Query("UserId") String userID
     );
 
+    @PUT("/api/users/TopUpAccount")
+    Call<ServerResponse> fillBalance(
+            @Header("Authorization") String authHeader,
+            @Query("userId") String userID,
+            @Query("addmoney") String howMuch
+    );
+
     @GET("/api/Restinfo/GetPromotion")
     Call<List<Discount>> getDiscounts(
             @Header("Authorization") String authHeader
@@ -120,6 +128,8 @@ public interface ApiInterface {
     // OR
     @GET("api/Restaurants/GetRestaurants")
     Call<RestaurantInformation> getRestaurantInformation(@Query("restaurantId") String restaurantId);
+
+
 
 
 
@@ -154,6 +164,9 @@ public interface ApiInterface {
             @Header("Authorization") String authHeader,
             @Query("reserveId") String id
     );
+
+
+
 
     // WAITER APIs
     @GET("/api/Order/GetRestOrder")

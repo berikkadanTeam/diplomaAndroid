@@ -17,8 +17,6 @@ import com.login.mobi.loginapp.singleton.SingletonSharedPref;
 import com.login.mobi.loginapp.views.client.authorization.WelcomePage;
 
 
-// from: https://awsrh.blogspot.com/2017/10/modern-profile-ui-design-in-android.html
-
 public class ProfilePage extends AppCompatActivity implements GetUserInformation.GetUserInformationInterface {
     // xml elements: texts, buttons
     private Button exitBtn;

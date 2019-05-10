@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.login.mobi.loginapp.R;
+import com.login.mobi.loginapp.views.client.menu.balance.BalancePage;
 import com.login.mobi.loginapp.views.client.menu.bookings.BookingsPage;
 import com.login.mobi.loginapp.views.client.menu.discounts.DiscountsPage;
 import com.login.mobi.loginapp.views.client.menu.orders.OrdersPage;
@@ -80,6 +81,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyHolder> {
                     break;
                 case 2:
                     view.getContext().startActivity(new Intent(view.getContext(), OrdersPage.class));
+                    break;
+                case 3:
+                    view.getContext().startActivity(new Intent(view.getContext(), BalancePage.class));
                     break;
                 case 4:
                     view.getContext().startActivity(new Intent(view.getContext(), DiscountsPage.class));

@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:justificationMode="inter_word"
-        android:text="Забронируйте стол и закажите еду вместе с BookMe легко и быстро"
+        android:text="Забронируйте стол и закажите еду вместе с BookMe! легко и быстро"
         android:textColor="@color/colorBlack"
         android:textSize="30dp"
         android:textStyle="bold"

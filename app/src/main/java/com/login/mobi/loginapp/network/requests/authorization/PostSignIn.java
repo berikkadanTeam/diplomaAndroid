@@ -64,6 +64,10 @@ public class PostSignIn {
 //                        Log.d("postSignIn","code - " + ((ServerResponse)new Gson().fromJson
 //                                (response.errorBody().string(),new TypeToken<ServerResponse>(){}.getType())).getErr().get(0));
                         }
+                        else if(response_message.getStatus() != null){
+                            anInterface.errorMessage(response_message.getStatus());
+                            Log.d("postSignIn", "error password - " + response_message.getStatus());
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

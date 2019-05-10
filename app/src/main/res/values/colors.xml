@@ -14,4 +14,6 @@
     <color name="middleGrey">#808080</color>
     <color name="transparent">#00000000</color>
     <color name="lightGreen">#a4c639</color>
+    <color name="skyBlue">#f0f8ff</color>
+    <color name="lightGrey">#d8dfe5</color>
 </resources>

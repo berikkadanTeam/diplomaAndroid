@@ -8,12 +8,10 @@ import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.authorization.SignIn;
@@ -77,14 +75,17 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!emptyFieldsValidation()) {
+                //if (!emptyFieldsValidation()) {
+                boolean fieldsOK = validate(new EditText[] { email, password });
+                if (!fieldsOK) {
                     progressDialog.show();
 //                  startActivity(new Intent(SignInPage.this, BottomNavigationPage.class));
 //                  finish();
                     sendDataToSignIn();
-                }else {
-                    Toast.makeText(SignInPage.this, "Заполните все поля", Toast.LENGTH_LONG).show();
                 }
+//                else {    // так как это теперь выполняется в validate();
+//                    Toast.makeText(SignInPage.this, "Заполните все поля", Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
@@ -107,12 +108,28 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
 
 
 
-    private boolean emptyFieldsValidation(){
+    /* private boolean emptyFieldsValidation(){
         if (TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
             return true;
-        }else {
+        } else {
             return false;
         }
+    } */
+
+    private boolean validate (EditText[] fields){
+        boolean foundedEmptyEditText = false;
+        for (int i = 0; i < fields.length; i++){
+            EditText currentField = fields[i];
+            if (currentField.getText().toString().length() <= 0){
+                currentField.setError("Заполните поле");
+                foundedEmptyEditText = true;
+                //return false;
+            }
+        }
+        if (!foundedEmptyEditText)
+            return false;
+        else
+            return true;
     }
 
 
@@ -192,6 +209,7 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
 
     @Override
     public void errorMessage(String error) {
+        Log.d("Error message SignIn", error);
         Snackbar snackbar = Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_LONG);
         snackbar.show();
         snackbar.setActionTextColor(Color.RED);

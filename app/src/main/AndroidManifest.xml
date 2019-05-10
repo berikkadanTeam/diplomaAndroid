@@ -204,6 +204,12 @@
             android:name=".views.client.menu.orders.OrderDetailsPage"
             android:screenOrientation="portrait" />
 
+        <!-- Menu Pages: BALANCE -->
+        <activity
+            android:name=".views.client.menu.balance.BalancePage"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
         <!-- Menu Pages: DISCOUNTS -->
         <activity
             android:name=".views.client.menu.discounts.DiscountsPage"
