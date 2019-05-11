@@ -116,6 +116,7 @@ public class BookingsPage extends AppCompatActivity implements GetMyBookings.Get
     @Override
     public void getMyBookings(List<MyBookings> response) {
         Log.d("MyBookings", response.toString() + " ");
+
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }

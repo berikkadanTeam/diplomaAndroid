@@ -91,7 +91,10 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
             name.setText(response.getFirstName());
             //birthDate.setText("Пока такие данные не присылаются");
             email.setText(response.getUserName());
-            phone.setText("НЕТ ТАКОЙ ИНФЫ");
+            if (response.getPhoneNumber() != null)
+                phone.setText(response.getPhoneNumber());
+            else
+                phone.setText("");
 
     }
 

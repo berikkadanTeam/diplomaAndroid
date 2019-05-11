@@ -44,8 +44,10 @@ public class SingletonSharedPref {
     public static final String USER_SURNAME = "Tolegenova";
     public static final String USER_NAME = "Tolegenova Nurila";
     public static final String USER_EMAIL = "nurilkaa@gmail.com";
+    public static final String USER_PHONE = "+7(707)471-97-17";
     public static final String ROLE = "User";
     public static final String RESTAURANT_ID = "12345";
+
     /**
     * Class for keeping all the keys used for shared preferences in one place.
     */

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -42,6 +43,8 @@ public class SignUpPage extends AppCompatActivity implements PostSignUp.PostSign
 
         //Find TextView control
         acTextView = (AutoCompleteTextView) findViewById(R.id.cities);
+
+        phoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

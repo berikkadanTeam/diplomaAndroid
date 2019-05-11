@@ -25,6 +25,9 @@ public class UserInformation {
     @SerializedName("virtualMoney")
     @Expose
     private Integer virtualMoney;
+    @SerializedName("phoneNumber")
+    @Expose
+    private String phoneNumber;
 
     public String getUserName() {
         return userName;
@@ -72,6 +75,14 @@ public class UserInformation {
     public Integer getVirtualMoney() { return virtualMoney; }
 
     public void setVirtualMoney(Integer virtualMoney) { this.virtualMoney = virtualMoney; }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public String toString() {

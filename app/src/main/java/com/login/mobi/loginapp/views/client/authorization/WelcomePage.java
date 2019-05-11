@@ -41,7 +41,7 @@ public class WelcomePage extends AppCompatActivity {
         setContentView(R.layout.welcome_page);
         parentLayout = findViewById(android.R.id.content);
 
-        // TODO доделать network internet connection
+        // TODO network internet connection
         IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override

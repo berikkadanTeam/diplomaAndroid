@@ -48,13 +48,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         MyOrders order = list.get(i);
 
         viewHolder.orderNumber.setText("Заказ №" + order.getNumberOfOrder());
-        viewHolder.tableNumber.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        //viewHolder.tableNumber.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
         if (order.getWaiter() != null) {
             viewHolder.waiter.setText(order.getWaiterLastName() + " " + order.getWaiterName());
             viewHolder.statusAccepted.setVisibility(View.VISIBLE);
             viewHolder.statusExpecting.setVisibility(View.GONE);
         } else {
-            viewHolder.waiter.setText("");
+            viewHolder.waiter.setText("-");
             viewHolder.statusAccepted.setVisibility(View.GONE);
             viewHolder.statusExpecting.setVisibility(View.VISIBLE);
         }

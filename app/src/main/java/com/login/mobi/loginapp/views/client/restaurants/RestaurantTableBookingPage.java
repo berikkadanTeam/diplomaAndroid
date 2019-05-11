@@ -332,7 +332,7 @@ public class RestaurantTableBookingPage extends AppCompatActivity implements Boo
         email = findViewById(R.id.input_email);
         email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
         phone = (TextView) findViewById(R.id.input_phone);
-        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        phone.setText(sharedPref.getString(SingletonSharedPref.USER_PHONE));
 
         /* Book table in restaurant */
         bookTableBtn = findViewById(R.id.book_table_button);

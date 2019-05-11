@@ -32,6 +32,9 @@ public class MyOrders {
     @SerializedName("waiterName")
     @Expose
     private String waiterName;
+    @SerializedName("restName")
+    @Expose
+    private String restName;
 
     public String getId() {
         return id;
@@ -80,6 +83,10 @@ public class MyOrders {
     public String getWaiterName() { return waiterName; }
 
     public void setWaiterName(String waiterName) { this.waiterName = waiterName; }
+
+    public String getRestName() { return restName; }
+
+    public void setRestName(String restName) { this.restName = restName; }
 
     @Override
     public String toString() {

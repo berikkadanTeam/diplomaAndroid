@@ -37,9 +37,9 @@ public class MyRestaurantBookings {
         @SerializedName("lastName")
         @Expose
         private String lastName;
-        @SerializedName("phoneNumber")
-        @Expose
-        private Object phoneNumber;
+//        @SerializedName("phoneNumber")
+//        @Expose
+//        private Object phoneNumber;
         @SerializedName("email")
         @Expose
         private String email;
@@ -64,6 +64,9 @@ public class MyRestaurantBookings {
         @SerializedName("numberOfGuests")
         @Expose
         private Integer numberOfGuests;
+        @SerializedName("phoneNumber")
+        @Expose
+        private String phoneNumber;
 
         public String getId() {
             return id;
@@ -145,13 +148,8 @@ public class MyRestaurantBookings {
             this.lastName = lastName;
         }
 
-        public Object getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public void setPhoneNumber(Object phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
+        //public Object getPhoneNumber() { return phoneNumber; }
+        //public void setPhoneNumber(Object phoneNumber) { this.phoneNumber = phoneNumber; }
 
         public String getEmail() {
             return email;
@@ -205,16 +203,20 @@ public class MyRestaurantBookings {
             return numberOfBooking;
         }
 
-        public void setNumberOfBooking(Integer numberOfBooking) {
-            this.numberOfBooking = numberOfBooking;
-        }
+        public void setNumberOfBooking(Integer numberOfBooking) { this.numberOfBooking = numberOfBooking; }
 
         public Integer getNumberOfGuests() {
             return numberOfGuests;
         }
 
-        public void setNumberOfGuests(Integer numberOfGuests) {
-            this.numberOfGuests = numberOfGuests;
+        public void setNumberOfGuests(Integer numberOfGuests) { this.numberOfGuests = numberOfGuests; }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
         }
 
     }

@@ -32,6 +32,12 @@ public class Discount {
     @SerializedName("fileToUpload")
     @Expose
     private Object fileToUpload;
+    @SerializedName("fromDateEx")
+    @Expose
+    private String fromDateEx;
+    @SerializedName("toDateEx")
+    @Expose
+    private String toDateEx;
 
     public String getId() {  return id; }
 
@@ -68,5 +74,13 @@ public class Discount {
     public Object getFileToUpload() { return fileToUpload; }
 
     public void setFileToUpload(Object fileToUpload) { this.fileToUpload = fileToUpload; }
+
+    public String getFromDateEx() { return fromDateEx; }
+
+    public void setFromDateEx(String fromDateEx) { this.fromDateEx = fromDateEx; }
+
+    public String getToDateEx() { return toDateEx; }
+
+    public void setToDateEx(String toDateEx) { this.toDateEx = toDateEx; }
 
 }

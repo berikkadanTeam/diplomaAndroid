@@ -123,6 +123,14 @@ public interface ApiInterface {
             @Header("Authorization") String authHeader
     );
 
+    @PUT("/api/users/UpdateUserInfo")
+    Call<ServerResponse> updateProfile(
+            @Header("Authorization") String authHeader,
+            @Query("userId") String userID,
+            @Query("firstName") String name,
+            @Query("lastName") String surname
+    );
+
     @GET("api/Restaurants/GetRestaurants")
     Call<List<RestaurantInformation>> getRestaurantInformation();
     // OR

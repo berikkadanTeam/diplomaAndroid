@@ -32,10 +32,10 @@ public class AddMenuItems {
         s.setImage(R.drawable.icon_clock);
         menuList.add(s);
 
-        s = new MenuItem();
-        s.setName("Баланс");
-        s.setImage(R.drawable.icon_money_heart);
-        menuList.add(s);
+//        s = new MenuItem();
+//        s.setName("Баланс");
+//        s.setImage(R.drawable.icon_money_heart);
+//        menuList.add(s);
 
         s = new MenuItem();
         s.setName("Акции");

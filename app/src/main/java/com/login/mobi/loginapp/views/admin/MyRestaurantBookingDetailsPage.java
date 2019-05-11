@@ -100,7 +100,10 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
         email = (TextView) findViewById(R.id.input_email);
         email.setText(booking.getEmail());
         phone = (TextView) findViewById(R.id.input_phone);
-        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        if (booking.getPhoneNumber() != null)
+            phone.setText(booking.getPhoneNumber());
+        else
+            phone.setText("");
 
         acceptRejectBtns = (CardView) findViewById(R.id.accept_reject_buttons);
         acceptBookingBtn = (LinearLayout) findViewById(R.id.accept_booking_button);

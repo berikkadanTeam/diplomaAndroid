@@ -99,7 +99,10 @@ public class BookingDetailsPage extends AppCompatActivity implements DeleteMyBoo
         email = (TextView) findViewById(R.id.input_email);
         email.setText(sharedPref.getString(SingletonSharedPref.USER_EMAIL));
         phone = (TextView) findViewById(R.id.input_phone);
-        phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        if (booking.getNumber() != null)
+            phone.setText(booking.getNumber());
+        else
+            phone.setText("");
 
         if (booking.getReserveStatus() != 3){
             deleteBookingButton = (CardView) findViewById(R.id.delete_booking_button);

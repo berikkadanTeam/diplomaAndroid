@@ -70,7 +70,7 @@ public class DiscountDetailsPage extends AppCompatActivity{
         name = (TextView) findViewById(R.id.dish_name);
         name.setText(discount.getTitle());
         date = (TextView) findViewById(R.id.dish_type);
-        date.setText("С " + discount.getFromDate() + " до " + discount.getToDate());
+        date.setText("С " + discount.getFromDateEx() + " до " + discount.getToDateEx());
         descriptionSectionTitle = (TextView) findViewById(R.id.description);
         descriptionSectionTitle.setText("Описание акции");
         description = (TextView) findViewById(R.id.dish_composition);

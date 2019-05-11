@@ -33,9 +33,9 @@ public class MyBookings {
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("phoneNumber")
-    @Expose
-    private Object phoneNumber;
+//    @SerializedName("phoneNumber")
+//    @Expose
+//    private Object phoneNumber;
     @SerializedName("email")
     @Expose
     private String email;
@@ -66,6 +66,9 @@ public class MyBookings {
     @SerializedName("reserveStatus")
     @Expose
     private Integer reserveStatus;      // 1 - сonfirmed; 2 - rejected; 3 - expecting;
+    @SerializedName("phoneNumber")
+    @Expose
+    private String phoneNumber;
 
     public String getId() {
         return id;
@@ -137,13 +140,12 @@ public class MyBookings {
         this.lastName = lastName;
     }
 
-    public Object getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Object phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//    public Object getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//    public void setPhoneNumber(Object phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 
     public String getEmail() {
         return email;
@@ -206,5 +208,13 @@ public class MyBookings {
     public Integer getReserveStatus() { return reserveStatus; }
 
     public void setReserveStatus(Integer reserveStatus) { this.reserveStatus = reserveStatus; }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
 }

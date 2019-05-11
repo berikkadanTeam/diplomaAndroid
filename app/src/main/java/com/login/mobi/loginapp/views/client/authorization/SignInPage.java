@@ -30,6 +30,7 @@ import static com.login.mobi.loginapp.singleton.SingletonSharedPref.TOKEN;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_EMAIL;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_ID;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_NAME;
+import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_PHONE;
 import static com.login.mobi.loginapp.singleton.SingletonSharedPref.USER_SURNAME;
 
 
@@ -164,6 +165,7 @@ public class SignInPage extends AppCompatActivity implements PostSignIn.PostSign
         sharedPref.put(USER_SURNAME, response.getLastName());
         sharedPref.put(USER_NAME, response.getFirstName());
         sharedPref.put(USER_EMAIL, response.getUserName());
+        sharedPref.put(USER_PHONE, response.getPhoneNumber());
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

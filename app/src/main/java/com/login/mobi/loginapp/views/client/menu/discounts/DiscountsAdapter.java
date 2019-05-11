@@ -58,9 +58,10 @@ public class DiscountsAdapter extends RecyclerView.Adapter<DiscountsAdapter.View
     public void onBindViewHolder(@NonNull DiscountsAdapter.ViewHolder viewHolder, final int i) {
         Discount discount = list.get(i);
         Log.d("1 Discount", discount.toString());
+
         viewHolder.name.setText(discount.getTitle());
         viewHolder.description.setText(discount.getDescription());
-        viewHolder.date.setText("С " + discount.getFromDate() + " до " + discount.getToDate());
+        viewHolder.date.setText("С " + discount.getFromDateEx() + " до " + discount.getToDateEx());
 
         String filePath = "http://5.23.55.101/Files/";  // berikkadan.kz домен просрочен
         String fileName = discount.getFileName();

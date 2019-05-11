@@ -294,14 +294,12 @@
                             android:textStyle="bold"
                             android:textSize="11sp"/>
 
-                        <EditText
+                        <TextView
                             android:id="@+id/input_surname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint="Jackey"
-                            android:inputType="textCapWords|textPersonName"
-                            android:maxLength="22" />
+                            android:inputType="textCapWords|textPersonName" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -312,14 +310,12 @@
                             android:textStyle="bold"
                             android:textSize="11sp"/>
 
-                        <EditText
+                        <TextView
                             android:id="@+id/input_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint="John"
-                            android:inputType="textCapWords|textPersonName"
-                            android:maxLength="22" />
+                            android:inputType="textCapWords|textPersonName"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -330,14 +326,12 @@
                             android:textStyle="bold"
                             android:textSize="11sp" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/input_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:background="@android:color/transparent"
-                            android:hint="johndoe@example.com"
-                            android:maxLength="60"/>
+                            android:background="@android:color/transparent"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -353,8 +347,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:maxLength="14"
-                            android:hint="11111111"
                             android:inputType="phone"/>
 
                     </LinearLayout>

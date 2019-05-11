@@ -395,9 +395,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint=""
-                            android:inputType="textCapWords|textPersonName"
-                            android:maxLength="22" />
+                            android:inputType="textCapWords|textPersonName" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -413,9 +411,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:hint=""
-                            android:inputType="textCapWords|textPersonName"
-                            android:maxLength="22" />
+                            android:inputType="textCapWords|textPersonName"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -431,9 +427,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:background="@android:color/transparent"
-                            android:hint=""
-                            android:maxLength="60"/>
+                            android:background="@android:color/transparent"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -449,8 +443,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:maxLength="14"
-                            android:hint=""
                             android:inputType="phone"/>
 
                     </LinearLayout>
