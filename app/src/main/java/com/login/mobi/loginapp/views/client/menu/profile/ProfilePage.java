@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,10 +23,11 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
     private Button exitBtn;
     FloatingActionButton editProfileBtn;
     private TextView fullName, balance, surname, name, birthDate, email, phone;
+    private CardView balanceBlock;
 
     // Shared Preferences
     SingletonSharedPref sharedPref;
-    private String userID, token;
+    private String userID, token, role;
 
 
     private ProgressDialog progressDialog;
@@ -35,9 +37,11 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_profile_page);
 
+
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
+        role = sharedPref.getString(SingletonSharedPref.ROLE);
         GetUserInformation getUserInformation = new GetUserInformation(this, userID, "Bearer " + token);
         //getUserInformation.getUserInformation();
         getUserInformation.getUserInformation(sharedPref.getmPref());
@@ -48,6 +52,7 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        balanceBlock = (CardView) findViewById(R.id.cardView);
         balance = (TextView) findViewById(R.id.balance);
         fullName = (TextView) findViewById(R.id.full_name);
         balance = (TextView) findViewById(R.id.balance);
@@ -85,7 +90,17 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
+
+            Log.d("ROLE", role);
+            // Блок баланса отображается только у клиента
+            if (role.equalsIgnoreCase("Admin") || role.equalsIgnoreCase("Waiter") || role.equalsIgnoreCase("KitchenStuff")){
+                balanceBlock.setVisibility(View.GONE);
+            } else {
+                balanceBlock.setVisibility(View.VISIBLE);
+                balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
+            }
+
+            //balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
             fullName.setText(response.getLastName() + " " + response.getFirstName());
             surname.setText(response.getLastName());
             name.setText(response.getFirstName());

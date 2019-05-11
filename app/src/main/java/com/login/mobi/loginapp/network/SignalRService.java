@@ -153,6 +153,8 @@ public class SignalRService extends Service{
                     .withAccessTokenProvider(Single.defer(() -> Single.just(token)))
                     .build();
 
+
+            // Когда user сделал заказ
             if (sharedPref.getStringSet("roles").contains("Waiter")){
                 hubConnection.on("ListenToOrder", (userName,message) -> {
                     Log.d(TAG,"New Message: " + message);
@@ -184,8 +186,14 @@ public class SignalRService extends Service{
                     notificationManager.notify(notificationId,builder.build());
 
                 }, String.class,String.class);
-            } else if(sharedPref.getStringSet("roles").contains("User")){
-                //TODO
+            }
+
+
+
+
+
+            else if(sharedPref.getStringSet("roles").contains("User")){
+                // Когда waiter взял заказ user-a
                 hubConnection.on("ListenToAccept", (username, messageOrder) -> {
                     Log.d(TAG,"AcceptMess: " + messageOrder);
 
@@ -216,7 +224,112 @@ public class SignalRService extends Service{
                     notificationManager.notify(notificationId,builder.build());
 
                 }, String.class,String.class);
+
+                // TODO Когда admin подтвердил бронирование
+                hubConnection.on("ListenToAccept", (username, messageOrder) -> {
+                    Log.d(TAG,"AcceptMess: " + messageOrder);
+
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    intent.putExtra("orderJson", messageOrder);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.enableLights(true);
+                        notificationChannel.setLightColor(Color.GREEN);
+                        notificationChannel.setShowBadge(true);
+                        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_table)
+                            .setContentTitle("Ваше бронирование подтвердили!")
+                            .setContentText(messageOrder)
+                            .setTicker("Ваше бронирование подтвердили!") //текст, который отобразится вверху статус-бара при создании уведомления
+                            .setContentIntent(pendingIntent)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_table))
+                            .setDefaults(NotificationCompat.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
+
+                    int notificationId = 159;
+                    notificationManager.notify(notificationId,builder.build());
+
+                }, String.class,String.class);
+
+                // TODO Когда admin отклонил бронирование
+                hubConnection.on("ListenToAccept", (username, messageOrder) -> {
+                    Log.d(TAG,"AcceptMess: " + messageOrder);
+
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    intent.putExtra("orderJson", messageOrder);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.enableLights(true);
+                        notificationChannel.setLightColor(Color.GREEN);
+                        notificationChannel.setShowBadge(true);
+                        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_table)
+                            .setContentTitle("Ваше бронирование, к сожалению, отклонили :(")
+                            .setContentText(messageOrder)
+                            .setTicker("Ваше бронирование, к сожалению, отклонили :(") //текст, который отобразится вверху статус-бара при создании уведомления
+                            .setContentIntent(pendingIntent)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_table))
+                            .setDefaults(NotificationCompat.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
+
+                    int notificationId = 159;
+                    notificationManager.notify(notificationId,builder.build());
+
+                }, String.class,String.class);
             }
+
+
+
+
+
+
+            // TODO Когда user сделал бронирование
+            else if (sharedPref.getStringSet("roles").contains("Admin")){
+                hubConnection.on("ListenToOrder", (userName,message) -> {
+                    Log.d(TAG,"New Message: " + message);
+
+                    Intent intent = new Intent(getBaseContext(), OrdersPage.class);
+                    intent.putExtra("orderJson", message);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(CHANEL_ID,SignalRService.class.getSimpleName(), NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.enableLights(true);
+                        notificationChannel.setLightColor(Color.GREEN);
+                        notificationChannel.setShowBadge(true);
+                        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
+                    builder.setSmallIcon(R.drawable.icon_table)
+                            .setContentTitle("В ресторане забронировали стол!")
+                            .setContentText(message)
+                            .setTicker("В ресторане забронировали стол!") //текст, который отобразится вверху статус-бара при создании уведомления
+                            .setContentIntent(pendingIntent)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_table))
+                            .setDefaults(NotificationCompat.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
+
+                    int notificationId = 159;
+                    notificationManager.notify(notificationId,builder.build());
+
+                }, String.class,String.class);
+            }
+
+
 
             try {
                 hubConnection.start().doFinally(() -> {

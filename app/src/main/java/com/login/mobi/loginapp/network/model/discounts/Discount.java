@@ -83,4 +83,21 @@ public class Discount {
 
     public void setToDateEx(String toDateEx) { this.toDateEx = toDateEx; }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Discount{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", fileName='").append(fileName).append('\'');
+        sb.append(", filePath='").append(filePath).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", restaurantId='").append(restaurantId).append('\'');
+        sb.append(", fromDate='").append(fromDate).append('\'');
+        sb.append(", toDate='").append(toDate).append('\'');
+        sb.append(", fileToUpload=").append(fileToUpload);
+        sb.append(", fromDateEx='").append(fromDateEx).append('\'');
+        sb.append(", toDateEx='").append(toDateEx).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -57,7 +57,7 @@
         <!-- <activity android:name=".MyApp"></activity> -->
 
 
-        <!-- Welcome Page, Sign In, Sign Up Pages -->
+        <!-- COMMON Welcome Page, Sign In, Sign Up Pages -->
         <activity
             android:name=".views.client.authorization.WelcomePage"
             android:screenOrientation="portrait"
@@ -116,10 +116,17 @@
         <activity
             android:name=".views.waiter.orders.OrderedDishesPage"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.waiter.discounts.DiscountsPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.waiter.discounts.DiscountDetailsPage"
+            android:screenOrientation="portrait" />
 
 
 
-        <!-- KITCHEN -->
+
+        <!-- KITCHEN STAFF -->
         <!-- Menu Pages -->
         <activity
             android:name=".views.kitchen.MainMenuActivityKitchen"
