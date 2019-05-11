@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -16,9 +15,12 @@ import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.network.model.ServerResponse;
 import com.login.mobi.loginapp.network.requests.authorization.PostSignUp;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
+
 public class SignUpPage extends AppCompatActivity implements PostSignUp.PostSignUpInterface{ //GetCities.GetCitiesInterface,
 
     private EditText email, password, firstName, lastName, phoneNumber;
+    private MaskedEditText maskedPhoneNumber;
 
     private AutoCompleteTextView acTextView;
 
@@ -40,11 +42,11 @@ public class SignUpPage extends AppCompatActivity implements PostSignUp.PostSign
         phoneNumber = findViewById(R.id.phone_number);
         btnCancel = findViewById(R.id.cancel);
         btnRegister = findViewById(R.id.register);
+        MaskedEditText maskedPhoneNumber = (MaskedEditText) findViewById(R.id.phone_number_2);
 
         //Find TextView control
         acTextView = (AutoCompleteTextView) findViewById(R.id.cities);
 
-        phoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +64,9 @@ public class SignUpPage extends AppCompatActivity implements PostSignUp.PostSign
                 String str3 = firstName.getText().toString();
                 String str4 = lastName.getText().toString();
                 String str5 = acTextView.getText().toString();
-                String str6 = phoneNumber.getText().toString();
+                //String str6 = phoneNumber.getText().toString();
+
+
 
                 if (str2.length() < 6) {
                     password.setError("Пароль должен состоять минимум из 6 символов");
@@ -73,12 +77,23 @@ public class SignUpPage extends AppCompatActivity implements PostSignUp.PostSign
 //                    } else {
 //                        Snackbar.make(parentLayout, "Заполните все поля", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 //                    }
-                    boolean fieldsOK = validate(new EditText[] { email, password, firstName, lastName, acTextView, phoneNumber });
+                    boolean fieldsOK = validate(new EditText[] { email, password, firstName, lastName, acTextView });
                     if (!fieldsOK) {
                         if (!isEmailValid(str1))
                             email.setError("Адрес электронной почты недействителен");
-                        else
-                            signUp(str1, str2, str3, str4, str5, str6);
+                        else {
+                            Log.i("MASK", maskedPhoneNumber.getMask() + " RAW TEXT: " + maskedPhoneNumber.getRawText().toString());
+                            if (!maskedPhoneNumber.getRawText().toString().isEmpty() || maskedPhoneNumber.getRawText().toString().length() != 0) {
+                                String str6 = "+7" + maskedPhoneNumber.getRawText();
+                                Log.i("FORMATTED MASK+TEXT", str6 + " LENGTH: " + String.valueOf(str6.length()));
+                                if (str6.length() < 12)
+                                    maskedPhoneNumber.setError("Заполните поле");
+                                else
+                                    signUp(str1, str2, str3, str4, str5, str6);
+                            } else {
+                                maskedPhoneNumber.setError("Заполните поле");
+                            }
+                        }
                     }
                 }
             }

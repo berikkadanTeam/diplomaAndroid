@@ -105,6 +105,6 @@ dependencies {
     implementation 'org.slf4j:slf4j-jdk14:1.7.25'
 
     // EditText mask
-    implementation 'com.github.santalu:mask-edittext:1.1.1'
+    compile 'ru.egslava:MaskedEditText:1.0.5'
 
 }
