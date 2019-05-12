@@ -86,30 +86,32 @@ public class ProfilePage extends AppCompatActivity implements GetUserInformation
 
     @Override
     public void getUserInformation(UserInformation response) {
-            Log.d("UserInformation", response.toString() + " ");
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+        if (response != null)
+        Log.d("UserInformation", response.toString() + " ");
 
-            Log.d("ROLE", role);
-            // Блок баланса отображается только у клиента
-            if (role.equalsIgnoreCase("Admin") || role.equalsIgnoreCase("Waiter") || role.equalsIgnoreCase("KitchenStuff")){
-                balanceBlock.setVisibility(View.GONE);
-            } else {
-                balanceBlock.setVisibility(View.VISIBLE);
-                balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
-            }
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
 
-            //balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
-            fullName.setText(response.getLastName() + " " + response.getFirstName());
-            surname.setText(response.getLastName());
-            name.setText(response.getFirstName());
-            //birthDate.setText("Пока такие данные не присылаются");
-            email.setText(response.getUserName());
-            if (response.getPhoneNumber() != null)
-                phone.setText(response.getPhoneNumber());
-            else
-                phone.setText("");
+        Log.d("ROLE", role);
+        // Блок баланса отображается только у клиента
+        if (role.equalsIgnoreCase("Admin") || role.equalsIgnoreCase("Waiter") || role.equalsIgnoreCase("KitchenStuff")) {
+            balanceBlock.setVisibility(View.GONE);
+        } else {
+            balanceBlock.setVisibility(View.VISIBLE);
+            balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
+        }
+
+        //balance.setText(Integer.toString(response.getVirtualMoney()) + " ₸");
+        fullName.setText(response.getLastName() + " " + response.getFirstName());
+        surname.setText(response.getLastName());
+        name.setText(response.getFirstName());
+        //birthDate.setText("Пока такие данные не присылаются");
+        email.setText(response.getUserName());
+        if (response.getPhoneNumber() != null)
+            phone.setText(response.getPhoneNumber());
+        else
+            phone.setText("");
 
     }
 
