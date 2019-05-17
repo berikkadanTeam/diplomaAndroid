@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import java.lang.reflect.Field;
 
 
-// from: http://qaru.site/questions/49163/tab-not-taking-full-width-on-tablet-device-using-androidsupportdesignwidgettablayout
+// http://qaru.site/questions/49163/tab-not-taking-full-width-on-tablet-device-using-androidsupportdesignwidgettablayout
 
 public class TabsCustomTabLayout extends TabLayout {
     private static final int WIDTH_INDEX = 0;
