@@ -19,7 +19,7 @@ public class Personnel {
     private String lastName;
     @SerializedName("phoneNumber")
     @Expose
-    private Object phoneNumber;
+    private String phoneNumber;
 
     public String getId() { return id; }
 
@@ -37,9 +37,9 @@ public class Personnel {
 
     public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public Object getPhoneNumber() { return phoneNumber; }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public void setPhoneNumber(Object phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     @Override
     public String toString() {

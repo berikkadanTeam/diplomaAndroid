@@ -46,8 +46,11 @@ public class MyRestaurantPersonnelAdapter extends RecyclerView.Adapter<MyRestaur
 
         viewHolder.surnameAndName.setText(personnel.getLastName() + " " + personnel.getFirstName());
         viewHolder.email.setText(personnel.getEmail());
-        viewHolder.role.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
-        viewHolder.phone.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        //viewHolder.role.setText("ПОКА ТАКОЙ ИНФЫ НЕТ");
+        if (personnel.getPhoneNumber() == null)
+            viewHolder.phone.setText("");
+        else
+            viewHolder.phone.setText(personnel.getPhoneNumber());
 
         // TODO place img accroding to role of personnel
 //        switch(){
