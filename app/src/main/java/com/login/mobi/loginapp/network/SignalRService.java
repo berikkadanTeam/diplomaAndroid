@@ -18,6 +18,7 @@ import android.util.Log;
 
 import com.login.mobi.loginapp.R;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.login.mobi.loginapp.views.admin.MyRestaurantBookingsPage;
 import com.login.mobi.loginapp.views.waiter.orders.OrdersPage;
 import com.microsoft.signalr.HubConnection;
 import com.microsoft.signalr.HubConnectionBuilder;
@@ -199,7 +200,7 @@ public class SignalRService extends Service{
                 hubConnection.on("ListenToAccept", (username, messageOrder) -> {
                     Log.d(TAG,"Waiter Accept Message: " + messageOrder);
 
-                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class);
                     intent.putExtra("orderJson", messageOrder);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -233,7 +234,7 @@ public class SignalRService extends Service{
 
                     Log.d(TAG,"Accept Message: " + message);
 
-                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.bookings.BookingsPage.class);
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -266,7 +267,7 @@ public class SignalRService extends Service{
                     String message = "Ваше бронирование, к сожалению, отклонили :(";
                     Log.d(TAG,"Reject Message: " + message);
 
-                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.bookings.BookingsPage.class);
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -308,7 +309,7 @@ public class SignalRService extends Service{
 
                     Log.d(TAG,"AcceptMess: " + message);
 
-                    Intent intent = new Intent(getBaseContext(), com.login.mobi.loginapp.views.client.menu.orders.OrdersPage.class); //by Grant
+                    Intent intent = new Intent(getBaseContext(), MyRestaurantBookingsPage.class);
                     intent.putExtra("orderJson", message);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
