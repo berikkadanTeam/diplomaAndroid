@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,14 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnCancelListener;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
+import com.treebo.internetavailabilitychecker.InternetConnectivityListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RestaurantFragmentTest extends Fragment implements GetRestaurants.GetRestaurantsInterface{
+public class RestaurantFragmentTest extends Fragment implements GetRestaurants.GetRestaurantsInterface, InternetConnectivityListener {
 
     public RestaurantFragmentTest() { }
 
@@ -42,6 +45,8 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
     private ProgressDialog progressDialog;
 
     View rootView;
+
+    private InternetAvailabilityChecker mInternetAvailabilityChecker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,12 +121,18 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
         filterButton.setVisibility(View.GONE);
 
 
+        // Checking internet connection
+        InternetAvailabilityChecker.init(getContext());
+        mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance();
+        mInternetAvailabilityChecker.addInternetConnectivityListener(this);
 
-        GetRestaurants getRestaurants = new GetRestaurants(this);
-        getRestaurants.getRestaurants();
+
+//        GetRestaurants getRestaurants = new GetRestaurants(this);
+//        getRestaurants.getRestaurants();
 
         return rootView;
     }
+
 
     /* Search restaurant by name */
     public void searchFunc(String text) {
@@ -160,6 +171,29 @@ public class RestaurantFragmentTest extends Fragment implements GetRestaurants.G
         }
     }
 
+
+
+
+    @Override
+    public void onInternetConnectivityChanged(boolean isConnected) {
+        if (isConnected) {
+            Log.d("Network status","CONNECTED");
+            GetRestaurants getRestaurants = new GetRestaurants(this);
+            getRestaurants.getRestaurants();
+        } else {
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            Log.d("Network status","NOT CONNECTED");
+            Snackbar.make(rootView, "Проверьте подключение к интернету", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mInternetAvailabilityChecker.removeInternetConnectivityChangeListener(this);
+    }
 
 
 }

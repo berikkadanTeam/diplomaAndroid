@@ -76,6 +76,7 @@ public class BottomNavigationPage extends CommonActivity {
 //      }
 
 
+
         loadFragment(new OrderFragment());  // открывать по дефолту первым этот фрагмент
 
     }

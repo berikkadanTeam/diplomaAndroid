@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,11 +19,13 @@ import com.login.mobi.loginapp.network.model.userInformation.UserInformation;
 import com.login.mobi.loginapp.network.requests.userInformation.GetUserInformation;
 import com.login.mobi.loginapp.network.requests.userInformation.UpdateUserInformation;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
+import com.treebo.internetavailabilitychecker.InternetConnectivityListener;
 
 
 // from: https://awsrh.blogspot.com/2017/10/modern-profile-ui-design-in-android.html
 
-public class ProfileEditPage extends AppCompatActivity implements GetUserInformation.GetUserInformationInterface, UpdateUserInformation.UpdateUserInformationInterface {
+public class ProfileEditPage extends AppCompatActivity implements GetUserInformation.GetUserInformationInterface, UpdateUserInformation.UpdateUserInformationInterface, InternetConnectivityListener {
     // xml elements: texts, buttons
     private Button saveBtn;
     FloatingActionButton editProfileBtn;
@@ -35,24 +38,38 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
 
     private ProgressDialog progressDialog;
 
+    // Snackbar
+    View parentLayout;
+
+    private InternetAvailabilityChecker mInternetAvailabilityChecker;
+    private boolean connected;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_profile_edit_page);
+        parentLayout = findViewById(android.R.id.content);
+
 
         sharedPref = SingletonSharedPref.getInstance(this);
         userID = sharedPref.getString(SingletonSharedPref.USER_ID);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetUserInformation getUserInformation = new GetUserInformation(this, userID, "Bearer " + token);
-//      getUserInformation.getUserInformation();
-        getUserInformation.getUserInformation(sharedPref.getmPref());
+//        GetUserInformation getUserInformation = new GetUserInformation(this, userID, "Bearer " + token);
+////      getUserInformation.getUserInformation();
+//        getUserInformation.getUserInformation(sharedPref.getmPref());
 
 
         progressDialog = new ProgressDialog(this, R.style.ProgressDialogInCenter);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.setCancelable(false);
         progressDialog.show();
+
+        // Checking internet connection
+        InternetAvailabilityChecker.init(this);
+        mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance();
+        mInternetAvailabilityChecker.addInternetConnectivityListener(this);
+
 
 
         surname = (EditText) findViewById(R.id.surname);
@@ -112,8 +129,12 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
 
 
     private void updateProfileInformation(){
-        UpdateUserInformation updateProfile = new UpdateUserInformation(this, "Bearer " + token, userID, surname.getText().toString(), name.getText().toString());
-        updateProfile.updateProfile();
+        if (connected == true) {
+            UpdateUserInformation updateProfile = new UpdateUserInformation(this, "Bearer " + token, userID, surname.getText().toString(), name.getText().toString());
+            updateProfile.updateProfile();
+        } else {
+            Snackbar.make(parentLayout, "Проверьте подключение к интернету", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 
 
@@ -149,6 +170,34 @@ public class ProfileEditPage extends AppCompatActivity implements GetUserInforma
             });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mInternetAvailabilityChecker.removeInternetConnectivityChangeListener(this);
+    }
+
+
+    @Override
+    public void onInternetConnectivityChanged(boolean isConnected) {
+        if (isConnected) {
+            Log.d("Network status","CONNECTED");
+            GetUserInformation getUserInformation = new GetUserInformation(this, userID, "Bearer " + token);
+            getUserInformation.getUserInformation(sharedPref.getmPref());
+
+            // For update profile info
+            connected = true;
+        } else {
+           if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            Log.d("Network status","NOT CONNECTED");
+            Snackbar.make(parentLayout, "Проверьте подключение к интернету", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+            // For update profile info
+            connected = false;
         }
     }
 

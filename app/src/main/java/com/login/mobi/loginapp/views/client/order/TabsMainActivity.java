@@ -3,6 +3,7 @@ package com.login.mobi.loginapp.views.client.order;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.login.mobi.loginapp.network.model.restaurantMenu.RestaurantDishes;
 import com.login.mobi.loginapp.network.requests.restaurantMenu.GetRestaurantDishTypes;
 import com.login.mobi.loginapp.network.requests.restaurantMenu.GetRestaurantDishes;
 import com.login.mobi.loginapp.singleton.SingletonSharedPref;
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
+import com.treebo.internetavailabilitychecker.InternetConnectivityListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,7 @@ import java.util.List;
 
 // from: https://github.com/dhirajaknurwar/dynamicFragmentTablayout/tree/master/app/src/main/java/com/master/tablayoutwithdynamicfragments
 
-public class TabsMainActivity extends AppCompatActivity implements GetRestaurantDishTypes.GetRestaurantDishTypesInterface, GetRestaurantDishes.GetRestaurantDishesInterface{
+public class TabsMainActivity extends AppCompatActivity implements GetRestaurantDishTypes.GetRestaurantDishTypesInterface, GetRestaurantDishes.GetRestaurantDishesInterface, InternetConnectivityListener {
 
     // xml elements
     private ViewPager viewPager;
@@ -43,10 +46,17 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
     private String restaurantID; //= "73048e25-ec04-4da2-98c8-0b496daee9ea";
     private String tableID;
 
+    // Snackbar
+    View parentLayout;
+
+    private InternetAvailabilityChecker mInternetAvailabilityChecker;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_tabs_main_activity);
+        parentLayout = findViewById(android.R.id.content);
 
         progressDialog = new ProgressDialog(this, R.style.ProgressDialogInCenter);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -63,11 +73,17 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
 
         sharedPref = SingletonSharedPref.getInstance(this);
         token = sharedPref.getString(SingletonSharedPref.TOKEN);
-        GetRestaurantDishTypes getRestaurantDishTypes = new GetRestaurantDishTypes(this, "Bearer " + token);
-        getRestaurantDishTypes.getRestaurantDishTypes();
+//        GetRestaurantDishTypes getRestaurantDishTypes = new GetRestaurantDishTypes(this, "Bearer " + token);
+//        getRestaurantDishTypes.getRestaurantDishTypes();
+//
+//        GetRestaurantDishes getRestaurantDishes = new GetRestaurantDishes(this, restaurantID, "Bearer " + token);
+//        getRestaurantDishes.getRestaurantDishes();
 
-        GetRestaurantDishes getRestaurantDishes = new GetRestaurantDishes(this, restaurantID, "Bearer " + token);
-        getRestaurantDishes.getRestaurantDishes();
+
+        // Checking internet connection
+        InternetAvailabilityChecker.init(this);
+        mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance();
+        mInternetAvailabilityChecker.addInternetConnectivityListener(this);
 
     }
 
@@ -150,6 +166,31 @@ public class TabsMainActivity extends AppCompatActivity implements GetRestaurant
         intent.putExtra("ChosenDishesListInformation", new Gson().toJson(chosenDishListDishNames));
         intent.putExtra("TableID", tableID);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onInternetConnectivityChanged(boolean isConnected) {
+        if (isConnected) {
+            Log.d("Network status","CONNECTED");
+            GetRestaurantDishTypes getRestaurantDishTypes = new GetRestaurantDishTypes(this, "Bearer " + token);
+            getRestaurantDishTypes.getRestaurantDishTypes();
+
+            GetRestaurantDishes getRestaurantDishes = new GetRestaurantDishes(this, restaurantID, "Bearer " + token);
+            getRestaurantDishes.getRestaurantDishes();
+        } else {
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            Log.d("Network status","NOT CONNECTED");
+            Snackbar.make(parentLayout, "Проверьте подключение к интернету", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mInternetAvailabilityChecker.removeInternetConnectivityChangeListener(this);
     }
 
 }

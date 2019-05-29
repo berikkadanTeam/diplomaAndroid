@@ -107,4 +107,7 @@ dependencies {
     // EditText mask
     compile 'ru.egslava:MaskedEditText:1.0.5'
 
+    // Checking internet connection
+    compile 'com.treebo:internetavailabilitychecker:1.0.4'
+
 }

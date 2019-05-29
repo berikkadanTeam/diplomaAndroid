@@ -21,6 +21,10 @@
     <!-- SignalR -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+    <!-- NetworkStateChangeReceiver -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_book_me_launcher"
@@ -34,13 +38,6 @@
 
         <!-- android:icon="@mipmap/ic_launcher" -->
         <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
-        <receiver
-            android:name=".network.NetworkStateChangeReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
 
 
 
@@ -228,6 +225,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".network.NetworkStateChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
