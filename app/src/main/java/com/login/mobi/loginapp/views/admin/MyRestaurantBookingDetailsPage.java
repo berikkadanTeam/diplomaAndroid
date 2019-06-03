@@ -29,7 +29,7 @@ import java.util.List;
 public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements ConfirmBooking.ConfirmBookingInterface, RejectBooking.RejectBookingInterface {
 
     // xml elements: recyclerView, buttons
-    private TextView bookingNumber, date, time, numberOfGuests, preferences, preorder, bookingClientData, surname, name, email, phone;
+    private TextView bookingNumber, tableNumber, date, time, numberOfGuests, preferences, preorder, bookingClientData, surname, name, email, phone;
     private CardView acceptRejectBtns;
     private LinearLayout acceptBookingBtn, declineBookingBtn;
     private RecyclerView rv;
@@ -64,6 +64,8 @@ public class MyRestaurantBookingDetailsPage extends AppCompatActivity implements
 
         bookingNumber = (TextView) findViewById(R.id.booking_current_page_text);
         bookingNumber.setText("Бронирование №" + Integer.toString(booking.getNumberOfBooking()));
+        tableNumber = (TextView) findViewById(R.id.restaurant_name);
+        tableNumber.setText("Стол №" + Integer.toString(booking.getNumberOfTable()));
         date = (TextView) findViewById(R.id.picked_date_textview);
         date.setText(booking.getGetDate());
         time = (TextView) findViewById(R.id.picked_time_textview);

@@ -53,7 +53,7 @@ public class CommonActivity extends AppCompatActivity {
 
     private void connectToSignalRService() {
         Intent signalRServiceIntent = new Intent(getBaseContext(), SignalRService.class);
-//      signalRServiceIntent.putExtra("isStartForegroundService",true);
+        signalRServiceIntent.putExtra("isStartForegroundService",true);    // c версии 8.0 добавили ограничения на исп. задач в бэкграунде
         startService(signalRServiceIntent);
         bindService(signalRServiceIntent, signalRServiceConnection,BIND_AUTO_CREATE);
     }

@@ -108,6 +108,8 @@ dependencies {
     compile 'ru.egslava:MaskedEditText:1.0.5'
 
     // Checking internet connection
+    // https://medium.com/@ankit_aggarwal/check-active-internet-connection-on-android-device-3138ad81932d
+    // https://github.com/AggarwalAnkit/InternetAvailabilityChecker/blob/master/app/src/main/java/com/treebo/internetconnectivitylistener/MainActivity.java
     compile 'com.treebo:internetavailabilitychecker:1.0.4'
 
 }

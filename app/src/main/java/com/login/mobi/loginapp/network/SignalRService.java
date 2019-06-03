@@ -159,7 +159,7 @@ public class SignalRService extends Service{
 
             // Когда user сделал заказ
             if (sharedPref.getStringSet("roles").contains("Waiter")){
-                hubConnection.on("ListenToOrder", (userName,message) -> {
+                hubConnection.on("ListenToOrder", (userName, message) -> {
                     Log.d(TAG,"New Order from client Message: " + message);
 
                     Intent intent = new Intent(getBaseContext(), OrdersPage.class);
@@ -178,8 +178,11 @@ public class SignalRService extends Service{
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
                     builder.setSmallIcon(R.drawable.icon_food)
-                            .setContentTitle("В ресторане появился новый заказ!")
-                            .setContentText(message)
+                            //.setContentTitle("В ресторане появился новый заказ!")
+                            //.setContentText(message)
+                            //.setTicker("В ресторане появился новый заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
+                            .setContentTitle("Новый заказ")
+                            .setContentText("В ресторане появился новый заказ!")
                             .setTicker("В ресторане появился новый заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
                             .setContentIntent(pendingIntent)
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_food))
@@ -216,8 +219,10 @@ public class SignalRService extends Service{
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
                     builder.setSmallIcon(R.drawable.icon_food)
-                            .setContentTitle("Официант взял Ваш заказ!")
-                            .setContentText(messageOrder)
+//                            .setContentTitle("Официант взял Ваш заказ!")
+//                            .setContentText(messageOrder)
+                            .setContentTitle("Заказ в ресторане")
+                            .setContentText("Официант взял Ваш заказ!")
                             .setTicker("Официант взял Ваш заказ!") //текст, который отобразится вверху статус-бара при создании уведомления
                             .setContentIntent(pendingIntent)
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_food))
