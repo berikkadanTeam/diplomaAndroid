@@ -82,7 +82,7 @@ public class SignalRService extends Service{
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG,"onStartCommand>>>>>>>>>>>>>>>>>>>>>>");
         if (intent!=null){
-            boolean isStartForegroundService = intent.getBooleanExtra("isStartForegroundService",false);
+            boolean isStartForegroundService = intent.getBooleanExtra("isStartForegroundService",true);    // было false
             if (isStartForegroundService){
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), CHANEL_ID);
                 Intent deleteIntent = new Intent(this, SignalRService.class);
